@@ -9,13 +9,17 @@
 class TileMap : public sf::Drawable, public sf::Transformable {
 public:
 	TileMap(std::vector<std::vector<int>>& mapDefinition, sf::Texture* tileset);
+	// TODO: implement an offset so we can use multiple tilemaps (one for each region)
+
+	~TileMap();
 
 private:
-	std::vector<Tile> tiles; 
+	std::vector<Tile*> tiles; 
 	sf::Texture* tileset; // texture of all the tile sprites
 
 	sf::VertexArray vertices;
 
+	// note: sprites stored in rows of 16 
 	void loadMapDefinition(std::vector<std::vector<int>>& mapDefintion);
 	void loadVertexArray();
 
