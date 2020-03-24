@@ -14,6 +14,9 @@ class Game
 
 public:
 
+	Game();
+	~Game();
+
 	int counter;
 
 	map<string, Environment*> environments;
@@ -26,6 +29,9 @@ public:
 	void initEnvironments();
 
 	static long getMillis();
+
+private:
+	
 
 };
 

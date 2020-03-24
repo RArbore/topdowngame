@@ -5,6 +5,12 @@ Game::Game() {
 	environments = map<string, Environment*>();
 }
 
+Game::~Game() {
+	for (auto ge : environments) {
+		delete ge.second;
+	}
+}
+
 void Game::initEnvironments() {
 	environments.insert(pair<string, Environment*>("Test Environment", new GameEnvironment()));
 	currentEnvironment = environments.at("Test Environment");
