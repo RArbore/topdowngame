@@ -23,6 +23,7 @@ public:
 	sf::Texture* getTileset();
 
 	GameEnvironment();
+	~GameEnvironment();
 
 };
 

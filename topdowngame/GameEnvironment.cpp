@@ -8,6 +8,12 @@ tileMap(generateMap(), getTileset())
 	focusEntity = entities.at(0);
 }
 
+GameEnvironment::~GameEnvironment() {
+	for (auto entity : entities) {
+		delete entity;
+	}
+}
+
 void GameEnvironment::tick() {
 	for (int i = 0; i++; i < entities.size()) {
 		entities.at(i)->tick();
