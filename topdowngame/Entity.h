@@ -4,14 +4,24 @@
 
 #include "Animation.h"
 
+#include "TileMap.h"
+
+#include <vector>
+
+using namespace std;
+
 class Entity
 {
 
-public: // Add pointer to map object
+public:
 
 	Hitbox h;
+
+	TileMap* map;
+
+	vector<Entity>* entityList;
 	
-	Entity(double x, double y);
+	Entity(double x, double y, TileMap* map, vector<Entity>* entityList);
 
 	bool moveH();
 	bool moveV();

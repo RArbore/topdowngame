@@ -2,14 +2,12 @@
 
 Game::Game() {
 	counter = 0;
-	environmentList = vector<Environment>();
-	environmentIndices = map<string, int>();
+	environments = map<string, Environment*>();
 }
 
 void Game::initEnvironments() {
-	environmentList.push_back(Environment());
-	currentEnvironment = &environmentList[0];
-	environmentIndices.insert(pair<string, int>("Test Environment", 0));
+	environments.insert(pair<string, Environment*>("Test Environment", new GameEnvironment()));
+	currentEnvironment = environments.at("Test Environment");
 }
 
 void Game::run() {

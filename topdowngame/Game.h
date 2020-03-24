@@ -1,4 +1,5 @@
 #include "Environment.h"
+#include "GameEnvironment.h"
 #include <vector>
 #include <map>
 #include <string>
@@ -15,8 +16,7 @@ public:
 
 	int counter;
 
-	vector<Environment> environmentList;
-	map<string, int> environmentIndices;
+	map<string, Environment*> environments;
 	Environment* currentEnvironment;
 
 	static const int MAX_TPS = 60;
