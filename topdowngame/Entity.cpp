@@ -7,10 +7,11 @@ h(0, 0, 0, 0)
 	h.y = y;
 }
 
-void tick() {
-
+void Entity::tick() {
+	sprite.setPosition(h.x, h.y);
 }
 
-void render() {
-
+void Entity::render(sf::RenderWindow& window) {
+	sprite.setTexture(*mainAnimation.getCurrentFrame());
+	window.draw(sprite);
 }

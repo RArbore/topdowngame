@@ -8,7 +8,9 @@
 class Animation {
 public:
 	Animation(int size);
+	Animation(); // defaults to size 0
 
+	void resetToSize(int size); // for when you want to initialize later/reset to a different size
 	void editFrame(int index, sf::Texture* texture);
 	void editDelay(int index, int ticks);
 	sf::Texture* getCurrentFrame(); // get current frame

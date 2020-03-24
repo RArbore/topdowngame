@@ -1,5 +1,9 @@
 #include "Hitbox.h"
 
+#include <SFML/Graphics.hpp>
+
+#include "Animation.h"
+
 class Entity
 {
 
@@ -14,7 +18,10 @@ public: // Add pointer to map object
 
 	void tick();
 
-	void render();
+	void render(sf::RenderWindow& window);
 
+private:
+	sf::Sprite sprite;
+	Animation mainAnimation;
 };
 
