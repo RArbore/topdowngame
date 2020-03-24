@@ -1,5 +1,6 @@
 #include "Environment.h"
 #include "Entity.h"
+#include "Player.h"
 #include <vector>
 
 using namespace std;
@@ -13,8 +14,13 @@ public:
 
 	Entity* focusEntity;
 
+	TileMap tileMap;
+
 	void tick();
 	void render();
+
+	vector<vector<int>>& generateMap();
+	sf::Texture* getTileset();
 
 	GameEnvironment();
 

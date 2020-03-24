@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-Entity::Entity(double x, double y, TileMap* map, vector<Entity>* entityList):
+Entity::Entity(double x, double y, TileMap* map, vector<Entity*>* entityList):
 h(0, 0, 0, 0)
 {
 	h.x = x;

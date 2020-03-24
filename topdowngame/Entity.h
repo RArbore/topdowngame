@@ -19,9 +19,9 @@ public:
 
 	TileMap* map;
 
-	vector<Entity>* entityList;
+	vector<Entity*>* entityList;
 	
-	Entity(double x, double y, TileMap* map, vector<Entity>* entityList);
+	Entity(double x, double y, TileMap* map, vector<Entity*>* entityList);
 
 	bool moveH();
 	bool moveV();
