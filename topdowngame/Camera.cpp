@@ -7,6 +7,10 @@ Camera::Camera(sf::Vector2f center, sf::Vector2f size) {
 	this->view.setSize(center);
 }
 
+Camera::Camera() {
+	Camera(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f));
+}
+
 sf::View& Camera::getView() {
 	return view;
 }

@@ -25,10 +25,32 @@ void GameEnvironment::render() {
 
 }
 
-vector<vector<int>>& GameEnvironment::generateMap() {
+void GameEnvironment::eventHandler(sf::Event& event) {
+	// TODO: finish this
 
+	if (event.type == sf::Event::KeyPressed) {
+
+	}
+
+	if (event.type == sf::Event::KeyReleased) {
+
+	}
+
+	if (event.type == sf::Event::MouseButtonPressed) {
+
+	}
+
+	if (event.type == sf::Event::MouseButtonReleased) {
+
+	}
+}
+
+vector<vector<int>>& GameEnvironment::generateMap() {
+	std::vector<std::vector<int>> placeHolder(10, std::vector<int>(10, 0));
+	return placeHolder;
+	// TODO: implement a tilemap generator
 }
 
 sf::Texture* GameEnvironment::getTileset() {
-
+	return resourceManager.getTexture(""); // TODO: get tilemap texture
 }

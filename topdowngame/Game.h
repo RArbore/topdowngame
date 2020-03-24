@@ -31,7 +31,9 @@ public:
 	static long getMillis();
 
 private:
+	sf::RenderWindow main_window;
 	
-
+	void handleEvents(sf::Event& event);
+	void render();
 };
 

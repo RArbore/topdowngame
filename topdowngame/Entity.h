@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Hitbox.h"
 
 #include <SFML/Graphics.hpp>
@@ -14,6 +16,8 @@ class Entity
 {
 
 public:
+
+	~Entity() = default;
 
 	Hitbox h;
 

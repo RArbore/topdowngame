@@ -3,11 +3,13 @@
 ResourceManager::ResourceManager() {
 }
 
+
 ResourceManager::~ResourceManager() {
 	for (auto t : textures) {
 		delete t.second;
 	}
 }
+
 
 void ResourceManager::loadTexture(std::string id, std::string imagePath) {
     sf::Texture* texture = new sf::Texture(); // create texture pointer (needs to be deleted in destructor)

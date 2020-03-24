@@ -1,6 +1,10 @@
+#pragma once
+
 #include "Environment.h"
 #include "Entity.h"
 #include "Player.h"
+#include "ResourceManager.h"
+
 #include <vector>
 
 using namespace std;
@@ -19,11 +23,12 @@ public:
 	void tick();
 	void render();
 
+	void eventHandler(sf::Event& event);
+
 	vector<vector<int>>& generateMap();
 	sf::Texture* getTileset();
 
 	GameEnvironment();
 	~GameEnvironment();
-
 };
 
