@@ -1,6 +1,9 @@
 #include "ResourceManager.h"
 
 ResourceManager::ResourceManager() {
+    sf::Texture* defaultTexture = new sf::Texture();
+    defaultTexture->create(16, 16);
+    textures["DEFAULT_TEXTURE"] = defaultTexture;
 }
 
 
@@ -31,8 +34,8 @@ void ResourceManager::loadTexture(std::string id, std::string imagePath) {
 sf::Texture* ResourceManager::getTexture(std::string id) {
     if (!textures.count(id)) { // make sure that the texture actually exists
         std::cout << "ERROR: Texture with id \"" << id << "\" not found. ";
-        std::cout << "Returning nullptr." << std::endl;
-        return nullptr;
+        std::cout << "Returning default texture." << std::endl;
+        return textures["DEFAULT_TEXTURE"];
     }
     return textures[id];
 }

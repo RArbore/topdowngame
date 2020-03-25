@@ -10,7 +10,7 @@ h(0, 0, 0, 0)
 }
 
 void Entity::tick() {
-	sprite.setPosition(h.x, h.y);
+	sprite.setPosition((float)h.x, (float)h.y);
 }
 
 void Entity::render(sf::RenderWindow& window) {

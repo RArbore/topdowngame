@@ -18,12 +18,12 @@ void TileMap::loadMapDefinition(std::vector<std::vector<int>>& map) {
 			int type = map[i][j];
 
 			// tile coordinates
-			int x = i * Tile::TILE_SIZE;
-			int y = j * Tile::TILE_SIZE;
+			int x = i * (int)Tile::TILE_SIZE;
+			int y = j * (int)Tile::TILE_SIZE;
 
 			// texture coordinates
-			int tx = (type % 16) * Tile::TILE_SIZE;
-			int ty = floor(type / 16);
+			int tx = (type % 16) * (int)Tile::TILE_SIZE;
+			int ty = (int) floor(type / 16);
 
 			Tile* t = new Tile(x, y, tx, ty, type);
 			tiles.push_back(t);
@@ -48,16 +48,16 @@ void TileMap::loadVertexArray() {
 		sf::Vertex* quad = &vertices[(size_t)i * 4];
 
 		// define 4 corners
-		quad[0].position = sf::Vector2f(tile->h.x, tile->h.y);
-		quad[1].position = sf::Vector2f(tile->h.x + Tile::TILE_SIZE, tile->h.y);
-		quad[2].position = sf::Vector2f(tile->h.x + Tile::TILE_SIZE, tile->h.y + Tile::TILE_SIZE);
-		quad[3].position = sf::Vector2f(tile->h.x, tile->h.y + Tile::TILE_SIZE);
+		quad[0].position = sf::Vector2f((float)tile->h.x, (float)tile->h.y);
+		quad[1].position = sf::Vector2f((float)(tile->h.x + Tile::TILE_SIZE), (float)tile->h.y);
+		quad[2].position = sf::Vector2f((float)(tile->h.x + Tile::TILE_SIZE), (float)(tile->h.y + Tile::TILE_SIZE));
+		quad[3].position = sf::Vector2f((float)(tile->h.x), (float)(tile->h.y + Tile::TILE_SIZE));
 
 		// define texture coordinates
-		quad[0].texCoords = sf::Vector2f(tile->texture_x, tile->texture_y);
-		quad[1].texCoords = sf::Vector2f(tile->texture_x + Tile::TILE_SIZE, tile->texture_y);
-		quad[2].texCoords = sf::Vector2f(tile->texture_x + Tile::TILE_SIZE, tile->texture_y + Tile::TILE_SIZE);
-		quad[3].texCoords = sf::Vector2f(tile->texture_x, tile->texture_y + Tile::TILE_SIZE);
+		quad[0].texCoords = sf::Vector2f((float)(tile->texture_x), (float)(tile->texture_y));
+		quad[1].texCoords = sf::Vector2f((float)(tile->texture_x + Tile::TILE_SIZE), (float)tile->texture_y);
+		quad[2].texCoords = sf::Vector2f((float)(tile->texture_x + Tile::TILE_SIZE), (float)(tile->texture_y + Tile::TILE_SIZE));
+		quad[3].texCoords = sf::Vector2f((float)tile->texture_x, (float)(tile->texture_y + Tile::TILE_SIZE));
 	}
 }
 

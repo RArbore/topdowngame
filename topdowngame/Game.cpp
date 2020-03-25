@@ -3,8 +3,7 @@
 Game::Game() {
 	counter = 0;
 	environments = map<string, Environment*>();
-	main_window.setSize(sf::Vector2u(500, 500)); // TODO: change size to screen size
-	main_window.setTitle("Russel the Love Muscle"); // TODO: of course change that as well
+	main_window.create(sf::VideoMode(800, 600), "My window");
 }
 
 Game::~Game() {
@@ -23,6 +22,8 @@ void Game::run() {
 	main_window.setActive(false);
 
 	std::thread renderThread(&Game::render, this);
+	//sf::Thread renderThread(&Game::render, this);
+	//renderThread.launch();
 
 	long ptime, atime, diff = 0;
 	while (main_window.isOpen()) {
@@ -55,12 +56,16 @@ void Game::run() {
 			}
 		}
 	}
+
+	// wait until render thread finishes before making it go out of scope
+	// guaranteed to finish since the loop breaks (window not open)
+	renderThread.join();
 }
 
 long Game::getMillis() {
 	time_point<system_clock> now = system_clock::now();
 	auto duration = now.time_since_epoch();
-	return duration_cast<milliseconds>(duration).count();
+	return (long) duration_cast<milliseconds>(duration).count();
 }
 
 void Game::handleEvents(sf::Event& event) {
@@ -70,5 +75,10 @@ void Game::handleEvents(sf::Event& event) {
 void Game::render() {
 	main_window.setActive(true);
 
-	currentEnvironment->render();
+	while (main_window.isOpen()) {
+		currentEnvironment->render();
+		this_thread::sleep_for(milliseconds(100));
+		main_window.clear();
+		main_window.display();
+	}
 }

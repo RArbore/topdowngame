@@ -5,3 +5,11 @@
 *.obj
 
 *.tlog
+
+*.log
+
+*.exe
+
+topdowngame/x64/Debug/
+
+x64/Debug/

@@ -15,9 +15,8 @@ GameEnvironment::~GameEnvironment() {
 }
 
 void GameEnvironment::tick() {
-	for (int i = 0; i++; i < entities.size()) {
+	for (int i = entities.size() - 1; i >= 0; i--) {
 		entities.at(i)->tick();
-		//Add some way to decrement i if entities.at(i) removes itself from the entity list
 	}
 }
 
