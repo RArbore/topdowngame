@@ -1,8 +1,11 @@
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 ﻿  Game.cpp
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\Game.cpp(63,52): warning C4244: 'return': conversion from '_Rep' to 'long', possible loss of data
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 ﻿  Animation.cpp
@@ -23,6 +26,9 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\Environment.h(8): message : see d
 C:\Users\russe\Desktop\topdowngame\topdowngame\Game.cpp(10,28): error C2064: term does not evaluate to a function taking 0 arguments
 C:\Users\russe\Desktop\topdowngame\topdowngame\Game.cpp(41,52): warning C4244: 'return': conversion from '_Rep' to 'long', possible loss of data
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -31,6 +37,7 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\Game.cpp(41,52): warning C4244: '
               _Rep=__int64
           ]
   GameEnvironment.cpp
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\GameEnvironment.cpp(18,25): warning C4552: '<': result of expression not used
@@ -42,6 +49,8 @@ C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(25,11): wa
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(26,11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(51,53): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
   Hitbox.cpp
@@ -56,6 +65,9 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(25,11): warning C4244
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(26,11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(51,53): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -63,6 +75,7 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(51,53): warning C4244
           [
               T=float
           ]
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(51,42): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
@@ -72,10 +85,14 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(51,42): warning C4244
 =======
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(51,42): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 >>>>>>> Stashed changes
+=======
+C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(51,42): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+>>>>>>> Stashed changes
           with
           [
               T=float
           ]
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(52,71): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
@@ -85,10 +102,14 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(52,71): warning C4244
 =======
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(52,71): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 >>>>>>> Stashed changes
+=======
+C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(52,71): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+>>>>>>> Stashed changes
           with
           [
               T=float
           ]
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(52,45): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
@@ -98,10 +119,14 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(52,45): warning C4244
 =======
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(52,45): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 >>>>>>> Stashed changes
+=======
+C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(52,45): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+>>>>>>> Stashed changes
           with
           [
               T=float
           ]
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(53,74): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
@@ -111,10 +136,14 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(53,74): warning C4244
 =======
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(53,74): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 >>>>>>> Stashed changes
+=======
+C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(53,74): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+>>>>>>> Stashed changes
           with
           [
               T=float
           ]
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(53,45): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
@@ -124,10 +153,14 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(53,45): warning C4244
 =======
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(53,45): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 >>>>>>> Stashed changes
+=======
+C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(53,45): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+>>>>>>> Stashed changes
           with
           [
               T=float
           ]
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(54,56): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
@@ -137,10 +170,14 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(54,56): warning C4244
 =======
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(54,56): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 >>>>>>> Stashed changes
+=======
+C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(54,56): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+>>>>>>> Stashed changes
           with
           [
               T=float
           ]
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(54,42): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
@@ -150,10 +187,14 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(54,42): warning C4244
 =======
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(54,42): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 >>>>>>> Stashed changes
+=======
+C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(54,42): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+>>>>>>> Stashed changes
           with
           [
               T=float
           ]
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(57,57): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
@@ -163,10 +204,14 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(57,57): warning C4244
 =======
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(57,57): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 >>>>>>> Stashed changes
+=======
+C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(57,57): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+>>>>>>> Stashed changes
           with
           [
               T=float
           ]
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(57,40): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
@@ -176,10 +221,14 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(57,40): warning C4244
 =======
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(57,40): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 >>>>>>> Stashed changes
+=======
+C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(57,40): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+>>>>>>> Stashed changes
           with
           [
               T=float
           ]
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(58,75): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
@@ -189,10 +238,14 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(58,75): warning C4244
 =======
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(58,75): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 >>>>>>> Stashed changes
+=======
+C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(58,75): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+>>>>>>> Stashed changes
           with
           [
               T=float
           ]
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(58,52): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
@@ -202,10 +255,14 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(58,52): warning C4244
 =======
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(58,52): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 >>>>>>> Stashed changes
+=======
+C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(58,52): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+>>>>>>> Stashed changes
           with
           [
               T=float
           ]
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(59,87): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
@@ -215,10 +272,14 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(59,87): warning C4244
 =======
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(59,87): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 >>>>>>> Stashed changes
+=======
+C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(59,87): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+>>>>>>> Stashed changes
           with
           [
               T=float
           ]
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(59,52): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
@@ -228,10 +289,14 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(59,52): warning C4244
 =======
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(59,52): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 >>>>>>> Stashed changes
+=======
+C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(59,52): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+>>>>>>> Stashed changes
           with
           [
               T=float
           ]
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(60,69): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
@@ -241,13 +306,20 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(60,69): warning C4244
 =======
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(60,69): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 >>>>>>> Stashed changes
+=======
+C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(60,69): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+>>>>>>> Stashed changes
           with
           [
               T=float
           ]
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\TileMap.cpp(60,40): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+=======
+C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(60,40): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+>>>>>>> Stashed changes
 =======
 C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(60,40): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
 >>>>>>> Stashed changes
@@ -261,9 +333,12 @@ C:\Users\russe\Desktop\topdowngame\topdowngame\TileMap.cpp(60,40): warning C4244
   Generating Code...
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 C:\Users\Sanketh\Documents\GitHub\topdowngame\topdowngame\GameEnvironment.cpp(50): warning C4172: returning address of local variable or temporary: placeHolder
   LINK : C:\Users\Sanketh\Documents\GitHub\topdowngame\x64\Debug\topdowngame.exe not found or not built by the last incremental link; performing full link
   topdowngame.vcxproj -> C:\Users\Sanketh\Documents\GitHub\topdowngame\x64\Debug\topdowngame.exe
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
