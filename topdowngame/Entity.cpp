@@ -1,11 +1,11 @@
 #include "Entity.h"
 
-Entity::Entity(double x, double y, TileMap* map, vector<Entity*>* entityList):
+Entity::Entity(double x, double y, TileMap* tileMap, vector<Entity*>* entityList):
 h(0, 0, 0, 0)
 {
 	h.x = x;
 	h.y = y;
-	this->map = map;
+	this->tileMap = tileMap;
 	this->entityList = entityList;
 }
 

@@ -1,11 +1,17 @@
-#pragma once
 #include "Entity.h"
+#include <string>
+#include <map>
+
+using namespace std;
+
 class Player : public Entity
 {
 
 public:
 
-	Player(double x, double y, TileMap* map, vector<Entity*>* entityList);
+	map<string, bool>* keys;
+
+	Player(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys);
 
 	void tick();
 

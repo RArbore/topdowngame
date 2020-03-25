@@ -1,5 +1,6 @@
 #include "Environment.h"
 #include "GameEnvironment.h"
+#include "Settings.h"
 #include <vector>
 #include <map>
 #include <string>
@@ -21,6 +22,8 @@ public:
 
 	map<string, Environment*> environments;
 	Environment* currentEnvironment;
+
+	Settings settings;
 
 	static const int MAX_TPS = 60;
 

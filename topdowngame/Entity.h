@@ -21,11 +21,11 @@ public:
 
 	Hitbox h;
 
-	TileMap* map;
+	TileMap* tileMap;
 
 	vector<Entity*>* entityList;
 	
-	Entity(double x, double y, TileMap* map, vector<Entity*>* entityList);
+	Entity(double x, double y, TileMap* tileMap, vector<Entity*>* entityList);
 
 	bool moveH();
 	bool moveV();

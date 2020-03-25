@@ -6,6 +6,8 @@
 #include "ResourceManager.h"
 
 #include <vector>
+#include <string>
+#include <map>
 
 using namespace std;
 
@@ -13,6 +15,12 @@ class GameEnvironment : public Environment
 {
 	
 public:
+
+	map<string, bool> keys = {
+		{"Move Up", false},
+		{"Move Left", false},
+		{"Move Down", false},
+		{"Move Right", false} };
 
 	vector<Entity*> entities;
 
@@ -28,7 +36,7 @@ public:
 	vector<vector<int>>& generateMap();
 	sf::Texture* getTileset();
 
-	GameEnvironment();
+	GameEnvironment(Settings* settings);
 	~GameEnvironment();
 };
 

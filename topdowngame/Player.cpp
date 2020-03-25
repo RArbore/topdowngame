@@ -1,8 +1,9 @@
 #include "Player.h"
 
-Player::Player(double x, double y, TileMap* map, vector<Entity*>* entityList) : //Add pointer to hashmap for input keys
-Entity::Entity(x, y, map, entityList)
+Player::Player(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys) : //Add pointer to hashmap for input keys
+Entity::Entity(x, y, tileMap, entityList)
 {
+	this->keys = keys;
 	//Set animation, sprite, etc
 }
 
