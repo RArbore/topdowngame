@@ -1,7 +1,7 @@
 #include "GameEnvironment.h"
 
-GameEnvironment::GameEnvironment(Settings* settings):
-Environment(settings),
+GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings):
+Environment(window, settings),
 tileMap(generateMap(), getTileset())
 {
 	entities = vector<Entity*>();
@@ -17,14 +17,46 @@ GameEnvironment::~GameEnvironment() {
 }
 
 void GameEnvironment::tick() {
+	
 	for (int i = entities.size() - 1; i >= 0; i--) {
 		entities.at(i)->tick();
 	}
+
+	// if the focusEntity goes farther than these values along the respective axis
+	// then the camera will shift to keep it within the bounds
+	double horizBound = 100.f;
+	double vertBound = 100.f;
+
+	double deltaX = 0.f, deltaY = 0.f; // delta position for camera's center
+
+	if (abs(focusEntity->h.getCX() - camera.getCenter().x) > horizBound) {
+		deltaX = focusEntity->h.getCX() - camera.getCenter().x;
+	}
+	if (abs(focusEntity->h.getCY() - camera.getCenter().y) > vertBound) {
+		deltaY = focusEntity->h.getCY() - camera.getCenter().y;
+	}
+
+	camera.moveCenter(sf::Vector2f(deltaX, deltaY));
 }
 
 void GameEnvironment::render() {
-	//TODO: Set camera pos to focusEntity
+	window->setView(camera.getView());
 
+	window->draw(tileMap);
+
+	/*
+	for (int i = 0; i < entities.size(); i++) {
+		cout << i << endl;
+		cout << entities.size() << endl;
+		entities[i]->render(window);
+	}*/
+
+	// cout << entities[0]->h.x << endl;
+	// entities[0]->render(window);
+
+	for (int i = entities.size() - 1; i >= 0; i--) {
+		entities.at(i)->render(window);
+	}
 }
 
 void GameEnvironment::eventHandler(sf::Event& event) {
@@ -70,9 +102,8 @@ void GameEnvironment::eventHandler(sf::Event& event) {
 }
 
 vector<vector<int>>& GameEnvironment::generateMap() {
-	std::vector<std::vector<int>> placeHolder(10, std::vector<int>(10, 0));
-	return placeHolder;
-	// TODO: implement a tilemap generator
+	mapDefinition.resize(10, vector<int>(10, 0.f));
+	return mapDefinition;
 }
 
 sf::Texture* GameEnvironment::getTileset() {

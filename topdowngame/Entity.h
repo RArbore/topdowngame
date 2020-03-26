@@ -32,9 +32,9 @@ public:
 
 	void tick();
 
-	void render(sf::RenderWindow& window);
+	void render(sf::RenderWindow* window);
 
-private:
+protected:
 	sf::Sprite sprite;
 	Animation mainAnimation;
 };

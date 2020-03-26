@@ -1,5 +1,6 @@
 #include "Environment.h"
 
-Environment::Environment(Settings* settings) {
+Environment::Environment(sf::RenderWindow* window, Settings* settings) {
+	this->window = window;
 	this->settings = settings;
 }

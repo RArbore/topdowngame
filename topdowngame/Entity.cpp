@@ -13,7 +13,7 @@ void Entity::tick() {
 	sprite.setPosition((float)h.x, (float)h.y);
 }
 
-void Entity::render(sf::RenderWindow& window) {
+void Entity::render(sf::RenderWindow* window) {
 	sprite.setTexture(*mainAnimation.getCurrentFrame());
-	window.draw(sprite);
+	window->draw(sprite);
 }

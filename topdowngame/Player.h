@@ -13,7 +13,12 @@ public:
 
 	Player(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys);
 
-	void tick();
+	void tick();	
+	void render(sf::RenderWindow* window);
 
+private:
+	// velocity and acceleration
+	sf::Vector2f vel;
+	sf::Vector2f acc;
 };
 

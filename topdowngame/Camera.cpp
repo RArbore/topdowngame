@@ -24,3 +24,15 @@ void Camera::setSize(sf::Vector2f newSize) {
 	size = newSize;
 	view.setSize(newSize);
 }
+
+void Camera::moveCenter(sf::Vector2f delta) {
+	view.move(delta);
+}
+
+sf::Vector2f Camera::getCenter() {
+	return view.getCenter();
+}
+
+sf::Vector2f Camera::getSize() {
+	return view.getSize();
+}

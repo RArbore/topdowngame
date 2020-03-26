@@ -27,6 +27,7 @@ public:
 	Entity* focusEntity;
 
 	TileMap tileMap;
+	vector<vector<int>> mapDefinition;
 
 	void tick();
 	void render();
@@ -36,7 +37,7 @@ public:
 	vector<vector<int>>& generateMap();
 	sf::Texture* getTileset();
 
-	GameEnvironment(Settings* settings);
+	GameEnvironment(sf::RenderWindow* window, Settings* settings);
 	~GameEnvironment();
 };
 

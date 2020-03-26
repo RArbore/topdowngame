@@ -13,7 +13,7 @@ Game::~Game() {
 }
 
 void Game::initEnvironments() {
-	environments.insert(pair<string, Environment*>("Test Environment", new GameEnvironment()));
+	environments.insert(pair<string, Environment*>("Test Environment", new GameEnvironment(&main_window, &settings)));
 	currentEnvironment = environments.at("Test Environment");
 }
 
@@ -22,6 +22,7 @@ void Game::run() {
 	main_window.setActive(false);
 
 	std::thread renderThread(&Game::render, this);
+	renderThread.detach();
 	//sf::Thread renderThread(&Game::render, this);
 	//renderThread.launch();
 
@@ -76,9 +77,9 @@ void Game::render() {
 	main_window.setActive(true);
 
 	while (main_window.isOpen()) {
-		currentEnvironment->render();
-		this_thread::sleep_for(milliseconds(100));
 		main_window.clear();
+		currentEnvironment->render();
 		main_window.display();
+		this_thread::sleep_for(milliseconds(1));
 	}
 }
