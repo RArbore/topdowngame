@@ -1,6 +1,8 @@
 #include "Game.h"
 
-Game::Game() {
+Game::Game() :
+settings()
+{
 	counter = 0;
 	environments = map<string, Environment*>();
 	main_window.create(sf::VideoMode(800, 600), "My window");
@@ -13,7 +15,8 @@ Game::~Game() {
 }
 
 void Game::initEnvironments() {
-	environments.insert(pair<string, Environment*>("Test Environment", new GameEnvironment()));
+	Settings* settingsP = &settings;
+	environments.insert(pair<string, Environment*>("Test Environment", new GameEnvironment(settingsP)));
 	currentEnvironment = environments.at("Test Environment");
 }
 

@@ -10,6 +10,10 @@
 
 *.exe
 
-topdowngame/x64/Debug/
+topdowngame/x64/
 
-x64/Debug/
+x64/
+
+*.vcxproj
+
+*.vcxproj.filters
