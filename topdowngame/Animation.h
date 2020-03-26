@@ -10,6 +10,8 @@ public:
 	Animation(int size);
 	Animation(); // defaults to size 0
 
+	~Animation();
+
 	void resetToSize(int size); // for when you want to initialize later/reset to a different size
 	void editFrame(int index, sf::Texture* texture);
 	void editDelay(int index, int ticks);
@@ -24,5 +26,7 @@ private:
 	// delay from i to i+1 frame (wraps around to beginning) 
 	// measured in number of ticks
 	std::vector<int> delays;
+
+	sf::Texture* defaultTexture;
 };
 

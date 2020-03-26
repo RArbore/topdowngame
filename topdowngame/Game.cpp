@@ -23,8 +23,6 @@ void Game::run() {
 
 	std::thread renderThread(&Game::render, this);
 	renderThread.detach();
-	//sf::Thread renderThread(&Game::render, this);
-	//renderThread.launch();
 
 	long ptime, atime, diff = 0;
 	while (main_window.isOpen()) {
@@ -57,10 +55,6 @@ void Game::run() {
 			}
 		}
 	}
-
-	// wait until render thread finishes before making it go out of scope
-	// guaranteed to finish since the loop breaks (window not open)
-	renderThread.join();
 }
 
 long Game::getMillis() {

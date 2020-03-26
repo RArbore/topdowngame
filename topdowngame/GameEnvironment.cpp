@@ -44,16 +44,6 @@ void GameEnvironment::render() {
 
 	window->draw(tileMap);
 
-	/*
-	for (int i = 0; i < entities.size(); i++) {
-		cout << i << endl;
-		cout << entities.size() << endl;
-		entities[i]->render(window);
-	}*/
-
-	// cout << entities[0]->h.x << endl;
-	// entities[0]->render(window);
-
 	for (int i = entities.size() - 1; i >= 0; i--) {
 		entities.at(i)->render(window);
 	}

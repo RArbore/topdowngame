@@ -2,10 +2,14 @@
 
 Animation::Animation(int size) {
     this->resetToSize(size);
+    defaultTexture = new sf::Texture();
+    defaultTexture->create(16, 16);
 }
 
 Animation::Animation() {
     this->resetToSize(0);
+    defaultTexture = new sf::Texture();
+    defaultTexture->create(16, 16);
 }
 
 void Animation::resetToSize(int size) {
@@ -18,6 +22,10 @@ void Animation::resetToSize(int size) {
     this->ticksCounter = 0;
     this->frames.resize(size);
     this->delays.resize(size);
+}
+
+Animation::~Animation() {
+    delete defaultTexture;
 }
 
 void Animation::editFrame(int index, sf::Texture* texture) {
@@ -37,6 +45,11 @@ void Animation::editDelay(int index, int ticks) {
 }
 
 sf::Texture* Animation::getCurrentFrame() {
+    if (frames.size() <= 0) {
+        std::cout << "ERROR: Tried to acccess frames that don't exist!";
+        std::cout << "Returning default texture." << std::endl;
+        return defaultTexture;
+    }
     return frames[index];
 }
 
