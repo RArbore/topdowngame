@@ -7,6 +7,7 @@ tileMap(generateMap(), getTileset())
 	entities = vector<Entity*>();
 	entities.push_back(new Player(0, 0, &tileMap, &entities, &keys));
 	focusEntity = entities.at(0);
+	resourceManager.loadTexture("player_entity", "player.png");
 }
 
 GameEnvironment::~GameEnvironment() {
@@ -97,5 +98,6 @@ vector<vector<int>>& GameEnvironment::generateMap() {
 }
 
 sf::Texture* GameEnvironment::getTileset() {
-	return resourceManager.getTexture(""); // TODO: get tilemap texture
+	resourceManager.loadTexture("jungle_biome", "jungle_biome.png");
+	return resourceManager.getTexture("jungle_biome"); // TODO: get tilemap texture
 }

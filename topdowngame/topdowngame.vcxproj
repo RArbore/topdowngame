@@ -174,8 +174,11 @@
     <ClInclude Include="TileMap.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\spritesheets\bows.png" />
     <Image Include="..\spritesheets\jungle_biome.png" />
     <Image Include="..\spritesheets\player.png" />
+    <Image Include="..\spritesheets\swords.png" />
+    <Image Include="..\spritesheets\wands.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

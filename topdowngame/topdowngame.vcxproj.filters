@@ -112,7 +112,16 @@
     <Image Include="..\spritesheets\jungle_biome.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\spritesheets\bows.png">
+      <Filter>Resource Files</Filter>
+    </Image>
     <Image Include="..\spritesheets\player.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\spritesheets\swords.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\spritesheets\wands.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

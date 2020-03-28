@@ -15,16 +15,17 @@ ResourceManager::~ResourceManager() {
 
 
 void ResourceManager::loadTexture(std::string id, std::string imagePath) {
-	sf::Texture* texture = new sf::Texture(); // create texture pointer (needs to be deleted in destructor)
-   
-	if (!texture->loadFromFile(imagePath)) { // load texture from image
-		std::cout << "ERROR: Failed to load texture from: " << imagePath << std::endl;
+
+	if (textures.count(id)) { // make sure this texture id doesn't already exist
+		//std::cout << "ERROR: Texture with id \"" << id << "\" already exists. ";
+		//std::cout << "The new texture will not be loaded." << std::endl;
 		return;
 	}
 
-	if (textures.count(id)) { // make sure this texture id doesn't already exist
-		std::cout << "ERROR: Texture with id \"" << id << "\" already exists. ";
-		std::cout << "The new texture will not be loaded." << std::endl;
+	sf::Texture* texture = new sf::Texture(); // create texture pointer (needs to be deleted in destructor)
+   
+	if (!texture->loadFromFile("..\\spritesheets\\"+imagePath)) { // load texture from image
+		std::cout << "ERROR: Failed to load texture from: " << imagePath << std::endl;
 		return;
 	}
 
