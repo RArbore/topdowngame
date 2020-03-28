@@ -34,8 +34,9 @@ public:
 
 	void render(sf::RenderWindow* window);
 
+	Animation mainAnimation;
+
 protected:
 	sf::Sprite sprite;
-	Animation mainAnimation;
 };
 

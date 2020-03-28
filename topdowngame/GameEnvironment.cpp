@@ -8,6 +8,8 @@ tileMap(generateMap(), getTileset())
 	entities.push_back(new Player(0, 0, &tileMap, &entities, &keys));
 	focusEntity = entities.at(0);
 	resourceManager.loadTexture("player_entity", "player.png");
+	entities[0]->mainAnimation.resetToSize(1);
+	entities[0]->mainAnimation.editFrame(0, resourceManager.getTexture("player_entity"));
 }
 
 GameEnvironment::~GameEnvironment() {
