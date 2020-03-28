@@ -22,6 +22,7 @@ void Animation::resetToSize(int size) {
     this->ticksCounter = 0;
     this->frames.resize(size);
     this->delays.resize(size);
+    this->textureCoords.resize(size);
 }
 
 Animation::~Animation() {
@@ -37,11 +38,19 @@ void Animation::editFrame(int index, sf::Texture* texture) {
 }
 
 void Animation::editDelay(int index, int ticks) {
-    if (index >= frames.size() - 1) {
+    if (index >= delays.size()) {
         std::cout << "ERROR: Delay index out of bounds. Did not edit delay." << std::endl;
         return;
     }
     delays[index] = ticks;
+}
+
+void Animation::editCoords(int index, sf::IntRect coords) {
+    if (index >= textureCoords.size()) {
+        std::cout << "ERROR: Coords index out of bounds. Did not edit coords." << std::endl;
+        return;
+    }
+    textureCoords[index] = coords;
 }
 
 sf::Texture* Animation::getCurrentFrame() {
@@ -51,6 +60,13 @@ sf::Texture* Animation::getCurrentFrame() {
         return defaultTexture;
     }
     return frames[index];
+}
+
+sf::IntRect Animation::getCurrentCoords() {
+    if (textureCoords.size() <= 0) {
+        std::cout << "ERROR: Tried to acccess texture coordinates that don't exist!" << std::endl;
+    }
+    return textureCoords[index];
 }
 
 void Animation::play(int deltaTicks) {

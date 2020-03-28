@@ -10,6 +10,7 @@ tileMap(generateMap(), getTileset())
 	resourceManager.loadTexture("player_entity", "player.png");
 	entities[0]->mainAnimation.resetToSize(1);
 	entities[0]->mainAnimation.editFrame(0, resourceManager.getTexture("player_entity"));
+	entities[0]->mainAnimation.editCoords(0, sf::IntRect(0, 0, 16, 16));
 }
 
 GameEnvironment::~GameEnvironment() {

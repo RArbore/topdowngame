@@ -15,5 +15,6 @@ void Entity::tick() {
 
 void Entity::render(sf::RenderWindow* window) {
 	sprite.setTexture(*(mainAnimation.getCurrentFrame()));
+	sprite.setTextureRect(mainAnimation.getCurrentCoords());
 	window->draw(sprite);
 }

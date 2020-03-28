@@ -15,7 +15,9 @@ public:
 	void resetToSize(int size); // for when you want to initialize later/reset to a different size
 	void editFrame(int index, sf::Texture* texture);
 	void editDelay(int index, int ticks);
+	void editCoords(int index, sf::IntRect coords);
 	sf::Texture* getCurrentFrame(); // get current frame
+	sf::IntRect getCurrentCoords(); // get current texture coords
 	void play(int deltaTicks); // update ticks and index
 
 private:
@@ -26,6 +28,8 @@ private:
 	// delay from i to i+1 frame (wraps around to beginning) 
 	// measured in number of ticks
 	std::vector<int> delays;
+	// coords for each frame
+	std::vector<sf::IntRect> textureCoords;
 
 	sf::Texture* defaultTexture;
 };
