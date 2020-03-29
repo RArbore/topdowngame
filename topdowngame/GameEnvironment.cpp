@@ -43,6 +43,7 @@ void GameEnvironment::tick() {
 void GameEnvironment::render() {
 	sf::Vector2f cameraPos(focusEntity->h.getCX(), focusEntity->h.getCY());
 	camera.setCenter(cameraPos);
+	camera.setSize(static_cast<sf::Vector2f>(window->getSize()));
 	window->setView(camera.getView());
 
 	window->draw(tileMap);

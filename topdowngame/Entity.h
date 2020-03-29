@@ -38,9 +38,14 @@ public:
 
 	void render(sf::RenderWindow* window);
 
-	Animation mainAnimation;
+	void pushAnimation(Animation a);
 
 protected:
+	std::vector<Animation> animations;
+	int animationIndex;
 	sf::Sprite sprite;
+
+	Animation getCurrentAnimation();
+	void setAnimationIndex(int index);
 };
 

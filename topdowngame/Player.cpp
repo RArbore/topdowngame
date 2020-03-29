@@ -6,9 +6,12 @@ vel(0.f, 0.f),
 acc(0.f, 0.f)
 {
 	this->keys = keys;
+	Animation mainAnimation;
 	mainAnimation.resetToSize(1);
 	mainAnimation.editFrame(0, resourceManager->getTexture("player_entity"));
 	mainAnimation.editCoords(0, sf::IntRect(0, 0, 13, 18));
+	this->pushAnimation(mainAnimation);
+
 	h.w = 16;
 	h.h = 16;
 }

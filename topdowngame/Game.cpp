@@ -4,6 +4,7 @@ Game::Game() {
 	counter = 0;
 	environments = map<string, Environment*>();
 	main_window.create(sf::VideoMode(800, 600), "My window");
+	main_window.setVerticalSyncEnabled(true);
 }
 
 Game::~Game() {
@@ -32,6 +33,10 @@ void Game::run() {
 		while (main_window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
 				main_window.close();
+			}
+			if (event.type == sf::Event::Resized) {
+				sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+				main_window.setView(sf::View(visibleArea));
 			}
 
 			this->handleEvents(event);

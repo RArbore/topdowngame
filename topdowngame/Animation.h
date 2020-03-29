@@ -31,6 +31,6 @@ private:
 	// coords for each frame
 	std::vector<sf::IntRect> textureCoords;
 
-	sf::Texture* defaultTexture;
+	sf::Texture defaultTexture;
 };
 
