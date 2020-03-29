@@ -9,6 +9,8 @@ acc(0.f, 0.f)
 	mainAnimation.resetToSize(1);
 	mainAnimation.editFrame(0, resourceManager->getTexture("player_entity"));
 	mainAnimation.editCoords(0, sf::IntRect(0, 0, 13, 18));
+	h.w = 16;
+	h.h = 16;
 }
 
 void Player::tick() {
