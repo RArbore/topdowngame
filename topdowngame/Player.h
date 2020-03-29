@@ -15,12 +15,13 @@ public:
 
 	void tick();	
 	void render(sf::RenderWindow* window);
-	void updateAnimation(int keyX, int keyY);
+	void movement(int keyX, int keyY);
 
 private:
 	// velocity and acceleration
 	sf::Vector2f vel;
 	sf::Vector2f acc;
+	float movementSpeed;
 	int lastDirection; // store the last direction (0-7, north going clockwise)
 
 	void loadAnimations();

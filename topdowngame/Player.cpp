@@ -11,6 +11,7 @@ acc(0.f, 0.f)
 
 	h.w = 16;
 	h.h = 16;
+	movementSpeed = 2.f;
 	lastDirection = 0;
 }
 
@@ -52,50 +53,73 @@ void Player::tick() {
 
 	//Move according to key presses
 	if ((*keys)["Move Up"]) {
-		h.y -= 1;
 		keyY -= 1;
 	}
 	if ((*keys)["Move Left"]) {
-		h.x -= 1;
 		keyX -= 1;
 	}
 	if ((*keys)["Move Down"]) {
-		h.y += 1;
 		keyY += 1;
 	}
 	if ((*keys)["Move Right"]) {
-		h.x += 1;
 		keyX += 1;
 	}
 
-	updateAnimation(keyX, keyY);
+	movement(keyX, keyY);
 
 	this->playCurrentAnimation();
 }
 
-void Player::updateAnimation(int keyX, int keyY) {
+void Player::movement(int keyX, int keyY) {
 	// Player Animations:
 	// direction order: north, northeast, east, southeast, south, southwest, west, northwest
 	// 0-7 => resting 
 	// 8-15 => walking  
 
 	// north 
-	if (keyY == -1 && keyX == 0) setAnimationIndex(8);
+	if (keyY == -1 && keyX == 0) {
+		setAnimationIndex(8);
+		h.y -= movementSpeed;
+	}
 	// northeast
-	else if (keyY == -1 && keyX == 1) setAnimationIndex(9);
+	else if (keyY == -1 && keyX == 1) {
+		setAnimationIndex(9);
+		h.y -= sqrt(2)/2.f*movementSpeed;
+		h.x += sqrt(2)/2.f*movementSpeed;
+	}
 	// east
-	else if (keyY == 0 && keyX == 1) setAnimationIndex(10);
+	else if (keyY == 0 && keyX == 1) {
+		setAnimationIndex(10);
+		h.x += movementSpeed;
+	}
 	// southeast
-	else if (keyY == 1 && keyX == 1) setAnimationIndex(11);
+	else if (keyY == 1 && keyX == 1) {
+		setAnimationIndex(11);
+		h.y += sqrt(2)/2.f*movementSpeed;
+		h.x += sqrt(2)/2.f*movementSpeed;
+	}
 	// south
-	else if (keyY == 1 && keyX == 0) setAnimationIndex(12);
+	else if (keyY == 1 && keyX == 0) {
+		setAnimationIndex(12);
+		h.y += movementSpeed;
+	}
 	// southwest
-	else if (keyY == 1 && keyX == -1) setAnimationIndex(13);
+	else if (keyY == 1 && keyX == -1) {
+		setAnimationIndex(13);
+		h.y += sqrt(2)/2.f*movementSpeed;
+		h.x -= sqrt(2)/2.f*movementSpeed;
+	}
 	// west
-	else if (keyY == 0 && keyX == -1) setAnimationIndex(14);
+	else if (keyY == 0 && keyX == -1) {
+		setAnimationIndex(14);
+		h.x -= movementSpeed;
+	}
 	// northwest
-	else if (keyY == -1 && keyX == -1) setAnimationIndex(15);
-	
+	else if (keyY == -1 && keyX == -1) {
+		setAnimationIndex(15);
+		h.y -= sqrt(2)/2.f*movementSpeed;
+		h.x -= sqrt(2)/2.f*movementSpeed;
+	}
 	// resting animation (based on last direction which is 0-7)
 	else setAnimationIndex(lastDirection);
 
