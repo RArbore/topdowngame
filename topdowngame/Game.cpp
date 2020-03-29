@@ -13,8 +13,8 @@ Game::~Game() {
 }
 
 void Game::initEnvironments() {
-	environments.insert(pair<string, Environment*>("Test Environment", new GameEnvironment(&main_window, &settings)));
-	currentEnvironment = environments.at("Test Environment");
+	environments.insert(pair<string, Environment*>("Game Environment", new GameEnvironment(&main_window, &settings)));
+	currentEnvironment = environments.at("Game Environment");
 }
 
 void Game::run() {
@@ -39,7 +39,7 @@ void Game::run() {
 
 		ptime = getMillis();
 
-		//Tick current environment
+		currentEnvironment->tick();
 
 		atime = getMillis();
 		diff = atime - ptime;
@@ -54,6 +54,7 @@ void Game::run() {
 				diff = 1;
 			}
 		}
+		tps = int(1000.f / float(diff));
 	}
 }
 

@@ -34,7 +34,7 @@ public:
 	bool moveH();
 	bool moveV();
 
-	void tick();
+	virtual void tick() = 0;
 
 	void render(sf::RenderWindow* window);
 

@@ -10,10 +10,6 @@ h(0, 0, 0, 0)
 	this->resourceManager = resourceManager;
 }
 
-void Entity::tick() {
-	sprite.setPosition((float)h.x, (float)h.y);
-}
-
 void Entity::render(sf::RenderWindow* window) {
 	sprite.setTexture(*(mainAnimation.getCurrentFrame()));
 	sprite.setTextureRect(mainAnimation.getCurrentCoords());

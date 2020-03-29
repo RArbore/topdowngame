@@ -14,9 +14,19 @@ acc(0.f, 0.f)
 }
 
 void Player::tick() {
-	Entity::tick();
 
-	//Logic for movement w/ input keys
+	if ((*keys)["Move Up"]) {
+		h.y -= 1;
+	}
+	if ((*keys)["Move Left"]) {
+		h.x -= 1;
+	}
+	if ((*keys)["Move Down"]) {
+		h.y += 1;
+	}
+	if ((*keys)["Move Right"]) {
+		h.x += 1;
+	}
 
 }
 

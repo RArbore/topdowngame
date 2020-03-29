@@ -19,6 +19,7 @@ public:
 	~Game();
 
 	int counter;
+	int tps;
 
 	map<string, Environment*> environments;
 	Environment* currentEnvironment;
