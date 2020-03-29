@@ -15,6 +15,7 @@ public:
 
 	void tick();	
 	void render(sf::RenderWindow* window);
+	void updateAnimation(int keyX, int keyY);
 
 private:
 	// velocity and acceleration

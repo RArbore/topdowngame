@@ -18,19 +18,34 @@ acc(0.f, 0.f)
 
 void Player::tick() {
 
+	//Check which direction the player is pressing keys to update animation
+	int keyX = 0;
+	int keyY = 0;
+
+	//Move according to key presses
 	if ((*keys)["Move Up"]) {
 		h.y -= 1;
+		keyY -= 1;
 	}
 	if ((*keys)["Move Left"]) {
 		h.x -= 1;
+		keyX -= 1;
 	}
 	if ((*keys)["Move Down"]) {
 		h.y += 1;
+		keyY += 1;
 	}
 	if ((*keys)["Move Right"]) {
 		h.x += 1;
+		keyX += 1;
 	}
 
+	updateAnimation(keyX, keyY);
+
+}
+
+void Player::updateAnimation(int keyX, int keyY) {
+	//@Sanketh, keyX and keyY refer to what combo of x & y directions player is inputting, update animations accordingly
 }
 
 void Player::render(sf::RenderWindow* window) {

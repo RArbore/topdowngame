@@ -24,21 +24,7 @@ void GameEnvironment::tick() {
 		entities.at(i)->tick();
 	}
 
-	// if the focusEntity goes farther than these values along the respective axis
-	// then the camera will shift to keep it within the bounds
-	double horizBound = 100.f;
-	double vertBound = 100.f;
-
-	double deltaX = 0.f, deltaY = 0.f; // delta position for camera's center
-
-	if (abs(focusEntity->h.getCX() - camera.getCenter().x) > horizBound) {
-		deltaX = focusEntity->h.getCX() - camera.getCenter().x;
-	}
-	if (abs(focusEntity->h.getCY() - camera.getCenter().y) > vertBound) {
-		deltaY = focusEntity->h.getCY() - camera.getCenter().y;
-	}
-
-	camera.moveCenter(sf::Vector2f(deltaX, deltaY));
+	
 }
 
 void GameEnvironment::render() {
