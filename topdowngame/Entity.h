@@ -8,6 +8,8 @@
 
 #include "TileMap.h"
 
+#include "ResourceManager.h"
+
 #include <vector>
 
 using namespace std;
@@ -24,8 +26,10 @@ public:
 	TileMap* tileMap;
 
 	vector<Entity*>* entityList;
+
+	ResourceManager* resourceManager;
 	
-	Entity(double x, double y, TileMap* tileMap, vector<Entity*>* entityList);
+	Entity(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager);
 
 	bool moveH();
 	bool moveV();

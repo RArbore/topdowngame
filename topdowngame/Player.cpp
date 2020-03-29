@@ -1,12 +1,14 @@
 #include "Player.h"
 
-Player::Player(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys) : //Add pointer to hashmap for input keys
-Entity::Entity(x, y, tileMap, entityList),
+Player::Player(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
+Entity::Entity(x, y, tileMap, entityList, resourceManager),
 vel(0.f, 0.f),
 acc(0.f, 0.f)
 {
 	this->keys = keys;
-	//Set animation, sprite, etc
+	mainAnimation.resetToSize(1);
+	mainAnimation.editFrame(0, resourceManager->getTexture("player_entity"));
+	mainAnimation.editCoords(0, sf::IntRect(0, 0, 13, 18));
 }
 
 void Player::tick() {

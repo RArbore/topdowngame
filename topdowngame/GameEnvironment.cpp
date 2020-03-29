@@ -4,13 +4,10 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings):
 Environment(window, settings),
 tileMap(generateMap(), getTileset())
 {
-	entities = vector<Entity*>();
-	entities.push_back(new Player(0, 0, &tileMap, &entities, &keys));
-	focusEntity = entities.at(0);
 	resourceManager.loadTexture("player_entity", "player.png");
-	entities[0]->mainAnimation.resetToSize(1);
-	entities[0]->mainAnimation.editFrame(0, resourceManager.getTexture("player_entity"));
-	entities[0]->mainAnimation.editCoords(0, sf::IntRect(0, 0, 16, 16));
+	entities = vector<Entity*>();
+	entities.push_back(new Player(0, 0, &tileMap, &entities, &keys, &resourceManager));
+	focusEntity = entities.at(0);
 }
 
 GameEnvironment::~GameEnvironment() {

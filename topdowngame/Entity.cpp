@@ -1,12 +1,13 @@
 #include "Entity.h"
 
-Entity::Entity(double x, double y, TileMap* tileMap, vector<Entity*>* entityList):
+Entity::Entity(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager):
 h(0, 0, 0, 0)
 {
 	h.x = x;
 	h.y = y;
 	this->tileMap = tileMap;
 	this->entityList = entityList;
+	this->resourceManager = resourceManager;
 }
 
 void Entity::tick() {

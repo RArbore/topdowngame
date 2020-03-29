@@ -11,7 +11,7 @@ public:
 
 	map<string, bool>* keys;
 
-	Player(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys);
+	Player(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager);
 
 	void tick();	
 	void render(sf::RenderWindow* window);
