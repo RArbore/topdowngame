@@ -1,9 +1,10 @@
 #include "GameEnvironment.h"
 
-GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings):
-Environment(window, settings),
-tileMap(generateMap(), getTileset())
+GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings) :
+	Environment(window, settings),
+	tileMap(generateMap(), getTileset())
 {
+	camera = Camera(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f), 0.5);
 	resourceManager.loadTexture("player_entity", "player.png");
 	entities = vector<Entity*>();
 	entities.push_back(new Player(0, 0, &tileMap, &entities, &keys, &resourceManager));
