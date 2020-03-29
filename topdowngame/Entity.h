@@ -47,5 +47,6 @@ protected:
 
 	Animation getCurrentAnimation();
 	void setAnimationIndex(int index);
+	void playCurrentAnimation();
 };
 

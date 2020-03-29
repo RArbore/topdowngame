@@ -28,6 +28,10 @@ Animation Entity::getCurrentAnimation() {
 	return animations[animationIndex];
 }
 
+void Entity::playCurrentAnimation() {
+	animations[animationIndex].play();
+}
+
 void Entity::setAnimationIndex(int index) {
 	if (index >= animations.size()) {
 		std::cout << "ERROR: Could not set animation index due to an out of bounds error." << std::endl;

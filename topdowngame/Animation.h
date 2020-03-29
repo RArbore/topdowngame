@@ -18,7 +18,8 @@ public:
 	void editCoords(int index, sf::IntRect coords);
 	sf::Texture* getCurrentFrame(); // get current frame
 	sf::IntRect getCurrentCoords(); // get current texture coords
-	void play(int deltaTicks); // update ticks and index
+	void play(); // update ticks and index
+	void setFrame(int index); // set index to this index
 
 private:
 	int size; // number of frames

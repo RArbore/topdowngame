@@ -66,10 +66,19 @@ sf::IntRect Animation::getCurrentCoords() {
     return textureCoords[index];
 }
 
-void Animation::play(int deltaTicks) {
-    ticksCounter += deltaTicks;
+void Animation::play() {
+    ticksCounter += 1; // always 1 tick goes by
     if (ticksCounter >= delays[index]) {
         index += 1;
         ticksCounter = 0;
+        if (index >= size) index = 0;
     }
+}
+
+void Animation::setFrame(int index) {
+    if (index >= textureCoords.size()) {
+        std::cout << "ERROR: index out of bounds. Did not set frame to index." << std::endl;
+        return;
+    }
+    this->index = index;
 }

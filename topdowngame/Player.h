@@ -21,5 +21,8 @@ private:
 	// velocity and acceleration
 	sf::Vector2f vel;
 	sf::Vector2f acc;
+	int lastDirection; // store the last direction (0-7, north going clockwise)
+
+	void loadAnimations();
 };
 
