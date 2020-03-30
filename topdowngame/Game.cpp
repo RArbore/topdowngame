@@ -14,7 +14,9 @@ Game::~Game() {
 }
 
 void Game::initEnvironments() {
-	environments.insert(pair<string, Environment*>("Game Environment", new GameEnvironment(&main_window, &settings)));
+	transitionEnvironment = "";
+	environments.insert(pair<string, Environment*>("Game Environment", new GameEnvironment(&main_window, &settings, &transitionEnvironment)));
+	environments.insert(pair<string, Environment*>("Inventory Environment", new GameEnvironment(&main_window, &settings, &transitionEnvironment)));
 	currentEnvironment = environments.at("Game Environment");
 }
 
@@ -45,6 +47,11 @@ void Game::run() {
 		ptime = getMillis();
 
 		currentEnvironment->tick();
+
+		if (!transitionEnvironment.empty()) {
+			currentEnvironment = environments.at(transitionEnvironment);
+			transitionEnvironment = "";
+		}
 
 		atime = getMillis();
 		diff = atime - ptime;

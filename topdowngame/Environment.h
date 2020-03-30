@@ -13,7 +13,9 @@ public:
 	Camera camera;
 	ResourceManager resourceManager;
 
-	Environment(sf::RenderWindow* window, Settings* settings);
+	string* transitionEnvironment;
+
+	Environment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment);
 	
 	virtual void tick() = 0;
 	virtual void render() = 0;

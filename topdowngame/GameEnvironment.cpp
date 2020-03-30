@@ -1,7 +1,7 @@
 #include "GameEnvironment.h"
 
-GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings) :
-	Environment(window, settings),
+GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment) :
+	Environment(window, settings, transitionEnvironment),
 	tileMap(generateMap(), getTileset())
 {
 	camera = Camera(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f), 0.5);
@@ -23,7 +23,6 @@ void GameEnvironment::tick() {
 	for (int i = entities.size() - 1; i >= 0; i--) {
 		entities.at(i)->tick();
 	}
-
 	
 }
 

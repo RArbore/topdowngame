@@ -39,7 +39,7 @@ public:
 	vector<vector<int>>& generateMap();
 	sf::Texture* getTileset();
 
-	GameEnvironment(sf::RenderWindow* window, Settings* settings);
+	GameEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment);
 	~GameEnvironment();
 };
 

@@ -21,6 +21,7 @@ public:
 	int counter;
 	int tps;
 
+	string transitionEnvironment;
 	map<string, Environment*> environments;
 	Environment* currentEnvironment;
 
