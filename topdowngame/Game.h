@@ -1,5 +1,6 @@
 #include "Environment.h"
 #include "GameEnvironment.h"
+#include"InventoryEnvironment.h"
 #include "Settings.h"
 #include <vector>
 #include <map>

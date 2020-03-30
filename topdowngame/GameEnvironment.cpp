@@ -79,6 +79,9 @@ void GameEnvironment::eventHandler(sf::Event& event) {
 		else if (event.key.code == settings->keyBindings.at("Move Right")) {
 			keys["Move Right"] = true;
 		}
+		else if (event.key.code == settings->keyBindings.at("Inventory")) {
+			*transitionEnvironment = "Inventory Environment";
+		}
 	}
 
 	if (event.type == sf::Event::KeyReleased) {

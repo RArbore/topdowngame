@@ -151,6 +151,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameEnvironment.cpp" />
     <ClCompile Include="Hitbox.cpp" />
+    <ClCompile Include="InventoryEnvironment.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameEnvironment.h" />
     <ClInclude Include="Hitbox.h" />
+    <ClInclude Include="InventoryEnvironment.h" />
     <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResourceManager.h" />
