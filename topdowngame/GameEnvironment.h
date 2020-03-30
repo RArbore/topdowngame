@@ -9,6 +9,7 @@
 #include <string>
 #include <map>
 #include <stdlib.h>
+#include <algorithm>
 
 using namespace std;
 

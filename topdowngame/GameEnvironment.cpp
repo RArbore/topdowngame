@@ -48,13 +48,14 @@ void GameEnvironment::render() {
 	prevView.setSize(static_cast<sf::Vector2f>(window->getSize()));
 	window->setView(prevView);
 
+	sf::Vector2u size = window->getSize();
+
 	if (focusEntity->maxHealth > 0) {
-		sf::Vector2u size = window->getSize();
 		sf::RectangleShape healthBorder(sf::Vector2f(400, 80));
 		healthBorder.setPosition(sf::Vector2f(-float(size.x) / 2, -float(size.y) / 2));
 		healthBorder.setFillColor(sf::Color(150, 0, 0));
 
-		sf::RectangleShape healthBar(sf::Vector2f(380.f*focusEntity->health/focusEntity->maxHealth, 60));
+		sf::RectangleShape healthBar(sf::Vector2f(max(380.f*focusEntity->health/focusEntity->maxHealth, 0.), 60));
 		healthBar.setPosition(sf::Vector2f(-float(size.x) / 2 + 10, -float(size.y) / 2 + 10));
 		healthBar.setFillColor(sf::Color(220, 0, 0));
 
