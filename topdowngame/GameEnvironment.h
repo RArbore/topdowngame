@@ -18,6 +18,8 @@ class GameEnvironment : public Environment
 	
 public:
 
+	bool releasedR;
+
 	map<string, bool> keys = {
 		{"Move Up", false},
 		{"Move Left", false},

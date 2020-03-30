@@ -9,6 +9,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	entities = vector<Entity*>();
 	entities.push_back(new Player(0, 0, &tileMap, &entities, &keys, &resourceManager));
 	focusEntity = entities.at(0);
+	releasedR = true;
 }
 
 GameEnvironment::~GameEnvironment() {
@@ -79,8 +80,13 @@ void GameEnvironment::eventHandler(sf::Event& event) {
 		else if (event.key.code == settings->keyBindings.at("Move Right")) {
 			keys["Move Right"] = true;
 		}
-		else if (event.key.code == settings->keyBindings.at("Inventory")) {
+		else if (event.key.code == settings->keyBindings.at("Inventory") && releasedR) {
 			*transitionEnvironment = "Inventory Environment";
+			releasedR = false;
+			keys["Move Up"] = false;
+			keys["Move Left"] = false;
+			keys["Move Down"] = false;
+			keys["Move Right"] = false;
 		}
 	}
 
@@ -96,6 +102,9 @@ void GameEnvironment::eventHandler(sf::Event& event) {
 		}
 		else if (event.key.code == settings->keyBindings.at("Move Right")) {
 			keys["Move Right"] = false;
+		}
+		else if (event.key.code == settings->keyBindings.at("Inventory")) {
+			releasedR = true;
 		}
 	}
 
