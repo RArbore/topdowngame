@@ -13,6 +13,8 @@ acc(0.f, 0.f)
 	h.h = 16;
 	movementSpeed = 2.f;
 	lastDirection = 0;
+	health = 100;
+	maxHealth = 100;
 }
 
 void Player::loadAnimations() {

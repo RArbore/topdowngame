@@ -28,6 +28,9 @@ public:
 	vector<Entity*>* entityList;
 
 	ResourceManager* resourceManager;
+
+	double health;
+	double maxHealth;
 	
 	Entity(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager);
 

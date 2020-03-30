@@ -34,7 +34,7 @@ void Game::run() {
 			if (event.type == sf::Event::Closed) {
 				main_window.close();
 			}
-			if (event.type == sf::Event::Resized) {
+			else if (event.type == sf::Event::Resized) {
 				sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
 				main_window.setView(sf::View(visibleArea));
 			}
