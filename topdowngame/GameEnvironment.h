@@ -18,6 +18,8 @@ class GameEnvironment : public Environment
 	
 public:
 
+	int counter;
+
 	bool releasedR;
 
 	map<string, bool> keys = {
