@@ -19,4 +19,5 @@ sf::Sprite Item::getUnpositionedSprite() {
 	int x = iconNumber % 16;
 	int y = (int)(iconNumber / 16);
 	sprite.setTextureRect(sf::IntRect(x*16, y*16, 16, 16));
+	return sprite;
 }
