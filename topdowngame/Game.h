@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Environment.h"
 #include "GameEnvironment.h"
 #include"InventoryEnvironment.h"
