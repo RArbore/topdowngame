@@ -6,8 +6,9 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 {
 	camera = Camera(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f), 0.5);
 	resourceManager.loadTexture("player_entity", "player.png");
+	resourceManager.loadTexture("wands", "wands.png");
 	entities = vector<Entity*>();
-	entities.push_back(new Player(0, 0, &tileMap, &entities, &keys, &resourceManager));
+	entities.push_back(new Player(this, 0, 0, &tileMap, &entities, &keys, &resourceManager));
 	focusEntity = entities.at(0);
 	counter = 0;
 	releasedR = true;
@@ -30,6 +31,16 @@ void GameEnvironment::tick() {
 	
 }
 
+void GameEnvironment::tickProjectiles() {
+	for (int i = projectiles.size() - 1; i >= 0; i--) {
+		projectiles[i].tick();
+
+		string projType = projectiles[i].projType;
+		int cnt = projectiles[i].durationCounter;
+		// if (projType == "basic" && cnt > 500) deleteProj(i);
+	}
+}
+
 void GameEnvironment::render() {
 	sf::View prevView = window->getDefaultView();
 	sf::Vector2f cameraPos(focusEntity->h.getCX(), focusEntity->h.getCY());
@@ -43,6 +54,10 @@ void GameEnvironment::render() {
 
 	for (int i = entities.size() - 1; i >= 0; i--) {
 		entities.at(i)->render(window);
+	}
+
+	for (int i = projectiles.size() - 1; i >= 0; i--) {
+		projectiles.at(i).render(window);
 	}
 
 	//Draw at absolute positions
@@ -133,4 +148,9 @@ vector<vector<int>>& GameEnvironment::generateMap() {
 sf::Texture* GameEnvironment::getTileset() {
 	resourceManager.loadTexture("jungle_biome", "jungle_biome.png");
 	return resourceManager.getTexture("jungle_biome"); // TODO: get tilemap texture
+}
+
+void GameEnvironment::summonProjectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y, sf::Texture* tex) {
+	Projectile proj(projType, x, y, vel_x, vel_y, acc_x, acc_y, &tileMap, &entities, &resourceManager, tex);
+	projectiles.push_back(proj);
 }

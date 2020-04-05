@@ -1,8 +1,14 @@
+#pragma once
+
 #include "Entity.h"
+#include "Environment.h"
+#include "GameEnvironment.h"
 #include <string>
 #include <map>
 
 using namespace std;
+
+class GameEnvironment;
 
 class Player : public Entity
 {
@@ -11,7 +17,12 @@ public:
 
 	map<string, bool>* keys;
 
-	Player(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager);
+	GameEnvironment* gameEnvironment;
+	//ProjectileManager projectileManager;
+
+	int cnt = 0;
+
+	Player(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager);
 
 	void tick();	
 	void render(sf::RenderWindow* window);

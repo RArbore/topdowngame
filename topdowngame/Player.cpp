@@ -1,12 +1,12 @@
 #include "Player.h"
 
-Player::Player(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
+Player::Player(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
 Entity::Entity(x, y, tileMap, entityList, resourceManager),
 vel(0.f, 0.f),
 acc(0.f, 0.f)
 {
 	this->keys = keys;
-
+	this->gameEnvironment = gameEnvironment;
 	this->loadAnimations();
 
 	h.w = 16;
@@ -53,9 +53,16 @@ void Player::tick() {
 	int keyX = 0;
 	int keyY = 0;
 
+	cnt++;
+
 	//Move according to key presses
 	if ((*keys)["Move Up"]) {
 		keyY -= 1;
+		// projectileManager.summonProj("basic", h.x, h.y, 0, -1.f, 0.f, 0.f);
+		if (cnt >= 100) {
+			gameEnvironment->summonProjectile("basic", h.x, h.y, 0, -1.f, 0.f, 0.f, resourceManager->getTexture("wands"));
+			cnt = 0;
+		}
 	}
 	if ((*keys)["Move Left"]) {
 		keyX -= 1;
@@ -131,4 +138,5 @@ void Player::movement(int keyX, int keyY) {
 
 void Player::render(sf::RenderWindow* window) {
 	Entity::render(window);
+	// projectileManager.render(window);
 }

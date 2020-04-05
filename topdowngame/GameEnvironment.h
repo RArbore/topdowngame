@@ -3,6 +3,7 @@
 #include "Environment.h"
 #include "Entity.h"
 #include "Player.h"
+#include "Projectile.h"
 #include "ResourceManager.h"
 
 #include <vector>
@@ -29,6 +30,7 @@ public:
 		{"Move Right", false} };
 
 	vector<Entity*> entities;
+	vector<Projectile> projectiles;
 
 	Entity* focusEntity;
 
@@ -45,5 +47,8 @@ public:
 
 	GameEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment);
 	~GameEnvironment();
+
+	void tickProjectiles();
+	void summonProjectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y, sf::Texture* tex);
 };
 

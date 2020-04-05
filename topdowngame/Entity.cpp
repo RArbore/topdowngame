@@ -9,6 +9,8 @@ h(0, 0, 0, 0)
 	this->entityList = entityList;
 	this->resourceManager = resourceManager;
 	animationIndex = 0;
+	health = 0;
+	maxHealth = 0;
 }
 
 void Entity::render(sf::RenderWindow* window) {
