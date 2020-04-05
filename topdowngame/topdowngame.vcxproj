@@ -145,6 +145,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Attribute.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Environment.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="GameEnvironment.cpp" />
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="InventoryEnvironment.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -163,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Attribute.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Environment.h" />
@@ -170,6 +173,7 @@
     <ClInclude Include="GameEnvironment.h" />
     <ClInclude Include="Hitbox.h" />
     <ClInclude Include="InventoryEnvironment.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projectile.h" />
