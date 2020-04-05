@@ -49,6 +49,6 @@ public:
 	~GameEnvironment();
 
 	void tickProjectiles();
-	void summonProjectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y, sf::Texture* tex);
+	void summonProjectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y);
 };
 

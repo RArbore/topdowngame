@@ -1,12 +1,11 @@
 #include "Projectile.h"
 
-Projectile::Projectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager, sf::Texture* tex):
+Projectile::Projectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager):
 	Entity(x, y, tileMap, entityList, resourceManager),
 	vel(vel_x, vel_y),
 	acc(acc_x, acc_y)
 {	
 	this->projType = projType;
-	this->texture = tex;
 	durationCounter = 0;
 	this->loadAnimation();
 }
@@ -30,8 +29,9 @@ void Projectile::render(sf::RenderWindow* window) {
 }
 
 void Projectile::loadAnimation() {
+	sf::Texture* tex = resourceManager->getTexture("player_entity");
 	Animation a(1);
-	a.editFrame(0, texture);
+	a.editFrame(0, tex);
 	a.editCoords(0, sf::IntRect(0, 0, 13, 18));
 	a.editDelay(0, 1e9);
 	this->pushAnimation(a);

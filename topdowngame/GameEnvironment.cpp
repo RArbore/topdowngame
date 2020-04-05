@@ -55,13 +55,15 @@ void GameEnvironment::render() {
 
 	window->draw(tileMap);
 
-	for (int i = entities.size() - 1; i >= 0; i--) {
+	for (int i = entities.size() - 1; i >= 1; i--) {
 		entities.at(i)->render(window);
 	}
 
 	for (int i = projectiles.size() - 1; i >= 0; i--) {
 		projectiles.at(i)->render(window);
 	}
+
+	((Player*)focusEntity)->render(window);
 
 	//Draw at absolute positions
 
@@ -153,7 +155,7 @@ sf::Texture* GameEnvironment::getTileset() {
 	return resourceManager.getTexture("jungle_biome"); // TODO: get tilemap texture
 }
 
-void GameEnvironment::summonProjectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y, sf::Texture* tex) {
-	Projectile* proj = new Projectile(projType, x, y, vel_x, vel_y, acc_x, acc_y, &tileMap, &entities, &resourceManager, tex);
+void GameEnvironment::summonProjectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y) {
+	Projectile* proj = new Projectile(projType, x, y, vel_x, vel_y, acc_x, acc_y, &tileMap, &entities, &resourceManager);
 	projectiles.push_back(proj);
 }
