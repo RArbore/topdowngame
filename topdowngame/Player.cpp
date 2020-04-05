@@ -53,16 +53,10 @@ void Player::tick() {
 	int keyX = 0;
 	int keyY = 0;
 
-	cnt++;
-
 	//Move according to key presses
 	if ((*keys)["Move Up"]) {
 		keyY -= 1;
 		// projectileManager.summonProj("basic", h.x, h.y, 0, -1.f, 0.f, 0.f);
-		if (cnt >= 100) {
-			gameEnvironment->summonProjectile("basic", h.x, h.y, 0, -1.f, 0.f, 0.f, resourceManager->getTexture("wands"));
-			cnt = 0;
-		}
 	}
 	if ((*keys)["Move Left"]) {
 		keyX -= 1;
@@ -137,6 +131,12 @@ void Player::movement(int keyX, int keyY) {
 }
 
 void Player::render(sf::RenderWindow* window) {
+	cnt++;
+	std::cout << cnt << endl;
+	if (cnt >= 10) {
+		gameEnvironment->summonProjectile("basic", h.x, h.y, 0, -1.f, 0.f, 0.f, resourceManager->getTexture("wands"));
+		cnt = 0;
+	}
 	Entity::render(window);
 	// projectileManager.render(window);
 }

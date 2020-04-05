@@ -18,7 +18,6 @@ void Projectile::tick() {
 	h.y += vel.y;
 
 	durationCounter += 1;
-	std::cout << "playing " << std::endl;
 	this->playCurrentAnimation();
 }
 

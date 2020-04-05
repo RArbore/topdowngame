@@ -30,7 +30,7 @@ public:
 		{"Move Right", false} };
 
 	vector<Entity*> entities;
-	vector<Projectile> projectiles;
+	vector<Projectile*> projectiles;
 
 	Entity* focusEntity;
 

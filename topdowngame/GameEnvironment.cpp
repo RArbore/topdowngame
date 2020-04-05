@@ -18,6 +18,7 @@ GameEnvironment::~GameEnvironment() {
 	for (auto entity : entities) {
 		delete entity;
 	}
+	for (auto proj : projectiles) delete proj;
 	delete focusEntity;
 }
 
@@ -28,15 +29,17 @@ void GameEnvironment::tick() {
 	for (int i = entities.size() - 1; i >= 0; i--) {
 		entities.at(i)->tick();
 	}
+
+	tickProjectiles();
 	
 }
 
 void GameEnvironment::tickProjectiles() {
 	for (int i = projectiles.size() - 1; i >= 0; i--) {
-		projectiles[i].tick();
+		projectiles[i]->tick();
 
-		string projType = projectiles[i].projType;
-		int cnt = projectiles[i].durationCounter;
+		string projType = projectiles[i]->projType;
+		int cnt = projectiles[i]->durationCounter;
 		// if (projType == "basic" && cnt > 500) deleteProj(i);
 	}
 }
@@ -57,7 +60,7 @@ void GameEnvironment::render() {
 	}
 
 	for (int i = projectiles.size() - 1; i >= 0; i--) {
-		projectiles.at(i).render(window);
+		projectiles.at(i)->render(window);
 	}
 
 	//Draw at absolute positions
@@ -151,6 +154,6 @@ sf::Texture* GameEnvironment::getTileset() {
 }
 
 void GameEnvironment::summonProjectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y, sf::Texture* tex) {
-	Projectile proj(projType, x, y, vel_x, vel_y, acc_x, acc_y, &tileMap, &entities, &resourceManager, tex);
+	Projectile* proj = new Projectile(projType, x, y, vel_x, vel_y, acc_x, acc_y, &tileMap, &entities, &resourceManager, tex);
 	projectiles.push_back(proj);
 }
