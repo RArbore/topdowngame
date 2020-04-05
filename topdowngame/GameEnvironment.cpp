@@ -40,8 +40,16 @@ void GameEnvironment::tickProjectiles() {
 
 		string projType = projectiles[i]->projType;
 		int cnt = projectiles[i]->durationCounter;
-		// if (projType == "basic" && cnt > 500) deleteProj(i);
+		if (projType == "basic" && cnt > 50) deleteProjectile(i);
 	}
+}
+
+void GameEnvironment::deleteProjectile(int index) {
+	if (index >= projectiles.size()) {
+		cout << "ERROR: Attempted to delete projectile that doesn't exist!" << endl;
+		return;
+	}
+	projectiles.erase(projectiles.begin() + index);
 }
 
 void GameEnvironment::render() {
@@ -132,11 +140,15 @@ void GameEnvironment::eventHandler(sf::Event& event) {
 	}
 
 	if (event.type == sf::Event::MouseButtonPressed) {
-
+		if (event.mouseButton.button == sf::Mouse::Left) {
+			keys["Left Click"] = true;
+		}
 	}
 
 	if (event.type == sf::Event::MouseButtonReleased) {
-
+		if (event.mouseButton.button == sf::Mouse::Left) {
+			keys["Left Click"] = false;
+		}
 	}
 }
 

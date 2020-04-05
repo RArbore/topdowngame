@@ -5,6 +5,7 @@
 #include "GameEnvironment.h"
 #include <string>
 #include <map>
+#include <queue>
 
 using namespace std;
 
@@ -20,8 +21,6 @@ public:
 	GameEnvironment* gameEnvironment;
 	//ProjectileManager projectileManager;
 
-	int cnt = 0;
-
 	Player(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager);
 
 	void tick();	
@@ -34,6 +33,9 @@ private:
 	sf::Vector2f acc;
 	float movementSpeed;
 	int lastDirection; // store the last direction (0-7, north going clockwise)
+
+	int attackDelayCounter;
+	queue<string> projectileQueue; 
 
 	void loadAnimations();
 };
