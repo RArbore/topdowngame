@@ -86,6 +86,7 @@ void Player::movement(int keyX, int keyY) {
 	// 0-7 => resting 
 	// 8-15 => walking  
 
+	// if attacking, use attacking direction instead of movement direction
 	// north 
 	if (keyY == -1 && keyX == 0) {
 		setAnimationIndex(8);
@@ -94,8 +95,8 @@ void Player::movement(int keyX, int keyY) {
 	// northeast
 	else if (keyY == -1 && keyX == 1) {
 		setAnimationIndex(9);
-		h.y -= sqrt(2)/2.f*movementSpeed;
-		h.x += sqrt(2)/2.f*movementSpeed;
+		h.y -= sqrt(2) / 2.f * movementSpeed;
+		h.x += sqrt(2) / 2.f * movementSpeed;
 	}
 	// east
 	else if (keyY == 0 && keyX == 1) {
@@ -105,8 +106,8 @@ void Player::movement(int keyX, int keyY) {
 	// southeast
 	else if (keyY == 1 && keyX == 1) {
 		setAnimationIndex(11);
-		h.y += sqrt(2)/2.f*movementSpeed;
-		h.x += sqrt(2)/2.f*movementSpeed;
+		h.y += sqrt(2) / 2.f * movementSpeed;
+		h.x += sqrt(2) / 2.f * movementSpeed;
 	}
 	// south
 	else if (keyY == 1 && keyX == 0) {
@@ -116,8 +117,8 @@ void Player::movement(int keyX, int keyY) {
 	// southwest
 	else if (keyY == 1 && keyX == -1) {
 		setAnimationIndex(13);
-		h.y += sqrt(2)/2.f*movementSpeed;
-		h.x -= sqrt(2)/2.f*movementSpeed;
+		h.y += sqrt(2) / 2.f * movementSpeed;
+		h.x -= sqrt(2) / 2.f * movementSpeed;
 	}
 	// west
 	else if (keyY == 0 && keyX == -1) {
@@ -127,11 +128,45 @@ void Player::movement(int keyX, int keyY) {
 	// northwest
 	else if (keyY == -1 && keyX == -1) {
 		setAnimationIndex(15);
-		h.y -= sqrt(2)/2.f*movementSpeed;
-		h.x -= sqrt(2)/2.f*movementSpeed;
+		h.y -= sqrt(2) / 2.f * movementSpeed;
+		h.x -= sqrt(2) / 2.f * movementSpeed;
 	}
 	// resting animation (based on last direction which is 0-7)
 	else setAnimationIndex(lastDirection);
+
+	// if mouse is pressed, override direction to direction of mouse
+	if ((*keys)["Left Click"]) {
+		double dx = mouseX - screenX;
+		double dy = mouseY - screenY;
+		double PI = 3.14159265;
+		double angle = (int) (atan2(dy, dx) * 180.f / PI);
+		// if (dx < 0) angle += 180.f;
+
+		// cout << angle << endl;
+
+		bool moving = (keyX != 0 || keyY != 0) ? true : false;
+		
+		int baseIndex = 0;
+		// north -112.5 -> -67.5
+		if (angle > -112.5 && angle <= -67.5) baseIndex = 0;
+		// northeast -67.5 -> -22.5
+		else if (angle > -67.5 && angle <= -22.5) baseIndex = 1;
+		// east -22.5 -> 22.5
+		else if (angle > -22.5 && angle <= 22.5) baseIndex = 2;
+		// southeast 22.5 -> 67.5
+		else if (angle > 22.5 && angle <= 67.5) baseIndex = 3;
+		// south 67.5 -> 112.5
+		else if (angle > 67.5 && angle <= 112.5) baseIndex = 4;
+		// southwest 112.5 -> 157.5
+		else if (angle > 112.5 && angle <= 157.5) baseIndex = 5;
+		// west 157.5 -> 180, -180 -> -157.5
+		else if ((angle > 157.5 && angle <= 180) || (angle >= -180 && angle <= -157.5)) baseIndex = 6;
+		// northwest -157.5 -> -112.5
+		else if (angle > -157.5 && angle <= -112.5) baseIndex = 7;
+
+		baseIndex += moving ? 8 : 0;
+		setAnimationIndex(baseIndex);
+	}
 
 	// set last direction
 	lastDirection = animationIndex % 8;
@@ -140,17 +175,28 @@ void Player::movement(int keyX, int keyY) {
 void Player::render(sf::RenderWindow* window) {
 	// handle projectile queue
 	while (!projectileQueue.empty()) {
-		double dx = ((double)sf::Mouse::getPosition(*window).x) - (window->getSize().x/2.f);
-		double dy = ((double)sf::Mouse::getPosition(*window).y) - (window->getSize().y/2.f);
+		double dx = ((double)sf::Mouse::getPosition(*window).x) - (window->mapCoordsToPixel(sf::Vector2f(h.getCX(), h.getCY()))).x;
+		double dy = ((double)sf::Mouse::getPosition(*window).y) - (window->mapCoordsToPixel(sf::Vector2f(h.getCX(), h.getCY()))).y;
 		double mag = sqrt(dx * dx + dy * dy);
 		if (mag == 0.f) mag = 1.f;
 		dx /= mag;
 		dy /= mag;
-		dx *= 5.f;
-		dy *= 5.f;
+
+		double speedMultiplier = 0.f;
+		string projType = projectileQueue.front();
+		if (projType == "basic") speedMultiplier = 5.f;
+
+		dx *= speedMultiplier;
+		dy *= speedMultiplier;
 		gameEnvironment->summonProjectile(projectileQueue.front(), h.getCX(), h.getCY(), dx, dy, 0.f, 0.f);
 		projectileQueue.pop();
 	}
+
+	mouseX = (double)sf::Mouse::getPosition(*window).x;
+	mouseY = (double)sf::Mouse::getPosition(*window).y;
+
+	screenX = (window->mapCoordsToPixel(sf::Vector2f(h.getCX(), h.getCY()))).x;
+	screenY = (window->mapCoordsToPixel(sf::Vector2f(h.getCX(), h.getCY()))).y;
 
 	Entity::render(window);
 }

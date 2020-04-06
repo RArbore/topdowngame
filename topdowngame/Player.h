@@ -37,6 +37,9 @@ private:
 	int attackDelayCounter;
 	queue<string> projectileQueue; 
 
+	double mouseX, mouseY; // use these for determining what direction to move in
+	double screenX, screenY; // coordinates of player on the actual screen
+
 	void loadAnimations();
 };
 
