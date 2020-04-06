@@ -2,8 +2,9 @@
 
 #include "Environment.h"
 #include "GameEnvironment.h"
-#include"InventoryEnvironment.h"
+#include "InventoryEnvironment.h"
 #include "Settings.h"
+#include "PlayerSave.h"
 #include <vector>
 #include <map>
 #include <string>
@@ -29,6 +30,8 @@ public:
 	Environment* currentEnvironment;
 
 	Settings settings;
+
+	PlayerSave playerSave;
 
 	static const int MAX_TPS = 60;
 

@@ -1,7 +1,7 @@
 #include "InventoryEnvironment.h"
 
-InventoryEnvironment::InventoryEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, Environment* background) :
-	Environment(window, settings, transitionEnvironment)
+InventoryEnvironment::InventoryEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, Environment* background, PlayerSave* playerSave) :
+	Environment(window, settings, transitionEnvironment, playerSave)
 {
 	this->background = background;
 	counter = 0;
@@ -46,6 +46,13 @@ void InventoryEnvironment::render() {
 		slot.setPosition(-380+2.5, -280+85*armorSlot+20-10);
 		slot.setFillColor(sf::Color(65, 65, 65));
 		window->draw(slot);
+		Item* itemPointer = playerSave->inventory.at(5 + armorSlot);
+		if (itemPointer != NULL) {
+			sf::Sprite icon = itemPointer->getUnpositionedSprite();
+			icon.setPosition(-380 + 2.5 + 5.5, -280 + 85 * armorSlot + 20 - 10 + 5.5);
+			icon.scale(sf::Vector2f(4.f, 4.f));
+			window->draw(icon);
+		}
 	}
 
 	for (int accessorySlot = 0; accessorySlot < 5; accessorySlot++) {
@@ -53,7 +60,16 @@ void InventoryEnvironment::render() {
 		slot.setPosition(-280+85*accessorySlot+2.5, -280+20-10);
 		slot.setFillColor(sf::Color(65, 65, 65));
 		window->draw(slot);
+		Item* itemPointer = playerSave->inventory.at(accessorySlot);
+		if (itemPointer != NULL) {
+			sf::Sprite icon = itemPointer->getUnpositionedSprite();
+			icon.setPosition(-280+85*accessorySlot+2.5 + 5.5, -280+20-10 + 5.5);
+			icon.scale(sf::Vector2f(4.f, 4.f));
+			window->draw(icon);
+		}
 	}
+
+	int i = 0;
 
 	for (int invX = 0; invX < 9; invX++) {
 		for (int invY = 0; invY < 2; invY++) {
@@ -61,6 +77,14 @@ void InventoryEnvironment::render() {
 			slot.setPosition(-380+85*invX+2.5, -280+85*3+20+85*invY+20-10);
 			slot.setFillColor(sf::Color(65, 65, 65));
 			window->draw(slot);
+			Item* itemPointer = playerSave->inventory.at(i+17);
+			if (itemPointer != NULL) {
+				sf::Sprite icon = itemPointer->getUnpositionedSprite();
+				icon.setPosition(-380+85*invX+2.5 + 5.5, -280+85*3+20+85*invY+20-10 + 5.5);
+				icon.scale(sf::Vector2f(4.f, 4.f));
+				window->draw(icon);
+			}
+			i++;
 		}
 	}
 	for (int invX = 0; invX < 9; invX++) {
@@ -68,6 +92,13 @@ void InventoryEnvironment::render() {
 		slot.setPosition(-380+85*invX+2.5, -280+85*3+20+85*2+40-10);
 		slot.setFillColor(sf::Color(65, 65, 65));
 		window->draw(slot);
+		Item* itemPointer = playerSave->inventory.at(invX+8);
+		if (itemPointer != NULL) {
+			sf::Sprite icon = itemPointer->getUnpositionedSprite();
+			icon.setPosition(-380+85*invX+2.5 + 5.5, -280+85*3+20+85*2+40-10 + 5.5);
+			icon.scale(sf::Vector2f(4.f, 4.f));
+			window->draw(icon);
+		}
 	}
 }
 

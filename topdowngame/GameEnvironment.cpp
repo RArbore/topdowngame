@@ -1,15 +1,17 @@
 #include "GameEnvironment.h"
 
-GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment) :
-	Environment(window, settings, transitionEnvironment),
+GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, PlayerSave* playerSave) :
+	Environment(window, settings, transitionEnvironment, playerSave),
 	tileMap(generateMap(), getTileset())
 {
 	camera = Camera(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f), 0.5);
 	resourceManager.loadTexture("player_entity", "player.png");
+	resourceManager.loadTexture("items_texture", "items.png");
 	resourceManager.loadTexture("wands", "wands.png");
 	entities = vector<Entity*>();
 	entities.push_back(new Player(this, 0, 0, &tileMap, &entities, &keys, &resourceManager));
 	focusEntity = entities.at(0);
+	playerSave->inventory[8] = new Item("Tier 1 Sword", "Sword", "A basic sword", 0, &resourceManager);
 	counter = 0;
 	releasedR = true;
 }

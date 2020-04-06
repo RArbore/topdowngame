@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Projectile.h"
 #include "ResourceManager.h"
+#include "Item.h"
 
 #include <vector>
 #include <string>
@@ -45,7 +46,7 @@ public:
 	vector<vector<int>>& generateMap();
 	sf::Texture* getTileset();
 
-	GameEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment);
+	GameEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, PlayerSave* playerSave);
 	~GameEnvironment();
 
 	void tickProjectiles();

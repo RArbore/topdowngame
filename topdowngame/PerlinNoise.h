@@ -1,3 +1,5 @@
+#pragma once
+
 /*
 	Everything below is from: https://github.com/sol-prog/Perlin_Noise
 	The contents are under the GNU GPL v3 license.

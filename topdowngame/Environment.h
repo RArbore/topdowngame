@@ -3,6 +3,7 @@
 #include "Camera.h"
 #include "Settings.h"
 #include "ResourceManager.h"
+#include "PlayerSave.h"
 
 class Environment
 {
@@ -15,7 +16,9 @@ public:
 
 	string* transitionEnvironment;
 
-	Environment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment);
+	PlayerSave* playerSave;
+
+	Environment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, PlayerSave* playerSave);
 	
 	virtual void tick() = 0;
 	virtual void render() = 0;

@@ -157,6 +157,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerSave.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Tile.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerSave.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Settings.h" />
@@ -185,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\spritesheets\bows.png" />
+    <Image Include="..\spritesheets\items.png" />
     <Image Include="..\spritesheets\jungle_biome.png" />
     <Image Include="..\spritesheets\player.png" />
     <Image Include="..\spritesheets\swords.png" />

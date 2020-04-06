@@ -75,6 +75,9 @@
     <ClCompile Include="Item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerSave.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -137,6 +140,9 @@
     <ClInclude Include="Attribute.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerSave.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\spritesheets\jungle_biome.png">
@@ -152,6 +158,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\spritesheets\wands.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\spritesheets\items.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
