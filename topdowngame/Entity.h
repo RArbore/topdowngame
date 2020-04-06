@@ -37,7 +37,7 @@ public:
 	bool moveH();
 	bool moveV();
 
-	virtual void tick() = 0;
+	virtual void tick(double dt) = 0;
 
 	void render(sf::RenderWindow* window);
 
@@ -50,6 +50,6 @@ protected:
 
 	Animation getCurrentAnimation();
 	void setAnimationIndex(int index);
-	void playCurrentAnimation();
+	void playCurrentAnimation(double dt);
 };
 

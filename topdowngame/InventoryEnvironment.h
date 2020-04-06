@@ -15,7 +15,7 @@ public:
 
 	Environment* background;
 
-	void tick();
+	void tick(double dt);
 	void render();
 
 	void eventHandler(sf::Event& event);

@@ -6,18 +6,18 @@ Projectile::Projectile(std::string projType, double x, double y, double vel_x, d
 	acc(acc_x, acc_y)
 {	
 	this->projType = projType;
-	durationCounter = 0;
+	durationCounter = 0.f;
 	this->loadAnimation();
 }
 
-void Projectile::tick() {
-	vel.x += acc.x;
-	vel.y += acc.y;
-	h.x += vel.x;
-	h.y += vel.y;
+void Projectile::tick(double dt) {
+	vel.x += acc.x * dt;
+	vel.y += acc.y * dt;
+	h.x += vel.x * dt;
+	h.y += vel.y * dt;
 
-	durationCounter += 1;
-	this->playCurrentAnimation();
+	durationCounter += dt;
+	this->playCurrentAnimation(dt);
 }
 
 void Projectile::render(sf::RenderWindow* window) {

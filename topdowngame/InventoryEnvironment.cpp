@@ -12,7 +12,7 @@ InventoryEnvironment::~InventoryEnvironment() {
 
 }
 
-void InventoryEnvironment::tick() {
+void InventoryEnvironment::tick(double dt) {
 	counter++;
 }
 

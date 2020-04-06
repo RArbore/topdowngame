@@ -66,8 +66,8 @@ sf::IntRect Animation::getCurrentCoords() {
     return textureCoords[index];
 }
 
-void Animation::play() {
-    ticksCounter += 1; // always 1 tick goes by
+void Animation::play(double dt) {
+    ticksCounter += dt; // always 1 tick goes by
     if (ticksCounter >= delays[index]) {
         index += 1;
         ticksCounter = 0;

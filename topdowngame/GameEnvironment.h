@@ -20,8 +20,6 @@ class GameEnvironment : public Environment
 	
 public:
 
-	int counter;
-
 	bool releasedR;
 
 	map<string, bool> keys = {
@@ -40,7 +38,7 @@ public:
 	TileMap tileMap;
 	vector<vector<int>> mapDefinition;
 
-	void tick();
+	void tick(double dt);
 	void render();
 
 	void eventHandler(sf::Event& event);
@@ -51,7 +49,7 @@ public:
 	GameEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, PlayerSave* playerSave);
 	~GameEnvironment();
 
-	void tickProjectiles();
+	void tickProjectiles(double dt);
 	void summonProjectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y);
 	void deleteProjectile(int index);
 };

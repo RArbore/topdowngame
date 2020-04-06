@@ -12,7 +12,6 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	entities.push_back(new Player(this, 0, 0, &tileMap, &entities, &keys, &resourceManager));
 	focusEntity = entities.at(0);
 	playerSave->inventory[8] = new Item("Tier 1 Sword", "Sword", "A basic sword", 0, &resourceManager);
-	counter = 0;
 	releasedR = true;
 }
 
@@ -24,24 +23,22 @@ GameEnvironment::~GameEnvironment() {
 	delete focusEntity;
 }
 
-void GameEnvironment::tick() {
+void GameEnvironment::tick(double dt) {
 	
-	counter++;
-
 	for (int i = entities.size() - 1; i >= 0; i--) {
-		entities.at(i)->tick();
+		entities.at(i)->tick(dt);
 	}
 
-	tickProjectiles();
+	tickProjectiles(dt);
 	
 }
 
-void GameEnvironment::tickProjectiles() {
+void GameEnvironment::tickProjectiles(double dt) {
 	for (int i = projectiles.size() - 1; i >= 0; i--) {
-		projectiles[i]->tick();
+		projectiles[i]->tick(dt);
 
 		string projType = projectiles[i]->projType;
-		int cnt = projectiles[i]->durationCounter;
+		double cnt = projectiles[i]->durationCounter;
 		if (projType == "basic" && cnt > 50) deleteProjectile(i);
 	}
 }

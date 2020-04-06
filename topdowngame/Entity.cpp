@@ -30,8 +30,8 @@ Animation Entity::getCurrentAnimation() {
 	return animations[animationIndex];
 }
 
-void Entity::playCurrentAnimation() {
-	animations[animationIndex].play();
+void Entity::playCurrentAnimation(double dt) {
+	animations[animationIndex].play(dt);
 }
 
 void Entity::setAnimationIndex(int index) {

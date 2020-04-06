@@ -18,13 +18,13 @@ public:
 	void editCoords(int index, sf::IntRect coords);
 	sf::Texture* getCurrentFrame(); // get current frame
 	sf::IntRect getCurrentCoords(); // get current texture coords
-	void play(); // update ticks and index
+	void play(double dt); // update ticks and index
 	void setFrame(int index); // set index to this index
 
 private:
 	int size; // number of frames
 	int index; // current frame index
-	int ticksCounter; // number of ticks since last frame change
+	double ticksCounter; // number of ticks since last frame change
 	std::vector<sf::Texture*> frames;
 	// delay from i to i+1 frame (wraps around to beginning) 
 	// measured in number of ticks

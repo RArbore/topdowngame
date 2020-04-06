@@ -23,9 +23,9 @@ public:
 
 	Player(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager);
 
-	void tick();	
+	void tick(double dt);	
 	void render(sf::RenderWindow* window);
-	void movement(int keyX, int keyY);
+	void movement(int keyX, int keyY, double dt);
 
 private:
 	// velocity and acceleration
@@ -34,7 +34,7 @@ private:
 	float movementSpeed;
 	int lastDirection; // store the last direction (0-7, north going clockwise)
 
-	int attackDelayCounter;
+	double attackDelayCounter;
 	queue<string> projectileQueue; 
 
 	double mouseX, mouseY; // use these for determining what direction to move in

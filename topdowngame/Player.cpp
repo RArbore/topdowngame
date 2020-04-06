@@ -48,8 +48,8 @@ void Player::loadAnimations() {
 	}
 }
 
-void Player::tick() {
-	attackDelayCounter += 1;
+void Player::tick(double dt) {
+	attackDelayCounter += dt;
 
 	//Check which direction the player is pressing keys to update animation
 	int keyX = 0;
@@ -69,70 +69,72 @@ void Player::tick() {
 		keyX += 1;
 	}
 	if ((*keys)["Left Click"]) {
-		if (attackDelayCounter >= 10) {
+		if (attackDelayCounter >= 10.f) {
 			projectileQueue.push("basic");
-			attackDelayCounter = 0;
+			attackDelayCounter = 0.f;
 		}
 	}
 
-	movement(keyX, keyY);
+	movement(keyX, keyY, dt);
 
-	this->playCurrentAnimation();
+	this->playCurrentAnimation(dt);
 }
 
-void Player::movement(int keyX, int keyY) {
+void Player::movement(int keyX, int keyY, double dt) {
 	// Player Animations:
 	// direction order: north, northeast, east, southeast, south, southwest, west, northwest
 	// 0-7 => resting 
 	// 8-15 => walking  
 
+	double mv = dt * movementSpeed;
+
 	// if attacking, use attacking direction instead of movement direction
 	// north 
 	if (keyY == -1 && keyX == 0) {
-		setAnimationIndex(8);
-		h.y -= movementSpeed;
+		// setAnimationIndex(8);
+		h.y -= mv;
 	}
 	// northeast
 	else if (keyY == -1 && keyX == 1) {
-		setAnimationIndex(9);
-		h.y -= sqrt(2) / 2.f * movementSpeed;
-		h.x += sqrt(2) / 2.f * movementSpeed;
+		// setAnimationIndex(9);
+		h.y -= sqrt(2) / 2.f * mv;
+		h.x += sqrt(2) / 2.f * mv;
 	}
 	// east
 	else if (keyY == 0 && keyX == 1) {
-		setAnimationIndex(10);
-		h.x += movementSpeed;
+		// setAnimationIndex(10);
+		h.x += mv;
 	}
 	// southeast
 	else if (keyY == 1 && keyX == 1) {
-		setAnimationIndex(11);
-		h.y += sqrt(2) / 2.f * movementSpeed;
-		h.x += sqrt(2) / 2.f * movementSpeed;
+		// setAnimationIndex(11);
+		h.y += sqrt(2) / 2.f * mv;
+		h.x += sqrt(2) / 2.f * mv;
 	}
 	// south
 	else if (keyY == 1 && keyX == 0) {
-		setAnimationIndex(12);
-		h.y += movementSpeed;
+		// setAnimationIndex(12);
+		h.y += mv;
 	}
 	// southwest
 	else if (keyY == 1 && keyX == -1) {
-		setAnimationIndex(13);
-		h.y += sqrt(2) / 2.f * movementSpeed;
-		h.x -= sqrt(2) / 2.f * movementSpeed;
+		// setAnimationIndex(13);
+		h.y += sqrt(2) / 2.f * mv;
+		h.x -= sqrt(2) / 2.f * mv;
 	}
 	// west
 	else if (keyY == 0 && keyX == -1) {
-		setAnimationIndex(14);
-		h.x -= movementSpeed;
+		// setAnimationIndex(14);
+		h.x -= mv;
 	}
 	// northwest
 	else if (keyY == -1 && keyX == -1) {
-		setAnimationIndex(15);
-		h.y -= sqrt(2) / 2.f * movementSpeed;
-		h.x -= sqrt(2) / 2.f * movementSpeed;
+		// setAnimationIndex(15);
+		h.y -= sqrt(2) / 2.f * mv;
+		h.x -= sqrt(2) / 2.f * mv;
 	}
 	// resting animation (based on last direction which is 0-7)
-	else setAnimationIndex(lastDirection);
+	// else setAnimationIndex(lastDirection);
 
 	// if mouse is pressed, override direction to direction of mouse
 	if ((*keys)["Left Click"]) {
@@ -166,6 +168,25 @@ void Player::movement(int keyX, int keyY) {
 
 		baseIndex += moving ? 8 : 0;
 		setAnimationIndex(baseIndex);
+	}
+	else {
+		if (keyY == -1 && keyX == 0) setAnimationIndex(8);
+		// northeast
+		else if (keyY == -1 && keyX == 1) setAnimationIndex(9);
+		// east
+		else if (keyY == 0 && keyX == 1) setAnimationIndex(10);
+		// southeast
+		else if (keyY == 1 && keyX == 1) setAnimationIndex(11);
+		// south
+		else if (keyY == 1 && keyX == 0) setAnimationIndex(12);
+		// southwest
+		else if (keyY == 1 && keyX == -1) setAnimationIndex(13);
+		// west
+		else if (keyY == 0 && keyX == -1) setAnimationIndex(14);
+		// northwest
+		else if (keyY == -1 && keyX == -1) setAnimationIndex(15);
+		// resting animation (based on last direction which is 0-7)
+		else setAnimationIndex(lastDirection);
 	}
 
 	// set last direction

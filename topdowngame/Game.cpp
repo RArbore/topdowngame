@@ -28,6 +28,7 @@ void Game::run() {
 	renderThread.detach();
 
 	long ptime, atime, diff = 0;
+	sf::Clock clock;
 	while (main_window.isOpen()) {
 
 		// handle events (the loop will end once there are no more pending events)
@@ -44,15 +45,16 @@ void Game::run() {
 			this->handleEvents(event);
 		}
 
-		ptime = getMillis();
+		// ptime = getMillis();
 
-		currentEnvironment->tick();
+		double dt = clock.restart().asSeconds()*(double)MAX_TPS;
+		currentEnvironment->tick(dt);
 
 		if (!transitionEnvironment.empty()) {
 			currentEnvironment = environments.at(transitionEnvironment);
 			transitionEnvironment = "";
 		}
-
+		/*
 		atime = getMillis();
 		diff = atime - ptime;
 		if (diff <= 0) {
@@ -67,6 +69,7 @@ void Game::run() {
 			}
 		}
 		tps = int(1000.f / float(diff));
+		*/
 	}
 }
 
