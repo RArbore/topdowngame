@@ -22,10 +22,10 @@ void Game::initEnvironments() {
 
 void Game::run() {
 	// disable OpenGL context (reactivate in render thread)
-	main_window.setActive(false);
+	// main_window.setActive(false);
 
-	std::thread renderThread(&Game::render, this);
-	renderThread.detach();
+	//std::thread renderThread(&Game::render, this);
+	// renderThread.detach();
 
 	long ptime, atime, diff = 0;
 	sf::Clock clock;
@@ -49,6 +49,7 @@ void Game::run() {
 
 		double dt = clock.restart().asSeconds()*(double)MAX_TPS;
 		currentEnvironment->tick(dt);
+		render();
 
 		if (!transitionEnvironment.empty()) {
 			currentEnvironment = environments.at(transitionEnvironment);
@@ -84,12 +85,12 @@ void Game::handleEvents(sf::Event& event) {
 }
 
 void Game::render() {
-	main_window.setActive(true);
+	// main_window.setActive(true);
 
-	while (main_window.isOpen()) {
+	//while (main_window.isOpen()) {
 		main_window.clear();
 		currentEnvironment->render();
 		main_window.display();
-		this_thread::sleep_for(milliseconds(1));
-	}
+		// this_thread::sleep_for(milliseconds(1));
+	//}
 }

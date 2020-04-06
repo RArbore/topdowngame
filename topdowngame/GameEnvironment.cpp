@@ -49,6 +49,7 @@ void GameEnvironment::deleteProjectile(int index) {
 		cout << "ERROR: Attempted to delete projectile that doesn't exist!" << endl;
 		return;
 	}
+	delete projectiles.at(index);
 	projectiles.erase(projectiles.begin() + index);
 }
 
@@ -68,7 +69,7 @@ void GameEnvironment::render() {
 	}
 
 	for (int i = projectiles.size() - 1; i >= 0; i--) {
-		if (projectiles.at(i) == nullptr) continue;
+		// if (projectiles.at(i) == nullptr) continue;
 		projectiles.at(i)->render(window);
 	}
 
