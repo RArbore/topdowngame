@@ -28,7 +28,9 @@ public:
 		{"Move Up", false},
 		{"Move Left", false},
 		{"Move Down", false},
-		{"Move Right", false} };
+		{"Move Right", false},
+		{"Left Click", false}
+	};
 
 	vector<Entity*> entities;
 	vector<Projectile*> projectiles;
@@ -51,5 +53,6 @@ public:
 
 	void tickProjectiles();
 	void summonProjectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y);
+	void deleteProjectile(int index);
 };
 

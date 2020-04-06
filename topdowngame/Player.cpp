@@ -15,6 +15,7 @@ acc(0.f, 0.f)
 	lastDirection = 0;
 	health = 100;
 	maxHealth = 100;
+	attackDelayCounter = 0;
 }
 
 void Player::loadAnimations() {
@@ -48,6 +49,7 @@ void Player::loadAnimations() {
 }
 
 void Player::tick() {
+	attackDelayCounter += 1;
 
 	//Check which direction the player is pressing keys to update animation
 	int keyX = 0;
@@ -65,6 +67,12 @@ void Player::tick() {
 	}
 	if ((*keys)["Move Right"]) {
 		keyX += 1;
+	}
+	if ((*keys)["Left Click"]) {
+		if (attackDelayCounter >= 10) {
+			projectileQueue.push("basic");
+			attackDelayCounter = 0;
+		}
 	}
 
 	movement(keyX, keyY);
@@ -130,5 +138,19 @@ void Player::movement(int keyX, int keyY) {
 }
 
 void Player::render(sf::RenderWindow* window) {
+	// handle projectile queue
+	while (!projectileQueue.empty()) {
+		double dx = ((double)sf::Mouse::getPosition(*window).x) - (window->getSize().x/2.f);
+		double dy = ((double)sf::Mouse::getPosition(*window).y) - (window->getSize().y/2.f);
+		double mag = sqrt(dx * dx + dy * dy);
+		if (mag == 0.f) mag = 1.f;
+		dx /= mag;
+		dy /= mag;
+		dx *= 5.f;
+		dy *= 5.f;
+		gameEnvironment->summonProjectile(projectileQueue.front(), h.getCX(), h.getCY(), dx, dy, 0.f, 0.f);
+		projectileQueue.pop();
+	}
+
 	Entity::render(window);
 }
