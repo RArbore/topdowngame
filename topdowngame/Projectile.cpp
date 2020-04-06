@@ -22,10 +22,10 @@ void Projectile::tick(double dt) {
 
 void Projectile::render(sf::RenderWindow* window) {
 	// Entity::render(window);
-	Animation anim = this->getCurrentAnimation();
-	sprite.setTexture(*(anim.getCurrentFrame()));
-	sprite.setTextureRect(anim.getCurrentCoords());
-	sf::IntRect textureCoords = anim.getCurrentCoords();
+	Animation* anim = this->getCurrentAnimation();
+	sprite.setTexture(*(anim->getCurrentFrame()));
+	sprite.setTextureRect(anim->getCurrentCoords());
+	sf::IntRect textureCoords = anim->getCurrentCoords();
 	sprite.setPosition(h.getCX() - float(textureCoords.width) / 2.f, h.getCY() - float(textureCoords.height) / 2.f);
 
 	// handle projectile rotation
@@ -44,9 +44,9 @@ void Projectile::loadAnimation() {
 	if (projType == "arrow") tex = resourceManager->getTexture("arrow");
 	else tex = resourceManager->getTexture("DEFUALT_TEXTURE");
 
-	Animation a(1);
-	a.editFrame(0, tex);
-	a.editCoords(0, sf::IntRect(0, 0, 5, 13));
-	a.editDelay(0, 1e9);
+	Animation* a = new Animation(1);
+	a->editFrame(0, tex);
+	a->editCoords(0, sf::IntRect(0, 0, 5, 13));
+	a->editDelay(0, 1e9);
 	this->pushAnimation(a);
 }

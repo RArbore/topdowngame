@@ -13,25 +13,29 @@ h(0, 0, 0, 0)
 	maxHealth = 0;
 }
 
+Entity::~Entity() {
+	for (auto a : animations) delete a;
+}
+
 void Entity::render(sf::RenderWindow* window) {
-	Animation anim = this->getCurrentAnimation();
-	sprite.setTexture(*(anim.getCurrentFrame()));
-	sprite.setTextureRect(anim.getCurrentCoords());
-	sf::IntRect textureCoords = anim.getCurrentCoords();
+	Animation* anim = this->getCurrentAnimation();
+	sprite.setTexture(*(anim->getCurrentFrame()));
+	sprite.setTextureRect(anim->getCurrentCoords());
+	sf::IntRect textureCoords = anim->getCurrentCoords();
 	sprite.setPosition(h.getCX() - float(textureCoords.width) / 2.f, h.getCY() - float(textureCoords.height) / 2.f);
 	window->draw(sprite);
 }
 
-void Entity::pushAnimation(Animation a) {
+void Entity::pushAnimation(Animation* a) {
 	animations.push_back(a);
 }
 
-Animation Entity::getCurrentAnimation() {
+Animation* Entity::getCurrentAnimation() {
 	return animations[animationIndex];
 }
 
 void Entity::playCurrentAnimation(double dt) {
-	animations[animationIndex].play(dt);
+	animations[animationIndex]->play(dt);
 }
 
 void Entity::setAnimationIndex(int index) {

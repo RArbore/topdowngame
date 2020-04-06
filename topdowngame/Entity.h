@@ -18,8 +18,8 @@ class Entity
 {
 
 public:
-
-	~Entity() = default;
+	Entity();
+	~Entity();
 
 	Hitbox h;
 
@@ -41,14 +41,14 @@ public:
 
 	void render(sf::RenderWindow* window);
 
-	void pushAnimation(Animation a);
+	void pushAnimation(Animation* a);
 
 protected:
-	std::vector<Animation> animations;
+	std::vector<Animation*> animations;
 	int animationIndex;
 	sf::Sprite sprite;
 
-	Animation getCurrentAnimation();
+	Animation* getCurrentAnimation();
 	void setAnimationIndex(int index);
 	void playCurrentAnimation(double dt);
 };

@@ -28,21 +28,20 @@ void Player::loadAnimations() {
 
 	// set resting animations
 	for (int j = 0; j < 8; j++) {
-		Animation a(1);
-		a.editFrame(0, tex);
-		a.editCoords(0, sf::IntRect(13 * j, 0, 13, 18));
-		a.editDelay(0, 1e9);
+		Animation* a = new Animation(1);
+		a->editFrame(0, tex);
+		a->editCoords(0, sf::IntRect(13 * j, 0, 13, 18));
+		a->editDelay(0, 1e9);
 		this->pushAnimation(a);
 	}
 
 	// set walking animations
 	for (int j = 0; j < 8; j++) {
-		Animation a;
-		a.resetToSize(6);
+		Animation* a = new Animation(6);
 		for (int i = 0; i < 6; i++) {
-			a.editFrame(i, tex);
-			a.editCoords(i, sf::IntRect(13 * j, 18 * i, 13, 18));
-			a.editDelay(i, 5);
+			a->editFrame(i, tex);
+			a->editCoords(i, sf::IntRect(13 * j, 18 * i, 13, 18));
+			a->editDelay(i, 5);
 		}
 		this->pushAnimation(a);
 	}
