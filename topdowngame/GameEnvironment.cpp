@@ -35,6 +35,7 @@ void GameEnvironment::tick(double dt) {
 
 void GameEnvironment::tickProjectiles(double dt) {
 	for (int i = projectiles.size() - 1; i >= 0; i--) {
+		// if (projectiles[i] == nullptr) continue;
 		projectiles[i]->tick(dt);
 
 		string projType = projectiles[i]->projType;
@@ -67,6 +68,7 @@ void GameEnvironment::render() {
 	}
 
 	for (int i = projectiles.size() - 1; i >= 0; i--) {
+		if (projectiles.at(i) == nullptr) continue;
 		projectiles.at(i)->render(window);
 	}
 

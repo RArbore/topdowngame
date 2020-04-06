@@ -69,7 +69,7 @@ void Player::tick(double dt) {
 		keyX += 1;
 	}
 	if ((*keys)["Left Click"]) {
-		if (attackDelayCounter >= 10.f) {
+		if (attackDelayCounter >= 1.f) {
 			projectileQueue.push("basic");
 			attackDelayCounter = 0.f;
 		}
