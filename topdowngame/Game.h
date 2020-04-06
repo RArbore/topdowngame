@@ -24,6 +24,9 @@ public:
 
 	int counter;
 	int tps;
+	double dt;
+
+	sf::Font debugScreenFont;
 
 	string transitionEnvironment;
 	map<string, Environment*> environments;

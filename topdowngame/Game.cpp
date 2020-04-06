@@ -5,6 +5,10 @@ Game::Game() {
 	environments = map<string, Environment*>();
 	main_window.create(sf::VideoMode(800, 600), "My window");
 	main_window.setVerticalSyncEnabled(true);
+	if (!debugScreenFont.loadFromFile("..\\spritesheets\\arial.ttf"))
+	{
+		cout << "Could not load font to display debug screen." << endl;
+	}
 }
 
 Game::~Game() {
@@ -30,6 +34,7 @@ void Game::run() {
 	long ptime, atime, diff = 0;
 	sf::Clock clock;
 	while (main_window.isOpen()) {
+		ptime = getMillis();
 
 		// handle events (the loop will end once there are no more pending events)
 		sf::Event event;
@@ -45,9 +50,10 @@ void Game::run() {
 			this->handleEvents(event);
 		}
 
-		// ptime = getMillis();
+		
 
 		double dt = clock.restart().asSeconds()*(double)MAX_TPS;
+		this->dt = dt;
 		currentEnvironment->tick(dt);
 		render();
 
@@ -71,6 +77,10 @@ void Game::run() {
 		}
 		tps = int(1000.f / float(diff));
 		*/
+
+		atime = getMillis();
+		diff = atime - ptime;
+		tps = (int)(1000.f / ((float)diff));
 	}
 }
 
@@ -85,12 +95,18 @@ void Game::handleEvents(sf::Event& event) {
 }
 
 void Game::render() {
-	// main_window.setActive(true);
-
-	//while (main_window.isOpen()) {
-		main_window.clear();
-		currentEnvironment->render();
-		main_window.display();
-		// this_thread::sleep_for(milliseconds(1));
-	//}
+	main_window.clear();
+	currentEnvironment->render();
+	sf::Text text;
+	text.setFont(debugScreenFont);
+	text.setString(to_string(tps)+"\n"+to_string(dt));
+	text.setCharacterSize(24);
+	sf::Vector2u size = main_window.getSize();
+	sf::View defView = main_window.getDefaultView();
+	defView.setCenter(sf::Vector2f(0, 0));
+	defView.setSize(static_cast<sf::Vector2f>(main_window.getSize()));
+	main_window.setView(defView);
+	text.setPosition(sf::Vector2f(-float(size.x) / 2, -float(size.y) / 2));
+	main_window.draw(text);
+	main_window.display();
 }
