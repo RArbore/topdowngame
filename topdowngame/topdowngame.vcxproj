@@ -186,9 +186,11 @@
     <ClInclude Include="WorldGenerator.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\spritesheets\arrow.png" />
     <Image Include="..\spritesheets\bows.png" />
     <Image Include="..\spritesheets\items.png" />
     <Image Include="..\spritesheets\jungle_biome.png" />
+    <Image Include="..\spritesheets\magic_bolt.png" />
     <Image Include="..\spritesheets\player.png" />
     <Image Include="..\spritesheets\swords.png" />
     <Image Include="..\spritesheets\wands.png" />

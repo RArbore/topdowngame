@@ -163,5 +163,11 @@
     <Image Include="..\spritesheets\items.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\spritesheets\arrow.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\spritesheets\magic_bolt.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

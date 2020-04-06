@@ -70,7 +70,7 @@ void Player::tick(double dt) {
 	}
 	if ((*keys)["Left Click"]) {
 		if (attackDelayCounter >= 1.f) {
-			projectileQueue.push("basic");
+			projectileQueue.push("arrow");
 			attackDelayCounter = 0.f;
 		}
 	}
@@ -205,7 +205,7 @@ void Player::render(sf::RenderWindow* window) {
 
 		double speedMultiplier = 0.f;
 		string projType = projectileQueue.front();
-		if (projType == "basic") speedMultiplier = 5.f;
+		if (projType == "arrow") speedMultiplier = 5.f;
 
 		dx *= speedMultiplier;
 		dy *= speedMultiplier;

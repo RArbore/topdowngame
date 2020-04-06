@@ -8,6 +8,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	resourceManager.loadTexture("player_entity", "player.png");
 	resourceManager.loadTexture("items_texture", "items.png");
 	resourceManager.loadTexture("wands", "wands.png");
+	resourceManager.loadTexture("arrow", "arrow.png");
 	entities = vector<Entity*>();
 	entities.push_back(new Player(this, 0, 0, &tileMap, &entities, &keys, &resourceManager));
 	focusEntity = entities.at(0);
@@ -40,7 +41,7 @@ void GameEnvironment::tickProjectiles(double dt) {
 
 		string projType = projectiles[i]->projType;
 		double cnt = projectiles[i]->durationCounter;
-		if (projType == "basic" && cnt > 50) deleteProjectile(i);
+		if (projType == "arrow" && cnt > 50) deleteProjectile(i);
 	}
 }
 

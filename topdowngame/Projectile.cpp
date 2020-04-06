@@ -21,18 +21,32 @@ void Projectile::tick(double dt) {
 }
 
 void Projectile::render(sf::RenderWindow* window) {
-	Entity::render(window);
-	//sf::CircleShape shape(50.f);
-	//shape.setFillColor(sf::Color(100, 250, 50));
-	//shape.setPosition(h.getCX(), h.getCY());
-	//window->draw(shape);
+	// Entity::render(window);
+	Animation anim = this->getCurrentAnimation();
+	sprite.setTexture(*(anim.getCurrentFrame()));
+	sprite.setTextureRect(anim.getCurrentCoords());
+	sf::IntRect textureCoords = anim.getCurrentCoords();
+	sprite.setPosition(h.getCX() - float(textureCoords.width) / 2.f, h.getCY() - float(textureCoords.height) / 2.f);
+
+	// handle projectile rotation
+	double PI = 3.14159265;
+	double angle = ((double)atan2(vel.y, vel.x)) * 180 / PI;
+	sf::Transform transform;
+	transform.rotate(angle+90, sf::Vector2f(h.getCX(), h.getCY()));
+
+
+	window->draw(sprite, transform);
 }
 
 void Projectile::loadAnimation() {
-	sf::Texture* tex = resourceManager->getTexture("player_entity");
+	sf::Texture* tex;
+
+	if (projType == "arrow") tex = resourceManager->getTexture("arrow");
+	else tex = resourceManager->getTexture("DEFUALT_TEXTURE");
+
 	Animation a(1);
 	a.editFrame(0, tex);
-	a.editCoords(0, sf::IntRect(0, 0, 13, 18));
+	a.editCoords(0, sf::IntRect(0, 0, 5, 13));
 	a.editDelay(0, 1e9);
 	this->pushAnimation(a);
 }
