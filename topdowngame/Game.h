@@ -25,6 +25,8 @@ public:
 	int counter;
 	int tps;
 	double dt;
+	bool showDebug;
+	bool debugKeyDown;
 
 	sf::Font debugScreenFont;
 

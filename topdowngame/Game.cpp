@@ -9,6 +9,8 @@ Game::Game() {
 	{
 		cout << "Could not load font to display debug screen." << endl;
 	}
+	debugKeyDown = false;
+	showDebug = false;
 }
 
 Game::~Game() {
@@ -92,21 +94,34 @@ long Game::getMillis() {
 
 void Game::handleEvents(sf::Event& event) {
 	currentEnvironment->eventHandler(event);
+	if (event.type == sf::Event::KeyPressed) {
+		if (!debugKeyDown && event.key.code == settings.keyBindings.at("Debug")) {
+			showDebug = !showDebug;
+		}
+	}
+
+	if (event.type == sf::Event::KeyReleased) {
+		if (showDebug && event.key.code == settings.keyBindings.at("Debug")) {
+			debugKeyDown = false;
+		}
+	}
 }
 
 void Game::render() {
 	main_window.clear();
 	currentEnvironment->render();
-	sf::Text text;
-	text.setFont(debugScreenFont);
-	text.setString(to_string(tps)+"\n"+to_string(dt));
-	text.setCharacterSize(24);
-	sf::Vector2u size = main_window.getSize();
-	sf::View defView = main_window.getDefaultView();
-	defView.setCenter(sf::Vector2f(0, 0));
-	defView.setSize(static_cast<sf::Vector2f>(main_window.getSize()));
-	main_window.setView(defView);
-	text.setPosition(sf::Vector2f(-float(size.x) / 2, -float(size.y) / 2));
-	main_window.draw(text);
+	if (showDebug) {
+		sf::Text text;
+		text.setFont(debugScreenFont);
+		text.setString(to_string(tps) + "\n" + to_string(dt));
+		text.setCharacterSize(24);
+		sf::Vector2u size = main_window.getSize();
+		sf::View defView = main_window.getDefaultView();
+		defView.setCenter(sf::Vector2f(0, 0));
+		defView.setSize(static_cast<sf::Vector2f>(main_window.getSize()));
+		main_window.setView(defView);
+		text.setPosition(sf::Vector2f(-float(size.x) / 2, -float(size.y) / 2));
+		main_window.draw(text);
+	}
 	main_window.display();
 }

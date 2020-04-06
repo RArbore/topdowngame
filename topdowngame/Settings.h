@@ -12,6 +12,7 @@ struct Settings {
 		{"Move Left", 0}, 
 		{"Move Down", 18}, 
 		{"Move Right", 3},
-		{"Inventory", 17} };
+		{"Inventory", 17},
+		{"Debug", 87} };
 
 };
