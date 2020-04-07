@@ -14,6 +14,8 @@ class Slime : public Entity
 
 public:
 
+	double counter;
+
 	GameEnvironment* gameEnvironment;
 
 	Slime(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager);
