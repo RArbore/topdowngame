@@ -16,6 +16,9 @@ acc(0.f, 0.f)
 	health = 100;
 	maxHealth = 100;
 	attackDelayCounter = 0;
+	isSwordAttacking = false;
+	currentAttackAngle = 0.f;
+	endAttackAngle = 0.f;
 }
 
 void Player::loadAnimations() {
@@ -50,6 +53,15 @@ void Player::loadAnimations() {
 void Player::tick(double dt) {
 	attackDelayCounter += dt;
 
+	if (isSwordAttacking) {
+		currentAttackAngle += dt;
+		if (currentAttackAngle >= endAttackAngle) {
+			isSwordAttacking = false;
+			currentAttackAngle = 0.f;
+			endAttackAngle = 0.f;
+		}
+	}
+
 	//Check which direction the player is pressing keys to update animation
 	int keyX = 0;
 	int keyY = 0;
@@ -68,9 +80,35 @@ void Player::tick(double dt) {
 		keyX += 1;
 	}
 	if ((*keys)["Left Click"]) {
-		if (attackDelayCounter >= 1.f) {
-			projectileQueue.push("arrow");
+		if (attackDelayCounter >= 10.f && !isSwordAttacking) {
+			isSwordAttacking = true;
+
+			double dx = mouseX - screenX;
+			double dy = mouseY - screenY;
+			double PI = 3.14159265;
+			currentAttackAngle = (atan2(dy, dx) * 180.f / PI) + 270.f;
+			if (currentAttackAngle > 360) currentAttackAngle -= 360.f;
+			endAttackAngle = currentAttackAngle + 60.f;
+
+			/*
+			// fire projectile
+			double dx = mouseX - screenX;
+			double dy = mouseY - screenY;
+			double mag = sqrt(dx * dx + dy * dy);
+			if (mag == 0.f) mag = 1.f;
+			dx /= mag;
+			dy /= mag;
+
+			double speedMultiplier = 0.f;
+			string projType = "arrow"; // TODO: use inventory or something to determine this
+			if (projType == "arrow") speedMultiplier = 5.f;
+
+			dx *= speedMultiplier;
+			dy *= speedMultiplier;
+			gameEnvironment->summonProjectile(projType, h.getCX(), h.getCY(), dx, dy, 0.f, 0.f);
+
 			attackDelayCounter = 0.f;
+			*/
 		}
 	}
 
@@ -193,30 +231,36 @@ void Player::movement(int keyX, int keyY, double dt) {
 }
 
 void Player::render(sf::RenderWindow* window) {
-	// handle projectile queue
-	while (!projectileQueue.empty()) {
-		double dx = ((double)sf::Mouse::getPosition(*window).x) - (window->mapCoordsToPixel(sf::Vector2f(h.getCX(), h.getCY()))).x;
-		double dy = ((double)sf::Mouse::getPosition(*window).y) - (window->mapCoordsToPixel(sf::Vector2f(h.getCX(), h.getCY()))).y;
-		double mag = sqrt(dx * dx + dy * dy);
-		if (mag == 0.f) mag = 1.f;
-		dx /= mag;
-		dy /= mag;
 
-		double speedMultiplier = 0.f;
-		string projType = projectileQueue.front();
-		if (projType == "arrow") speedMultiplier = 5.f;
-
-		dx *= speedMultiplier;
-		dy *= speedMultiplier;
-		gameEnvironment->summonProjectile(projectileQueue.front(), h.getCX(), h.getCY(), dx, dy, 0.f, 0.f);
-		projectileQueue.pop();
-	}
-
+	// update values used for projectile firing and player direction
 	mouseX = (double)sf::Mouse::getPosition(*window).x;
 	mouseY = (double)sf::Mouse::getPosition(*window).y;
 
 	screenX = (window->mapCoordsToPixel(sf::Vector2f(h.getCX(), h.getCY()))).x;
 	screenY = (window->mapCoordsToPixel(sf::Vector2f(h.getCX(), h.getCY()))).y;
+
+	if (isSwordAttacking) {
+		/*
+		sf::RectangleShape sword(sf::Vector2f(16, 16));
+		sword.setRotation(currentAttackAngle);
+		sword.setPosition(h.getCX(), h.getCY());
+		sword.setFillColor(sf::Color::White);
+		window->draw(sword);
+		*/
+		
+		swordSprite.setTexture(*(resourceManager->getTexture("items_texture")));
+		swordSprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
+
+		sf::Transform tr;
+		tr.rotate(currentAttackAngle, h.getCX()+0.f, h.getCY()+16.f);
+		tr.translate(h.getCX(), h.getCY()+16);
+
+		// swordSprite.setRotation(currentAttackAngle);
+		// swordSprite.setPosition(h.getCX(), h.getCY());
+
+		window->draw(swordSprite, tr);
+		
+	}
 
 	Entity::render(window);
 }
