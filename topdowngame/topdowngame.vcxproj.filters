@@ -84,6 +84,9 @@
     <ClCompile Include="Coin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Mushroom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -155,6 +158,9 @@
     <ClInclude Include="Coin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Mushroom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\spritesheets\jungle_biome.png">
@@ -185,6 +191,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\spritesheets\slime.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\spritesheets\mushroom.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
