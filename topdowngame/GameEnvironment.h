@@ -3,6 +3,7 @@
 #include "Environment.h"
 #include "Entity.h"
 #include "Player.h"
+#include "Slime.h"
 #include "Projectile.h"
 #include "ResourceManager.h"
 #include "Item.h"
@@ -14,6 +15,8 @@
 #include <algorithm>
 
 using namespace std;
+
+class Player;
 
 class GameEnvironment : public Environment
 {
@@ -34,6 +37,7 @@ public:
 	vector<Projectile*> projectiles;
 
 	Entity* focusEntity;
+	Player* player;
 
 	TileMap tileMap;
 	vector<vector<int>> mapDefinition;

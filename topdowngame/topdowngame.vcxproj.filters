@@ -78,6 +78,9 @@
     <ClCompile Include="PlayerSave.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -143,6 +146,9 @@
     <ClInclude Include="PlayerSave.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\spritesheets\jungle_biome.png">
@@ -167,6 +173,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\spritesheets\magic_bolt.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\spritesheets\coin.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\spritesheets\slime.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
