@@ -64,8 +64,8 @@ void Slime::movement(double dt) {
 	double dy = target->h.getCY() - h.getCY();
 	double distance = sqrt(dx * dx + dy * dy);
 
-	h.x += dx / distance;
-	h.y += dy / distance;
+	h.x += dx / distance * mv;
+	h.y += dy / distance * mv;
 }
 
 void Slime::render(sf::RenderWindow* window) {
