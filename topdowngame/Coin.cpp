@@ -8,8 +8,6 @@ Entity::Entity(x, y, tileMap, entityList, resourceManager)
 
 	h.w = 6;
 	h.h = 7;
-	health = 0;
-	maxHealth = 0;
 	setAnimationIndex(0);
 	counter = 0;
 }

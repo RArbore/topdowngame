@@ -9,6 +9,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	resourceManager.loadTexture("slime_entity", "slime.png");
 	resourceManager.loadTexture("coin_entity", "coin.png");
 	resourceManager.loadTexture("mushroom_entity", "mushroom.png");
+	resourceManager.loadTexture("particle_entity", "particle.png");
 	resourceManager.loadTexture("items_texture", "items.png");
 	resourceManager.loadTexture("wands", "wands.png");
 	resourceManager.loadTexture("arrow", "arrow.png");
