@@ -10,11 +10,12 @@ acc(0.f, 0.f)
 
 	h.w = 16;
 	h.h = 16;
-	movementSpeed = 0.5f;
+	movementSpeed = 0.25f;
 	health = 100;
 	maxHealth = 100;
 	attackDelayCounter = 0;
 	setAnimationIndex(0);
+	counter = 0;
 }
 
 void Slime::loadAnimations() {
@@ -24,24 +25,22 @@ void Slime::loadAnimations() {
 	for (int i = 0; i < 2; i++) {
 		a->editFrame(i, tex);
 		a->editCoords(i, sf::IntRect(0, i*16, 16, 16));
-		a->editDelay(i, 1e9);
+		a->editDelay(i, 30);
 	}
 	this->pushAnimation(a);
 
 	Animation* b = new Animation(3);
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < 3; i++) {
 		b->editFrame(i, tex);
 		b->editCoords(i, sf::IntRect(0, i*16+32, 16, 16));
-		b->editDelay(i, 1e9);
+		b->editDelay(i, 20);
 	}
 	this->pushAnimation(b);
 
 	Animation* c = new Animation(1);
-	for (int i = 0; i < 2; i++) {
-		c->editFrame(i, tex);
-		c->editCoords(i, sf::IntRect(0, i*16+80, 16, 16));
-		c->editDelay(i, 1e9);
-	}
+	c->editFrame(0, tex);
+	c->editCoords(0, sf::IntRect(0, 80, 16, 16));
+	c->editDelay(0, 1e9);
 	this->pushAnimation(c);
 }
 
@@ -55,17 +54,27 @@ void Slime::tick(double dt) {
 	movement(dt);
 
 	this->playCurrentAnimation(dt);
+	counter += dt;
 }
 
 void Slime::movement(double dt) {
-	double mv = dt * movementSpeed;
+	if (counter > 60) {
+		double mv = dt * movementSpeed;
 
-	double dx = target->h.getCX() - h.getCX();
-	double dy = target->h.getCY() - h.getCY();
-	double distance = sqrt(dx * dx + dy * dy);
+		double dx = target->h.getCX() - h.getCX();
+		double dy = target->h.getCY() - h.getCY();
+		double distance = sqrt(dx * dx + dy * dy);
 
-	h.x += dx / distance;
-	h.y += dy / distance;
+		h.x += dx / distance * mv;
+		h.y += dy / distance * mv;
+		setAnimationIndex(0);
+	}
+	else {
+		setAnimationIndex(1);
+	}
+	if ((int) counter % 120 == 119) {
+		gameEnvironment->entities.push_back(new Coin(gameEnvironment, h.getCX(), h.getCY(), &gameEnvironment->tileMap, &gameEnvironment->entities, &gameEnvironment->keys, resourceManager));
+	}
 }
 
 void Slime::render(sf::RenderWindow* window) {

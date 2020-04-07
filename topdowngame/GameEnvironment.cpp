@@ -7,6 +7,9 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	camera = Camera(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f), 0.5);
 	resourceManager.loadTexture("player_entity", "player.png");
 	resourceManager.loadTexture("slime_entity", "slime.png");
+	resourceManager.loadTexture("coin_entity", "coin.png");
+	resourceManager.loadTexture("mushroom_entity", "mushroom.png");
+	resourceManager.loadTexture("particle_entity", "particle.png");
 	resourceManager.loadTexture("items_texture", "items.png");
 	resourceManager.loadTexture("wands", "wands.png");
 	resourceManager.loadTexture("arrow", "arrow.png");
@@ -15,6 +18,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	focusEntity = entities.at(0);
 	player = (Player*) entities.at(0);
 	entities.push_back(new Slime(this, 100, 100, &tileMap, &entities, &keys, &resourceManager));
+	entities.push_back(new Mushroom(this, 200, 200, &tileMap, &entities, &keys, &resourceManager));
 	playerSave->inventory[8] = new Item("Tier 1 Sword", "Sword", "A basic sword", 0, &resourceManager);
 	releasedR = true;
 }

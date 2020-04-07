@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Player.h"
 #include "Slime.h"
+#include "Mushroom.h"
 #include "Projectile.h"
 #include "ResourceManager.h"
 #include "Item.h"

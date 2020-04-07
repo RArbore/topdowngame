@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entity.h"
+#include "Coin.h"
 #include "Environment.h"
 #include "GameEnvironment.h"
 #include <string>
@@ -13,6 +14,8 @@ class Slime : public Entity
 {
 
 public:
+
+	double counter;
 
 	GameEnvironment* gameEnvironment;
 
