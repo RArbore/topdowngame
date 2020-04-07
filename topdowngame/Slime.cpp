@@ -72,6 +72,9 @@ void Slime::movement(double dt) {
 	else {
 		setAnimationIndex(1);
 	}
+	if ((int) counter % 120 == 119) {
+		gameEnvironment->entities.push_back(new Coin(gameEnvironment, h.getCX(), h.getCY(), &gameEnvironment->tileMap, &gameEnvironment->entities, &gameEnvironment->keys, resourceManager));
+	}
 }
 
 void Slime::render(sf::RenderWindow* window) {
