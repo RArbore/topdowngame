@@ -1,6 +1,6 @@
 #include "Slime.h"
 
-Slime::Slime(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
+Slime::Slime(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager) :
 Entity::Entity(x, y, tileMap, entityList, resourceManager),
 vel(0.f, 0.f),
 acc(0.f, 0.f)
@@ -73,7 +73,7 @@ void Slime::movement(double dt) {
 		setAnimationIndex(1);
 	}
 	if ((int) counter % 120 == 119) {
-		gameEnvironment->entities.push_back(new Coin(gameEnvironment, h.getCX(), h.getCY(), &gameEnvironment->tileMap, &gameEnvironment->entities, &gameEnvironment->keys, resourceManager));
+		gameEnvironment->entities.push_back(new Coin(gameEnvironment, h.getCX(), h.getCY(), &gameEnvironment->tileMap, &gameEnvironment->entities, resourceManager));
 	}
 }
 

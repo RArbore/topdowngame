@@ -16,9 +16,11 @@ public:
 
 	double counter;
 
+	int timeAlive;
+
 	GameEnvironment* gameEnvironment;
 
-	Particle(GameEnvironment* gameEnvironment, double x, double y, int particleType, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager);
+	Particle(GameEnvironment* gameEnvironment, double x, double y, int particleType, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager);
 
 	void tick(double dt);	
 	void render(sf::RenderWindow* window);

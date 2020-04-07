@@ -1,9 +1,11 @@
 #pragma once
 
 #include "Entity.h"
+#include "Particle.h"
 #include "Environment.h"
 #include "GameEnvironment.h"
 #include <string>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -18,7 +20,7 @@ public:
 
 	GameEnvironment* gameEnvironment;
 
-	Mushroom(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager);
+	Mushroom(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager);
 
 	void tick(double dt);	
 	void render(sf::RenderWindow* window);

@@ -1,6 +1,6 @@
 #include "Mushroom.h"
 
-Mushroom::Mushroom(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
+Mushroom::Mushroom(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
 Entity::Entity(x, y, tileMap, entityList, resourceManager)
 {
 	this->gameEnvironment = gameEnvironment;
@@ -40,6 +40,8 @@ void Mushroom::tick(double dt) {
 	}
 	else {
 		setAnimationIndex(1);
+		double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
+		gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX()+24.0*cos(theta), h.getCY()+24.0*sin(theta), 0, tileMap, entityList, resourceManager));
 	}
 
 	this->playCurrentAnimation(dt);

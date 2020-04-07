@@ -9,16 +9,18 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	resourceManager.loadTexture("slime_entity", "slime.png");
 	resourceManager.loadTexture("coin_entity", "coin.png");
 	resourceManager.loadTexture("mushroom_entity", "mushroom.png");
-	resourceManager.loadTexture("particle_entity", "particle.png");
+	resourceManager.loadTexture("particle_entity", "particles.png");
 	resourceManager.loadTexture("items_texture", "items.png");
 	resourceManager.loadTexture("wands", "wands.png");
 	resourceManager.loadTexture("arrow", "arrow.png");
 	entities = vector<Entity*>();
+	projectiles = vector<Projectile*>();
+	visuals = vector<Particle*>();
 	entities.push_back(new Player(this, 0, 0, &tileMap, &entities, &keys, &resourceManager));
 	focusEntity = entities.at(0);
 	player = (Player*) entities.at(0);
-	entities.push_back(new Slime(this, 100, 100, &tileMap, &entities, &keys, &resourceManager));
-	entities.push_back(new Mushroom(this, 200, 200, &tileMap, &entities, &keys, &resourceManager));
+	entities.push_back(new Slime(this, 100, 100, &tileMap, &entities, &resourceManager));
+	entities.push_back(new Mushroom(this, 200, 200, &tileMap, &entities, &resourceManager));
 	playerSave->inventory[8] = new Item("Tier 1 Sword", "Sword", "A basic sword", 0, &resourceManager);
 	releasedR = true;
 }
@@ -28,6 +30,7 @@ GameEnvironment::~GameEnvironment() {
 		delete entity;
 	}
 	for (auto proj : projectiles) delete proj;
+	for (auto visual : visuals) delete visual;
 	delete focusEntity;
 }
 
@@ -38,6 +41,7 @@ void GameEnvironment::tick(double dt) {
 	}
 
 	tickProjectiles(dt);
+	tickParticles(dt);
 	
 }
 
@@ -52,6 +56,13 @@ void GameEnvironment::tickProjectiles(double dt) {
 	}
 }
 
+void GameEnvironment::tickParticles(double dt) {
+	for (int i = visuals.size() - 1; i >= 0; i--) {
+		visuals[i]->tick(dt);
+		if (visuals[i]->counter >= visuals[i]->timeAlive) deleteParticle(i);
+	}
+}
+
 void GameEnvironment::deleteProjectile(int index) {
 	if (index >= projectiles.size()) {
 		cout << "ERROR: Attempted to delete projectile that doesn't exist!" << endl;
@@ -59,6 +70,15 @@ void GameEnvironment::deleteProjectile(int index) {
 	}
 	delete projectiles.at(index);
 	projectiles.erase(projectiles.begin() + index);
+}
+
+void GameEnvironment::deleteParticle(int index) {
+	if (index >= visuals.size()) {
+		cout << "ERROR: Attempted to delete visual that doesn't exist!" << endl;
+		return;
+	}
+	delete visuals.at(index);
+	visuals.erase(visuals.begin() + index);
 }
 
 void GameEnvironment::render() {
@@ -72,7 +92,7 @@ void GameEnvironment::render() {
 
 	window->draw(tileMap);
 
-	for (int i = entities.size() - 1; i >= 1; i--) {
+	for (int i = entities.size() - 1; i >= 0; i--) {
 		entities.at(i)->render(window);
 	}
 
@@ -81,7 +101,12 @@ void GameEnvironment::render() {
 		projectiles.at(i)->render(window);
 	}
 
-	((Player*)focusEntity)->render(window);
+	for (int i = visuals.size() - 1; i >= 0; i--) {
+		// if (projectiles.at(i) == nullptr) continue;
+		visuals.at(i)->render(window);
+	}
+
+	//focusEntity->render(window);
 
 	//Draw at absolute positions
 

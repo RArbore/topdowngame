@@ -157,6 +157,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mushroom.cpp" />
+    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerSave.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="InventoryEnvironment.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Mushroom.h" />
+    <ClInclude Include="Particle.h" />
     <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerSave.h" />
@@ -199,6 +201,7 @@
     <Image Include="..\spritesheets\jungle_biome.png" />
     <Image Include="..\spritesheets\magic_bolt.png" />
     <Image Include="..\spritesheets\mushroom.png" />
+    <Image Include="..\spritesheets\particles.png" />
     <Image Include="..\spritesheets\player.png" />
     <Image Include="..\spritesheets\slime.png" />
     <Image Include="..\spritesheets\swords.png" />

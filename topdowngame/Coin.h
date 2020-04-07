@@ -18,7 +18,7 @@ public:
 
 	GameEnvironment* gameEnvironment;
 
-	Coin(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager);
+	Coin(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager);
 
 	void tick(double dt);	
 	void render(sf::RenderWindow* window);

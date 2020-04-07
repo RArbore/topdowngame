@@ -1,6 +1,6 @@
 #include "Coin.h"
 
-Coin::Coin(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
+Coin::Coin(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
 Entity::Entity(x, y, tileMap, entityList, resourceManager)
 {
 	this->gameEnvironment = gameEnvironment;

@@ -1,6 +1,6 @@
 #include "Particle.h"
 
-Particle::Particle(GameEnvironment* gameEnvironment, double x, double y, int particleType, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
+Particle::Particle(GameEnvironment* gameEnvironment, double x, double y, int particleType, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
 Entity::Entity(x, y, tileMap, entityList, resourceManager)
 {
 	this->gameEnvironment = gameEnvironment;
@@ -12,6 +12,7 @@ Entity::Entity(x, y, tileMap, entityList, resourceManager)
 	maxHealth = 0;
 	counter = 0;
 	this->particleType = particleType;
+	timeAlive = 60;
 	setAnimationIndex(0);
 }
 
@@ -21,7 +22,7 @@ void Particle::loadAnimations() {
 	Animation* a = new Animation(4);
 	for (int i = 0; i < 4; i++) {
 		a->editFrame(i, tex);
-		a->editCoords(i, sf::IntRect(0, i*4, 4, 4));
+		a->editCoords(i, sf::IntRect(4*particleType, i*4, 4, 4));
 		a->editDelay(i, 15);
 	}
 	this->pushAnimation(a);

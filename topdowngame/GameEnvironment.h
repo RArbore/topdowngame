@@ -6,6 +6,7 @@
 #include "Slime.h"
 #include "Mushroom.h"
 #include "Projectile.h"
+#include "Particle.h"
 #include "ResourceManager.h"
 #include "Item.h"
 
@@ -18,6 +19,7 @@
 using namespace std;
 
 class Player;
+class Particle;
 
 class GameEnvironment : public Environment
 {
@@ -36,6 +38,7 @@ public:
 
 	vector<Entity*> entities;
 	vector<Projectile*> projectiles;
+	vector<Particle*> visuals;
 
 	Entity* focusEntity;
 	Player* player;
@@ -55,7 +58,9 @@ public:
 	~GameEnvironment();
 
 	void tickProjectiles(double dt);
+	void tickParticles(double dt);
 	void summonProjectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y);
 	void deleteProjectile(int index);
+	void deleteParticle(int index);
 };
 

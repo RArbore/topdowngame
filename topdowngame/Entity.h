@@ -39,7 +39,7 @@ public:
 
 	virtual void tick(double dt) = 0;
 
-	void render(sf::RenderWindow* window);
+	virtual void render(sf::RenderWindow* window);
 
 	void pushAnimation(Animation* a);
 
