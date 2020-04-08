@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "Environment.h"
 #include "GameEnvironment.h"
+#include <stdlib.h>
 #include <string>
 #include <map>
 #include <queue>

@@ -114,6 +114,10 @@ void Player::tick(double dt) {
 
 	movement(keyX, keyY, dt);
 
+	if ((keyX != 0 || keyY != 0) && rand() % 2 == 0) {
+		gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX(), h.getCY()+7, 1, -1000000, tileMap, entityList, resourceManager));
+	}
+
 	this->playCurrentAnimation(dt);
 }
 

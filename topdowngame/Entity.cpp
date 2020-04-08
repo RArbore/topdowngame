@@ -11,6 +11,7 @@ h(0, 0, 0, 0)
 	animationIndex = 0;
 	health = 0;
 	maxHealth = 0;
+	renderOrderOffset = 0;
 }
 
 Entity::~Entity() {

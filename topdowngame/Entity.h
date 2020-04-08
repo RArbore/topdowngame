@@ -31,6 +31,8 @@ public:
 
 	double health;
 	double maxHealth;
+
+	double renderOrderOffset;
 	
 	Entity(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager);
 
