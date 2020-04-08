@@ -2,7 +2,8 @@
 
 GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, PlayerSave* playerSave) :
 	Environment(window, settings, transitionEnvironment, playerSave),
-	tileMap(generateMap(), getTileset())
+	tileMap(generateMap(), getTileset()),
+	worldGenerator(10, 10, 10)
 {
 	camera = Camera(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f), 0.5);
 	resourceManager.loadTexture("player_entity", "player.png");
@@ -193,12 +194,15 @@ void GameEnvironment::eventHandler(sf::Event& event) {
 }
 
 vector<vector<int>>& GameEnvironment::generateMap() {
-	mapDefinition.resize(50, vector<int>(50, 0.f));
+	/* mapDefinition.resize(50, vector<int>(50, 0.f));
 	for (int x = 0; x < 50; x++) {
 		for (int y = 0; y < 50; y++) {
 			mapDefinition[x][y] = float(rand() % 29);
 		}
 	}
+	return mapDefinition;
+	*/
+	mapDefinition = worldGenerator.detailRegion();
 	return mapDefinition;
 }
 

@@ -8,6 +8,7 @@
 #include "Projectile.h"
 #include "Particle.h"
 #include "ResourceManager.h"
+#include "WorldGenerator.h"
 #include "Item.h"
 
 #include <vector>
@@ -43,6 +44,7 @@ public:
 	Entity* focusEntity;
 	Player* player;
 
+	WorldGenerator worldGenerator;
 	TileMap tileMap;
 	vector<vector<int>> mapDefinition;
 

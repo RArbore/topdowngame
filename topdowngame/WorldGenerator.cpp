@@ -65,6 +65,21 @@ void WorldGenerator::outputData() {
 	fout.close();
 }
 
+vector<vector<int>> WorldGenerator::detailRegion() {
+	PerlinNoise pn("../extra/perm.txt");
+	vector<vector<int>> map(100, vector<int>(100));
+	for (int i = 0; i < 100; i++) {
+		for (int j = 0; j < 100; j++) {
+			double n = pn.noise((double)i/100, (double)j/100, 6.9420);
+			n += sqrt(0.5);
+			n /= 2.f * sqrt(0.5);
+			n *= 29;
+			map[i][j] = (int)n;
+		}
+	}
+	return map;
+}
+
 int WorldGenerator::dist(int x1, int x2, int y1, int y2) {
 	return abs(x1 - x2) + abs(y1 - y2);
 }
