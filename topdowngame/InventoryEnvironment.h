@@ -11,9 +11,13 @@ public:
 
 	int counter;
 
+	int selectedSlot;
+
 	bool releasedR;
 
 	Environment* background;
+
+	sf::Font font;
 
 	void tick(double dt);
 	void render();

@@ -22,7 +22,10 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	player = (Player*) entities.at(0);
 	entities.push_back(new Slime(this, 100, 100, &tileMap, &entities, &resourceManager));
 	entities.push_back(new Mushroom(this, 200, 200, &tileMap, &entities, &resourceManager));
-	playerSave->inventory[8] = new Item("Tier 1 Sword", "Sword", "A basic sword", 0, &resourceManager);
+	playerSave->inventory[8] = new Item("Tier 1 Sword", "Sword", "A sword", 0, &resourceManager);
+	playerSave->inventory[20] = new Item("Tier 6 Sword", "Sword", "A sword", 5, &resourceManager);
+	playerSave->inventory[0] = new Item("Tier 11 Sword", "Sword", "A sword", 10, &resourceManager);
+	playerSave->inventory[6] = new Item("Tier 1 Bow", "Bow", "A bow", 15, &resourceManager);
 	releasedR = true;
 }
 

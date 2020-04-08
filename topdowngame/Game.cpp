@@ -5,7 +5,7 @@ Game::Game() {
 	environments = map<string, Environment*>();
 	main_window.create(sf::VideoMode(800, 600), "My window");
 	main_window.setVerticalSyncEnabled(true);
-	if (!debugScreenFont.loadFromFile("..\\spritesheets\\arial.ttf"))
+	if (!debugScreenFont.loadFromFile("..\\spritesheets\\coders_crux.ttf"))
 	{
 		cout << "Could not load font to display debug screen." << endl;
 	}

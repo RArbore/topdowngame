@@ -6,6 +6,11 @@ InventoryEnvironment::InventoryEnvironment(sf::RenderWindow* window, Settings* s
 	this->background = background;
 	counter = 0;
 	releasedR = false;
+	selectedSlot = -1;
+	if (!font.loadFromFile("..\\spritesheets\\coders_crux.ttf"))
+	{
+		cout << "Could not load font to display debug screen." << endl;
+	}
 }
 
 InventoryEnvironment::~InventoryEnvironment() {
@@ -14,9 +19,11 @@ InventoryEnvironment::~InventoryEnvironment() {
 
 void InventoryEnvironment::tick(double dt) {
 	counter++;
+
 }
 
 void InventoryEnvironment::render() {
+	selectedSlot = -1;
 	background->render();
 	sf::View view = window->getDefaultView();
 	view.setSize(static_cast<sf::Vector2f>(window->getSize()));
@@ -41,9 +48,18 @@ void InventoryEnvironment::render() {
 	window->draw(inventoryOutline);
 	window->draw(inventoryBox);
 
+	double mouseX = (double)sf::Mouse::getPosition(*window).x;
+	double mouseY = (double)sf::Mouse::getPosition(*window).y;
+
+	mouseX -= double(size.x) / 2;
+	mouseY -= double(size.y) / 2;
+
 	for (int armorSlot = 0; armorSlot < 3; armorSlot++) {
 		sf::RectangleShape slot(sf::Vector2f(75, 75));
 		slot.setPosition(-380+2.5, -280+85*armorSlot+20-10);
+		if (mouseX > -380 + 2.5 && mouseX <= -380 + 2.5 + 75 && mouseY > -280 + 85 * armorSlot + 20 - 10 && mouseY < -280 + 85 * armorSlot + 20 - 10 + 75) {
+			selectedSlot = 5 + armorSlot;
+		}
 		slot.setFillColor(sf::Color(65, 65, 65));
 		window->draw(slot);
 		Item* itemPointer = playerSave->inventory.at(5 + armorSlot);
@@ -52,12 +68,19 @@ void InventoryEnvironment::render() {
 			icon.setPosition(-380 + 2.5 + 5.5, -280 + 85 * armorSlot + 20 - 10 + 5.5);
 			icon.scale(sf::Vector2f(4.f, 4.f));
 			window->draw(icon);
+			sf::RectangleShape borderCover(sf::Vector2f(75, 6));
+			borderCover.setPosition(-380+2.5, -280+85*armorSlot+20-10 + 69);
+			borderCover.setFillColor(sf::Color(65, 65, 65));
+			window->draw(borderCover);
 		}
 	}
 
 	for (int accessorySlot = 0; accessorySlot < 5; accessorySlot++) {
 		sf::RectangleShape slot(sf::Vector2f(75, 75));
 		slot.setPosition(-280+85*accessorySlot+2.5, -280+20-10);
+		if (mouseX > -280+85*accessorySlot+2.5 && mouseX <= -280+85*accessorySlot+2.5 + 75 && mouseY > -280+20-10 && mouseY < -280+20-10 + 75) {
+			selectedSlot = accessorySlot;
+		}
 		slot.setFillColor(sf::Color(65, 65, 65));
 		window->draw(slot);
 		Item* itemPointer = playerSave->inventory.at(accessorySlot);
@@ -66,6 +89,10 @@ void InventoryEnvironment::render() {
 			icon.setPosition(-280+85*accessorySlot+2.5 + 5.5, -280+20-10 + 5.5);
 			icon.scale(sf::Vector2f(4.f, 4.f));
 			window->draw(icon);
+			sf::RectangleShape borderCover(sf::Vector2f(75, 6));
+			borderCover.setPosition(-280+85*accessorySlot+2.5, -280+20-10 + 69);
+			borderCover.setFillColor(sf::Color(65, 65, 65));
+			window->draw(borderCover);
 		}
 	}
 
@@ -75,6 +102,9 @@ void InventoryEnvironment::render() {
 		for (int invY = 0; invY < 2; invY++) {
 			sf::RectangleShape slot(sf::Vector2f(75, 75));
 			slot.setPosition(-380+85*invX+2.5, -280+85*3+20+85*invY+20-10);
+			if (mouseX > -380+85*invX+2.5 && mouseX <= -380+85*invX+2.5 + 75 && mouseY > -280+85*3+20+85*invY+20-10 && mouseY < -280+85*3+20+85*invY+20-10 + 75) {
+				selectedSlot = i+17;
+			}
 			slot.setFillColor(sf::Color(65, 65, 65));
 			window->draw(slot);
 			Item* itemPointer = playerSave->inventory.at(i+17);
@@ -83,13 +113,21 @@ void InventoryEnvironment::render() {
 				icon.setPosition(-380+85*invX+2.5 + 5.5, -280+85*3+20+85*invY+20-10 + 5.5);
 				icon.scale(sf::Vector2f(4.f, 4.f));
 				window->draw(icon);
+				sf::RectangleShape borderCover(sf::Vector2f(75, 6));
+				borderCover.setPosition(-380+85*invX+2.5, -280+85*3+20+85*invY+20-10 + 69);
+				borderCover.setFillColor(sf::Color(65, 65, 65));
+				window->draw(borderCover);
 			}
 			i++;
 		}
 	}
+
 	for (int invX = 0; invX < 9; invX++) {
 		sf::RectangleShape slot(sf::Vector2f(75, 75));
 		slot.setPosition(-380+85*invX+2.5, -280+85*3+20+85*2+40-10);
+		if (mouseX > -380+85*invX+2.5 && mouseX <= -380+85*invX+2.5 + 75 && mouseY > -280+85*3+20+85*2+40-10 && mouseY < -280+85*3+20+85*2+40-10 + 75) {
+				selectedSlot = invX+8;
+			}
 		slot.setFillColor(sf::Color(65, 65, 65));
 		window->draw(slot);
 		Item* itemPointer = playerSave->inventory.at(invX+8);
@@ -98,7 +136,20 @@ void InventoryEnvironment::render() {
 			icon.setPosition(-380+85*invX+2.5 + 5.5, -280+85*3+20+85*2+40-10 + 5.5);
 			icon.scale(sf::Vector2f(4.f, 4.f));
 			window->draw(icon);
+			sf::RectangleShape borderCover(sf::Vector2f(75, 6));
+			borderCover.setPosition(-380+85*invX+2.5, -280+85*3+20+85*2+40-10 + 69);
+			borderCover.setFillColor(sf::Color(65, 65, 65));
+			window->draw(borderCover);
 		}
+	}
+
+	if (selectedSlot != -1 && playerSave->inventory.at(selectedSlot) != NULL) {
+		sf::RectangleShape infoBoxBorder(sf::Vector2f(75, 75));
+
+		infoBoxBorder.setPosition(sf::Vector2f(mouseX, mouseY));
+		infoBoxBorder.setFillColor(sf::Color(50, 50, 50));
+
+		window->draw(infoBoxBorder);
 	}
 }
 

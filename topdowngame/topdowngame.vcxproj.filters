@@ -213,6 +213,9 @@
     <Font Include="..\spritesheets\arial.ttf">
       <Filter>Resource Files</Filter>
     </Font>
+    <Font Include="..\spritesheets\coders_crux.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\extra\perm.txt">

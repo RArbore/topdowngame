@@ -209,6 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\spritesheets\arial.ttf" />
+    <Font Include="..\spritesheets\coders_crux.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\extra\perm.txt" />
