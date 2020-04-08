@@ -16,6 +16,10 @@
 #include <map>
 #include <stdlib.h>
 #include <algorithm>
+#include <iomanip>
+#include <sstream>
+#include <iostream>
+#include <assert.h>
 
 using namespace std;
 
@@ -26,6 +30,10 @@ class GameEnvironment : public Environment
 {
 	
 public:
+
+	const static int WORLD_CELLS_COUNT = 100; // number of regions/cells
+	const static int WORLD_MAP_SIZE = 1000; // size of the generated map
+	const static int WORLD_MAP_SCALE = 1; // how much to scale the generated map
 
 	bool releasedR;
 
@@ -48,6 +56,8 @@ public:
 	TileMap tileMap;
 	vector<vector<int>> mapDefinition;
 
+	int currentRegion;
+
 	void tick(double dt);
 	void render();
 
@@ -65,5 +75,7 @@ public:
 	void deleteProjectile(int index);
 	void deleteParticle(int index);
 
+private:
+	void loadRegion(int index);
 };
 

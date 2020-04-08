@@ -22,8 +22,14 @@ void TileMap::loadMapDefinition(std::vector<std::vector<int>>& map) {
 			int y = j * (int)Tile::TILE_SIZE;
 
 			// texture coordinates
-			int tx = (type % 16) * (int)Tile::TILE_SIZE;
-			int ty = (int) floor(type / 16) * Tile::TILE_SIZE;
+			int tx, ty;
+			if (type != -1) {
+				tx = (type % 16) * (int)Tile::TILE_SIZE;
+				ty = ((int)floor(type / 16) * Tile::TILE_SIZE) + Tile::TILE_SIZE;
+			}
+			else {
+				tx = 0, ty = 0;
+			}
 
 			Tile* t = new Tile(x, y, tx, ty, type);
 			tiles.push_back(t);

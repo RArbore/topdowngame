@@ -3,7 +3,7 @@
 GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, PlayerSave* playerSave) :
 	Environment(window, settings, transitionEnvironment, playerSave),
 	tileMap(generateMap(), getTileset()),
-	worldGenerator(10, 10, 10)
+	worldGenerator(WORLD_CELLS_COUNT, WORLD_MAP_SIZE, 10) // TODO: generate custom seed
 {
 	camera = Camera(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f), 0.5);
 	resourceManager.loadTexture("player_entity", "player.png");
@@ -27,6 +27,8 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	playerSave->inventory[0] = new Item("Tier 11 Sword", "Sword", "A sword", 10, &resourceManager);
 	playerSave->inventory[6] = new Item("Tier 1 Bow", "Bow", "A bow", 15, &resourceManager);
 	releasedR = true;
+
+	currentRegion = 0;
 }
 
 GameEnvironment::~GameEnvironment() {
@@ -197,15 +199,29 @@ void GameEnvironment::eventHandler(sf::Event& event) {
 }
 
 vector<vector<int>>& GameEnvironment::generateMap() {
-	/* mapDefinition.resize(50, vector<int>(50, 0.f));
-	for (int x = 0; x < 50; x++) {
-		for (int y = 0; y < 50; y++) {
-			mapDefinition[x][y] = float(rand() % 29);
-		}
+	// check if all the map files exist
+	bool allExist = true;
+	for (int i = 0; i < WORLD_CELLS_COUNT; i++) {
+		// use hex string representation for file name
+		stringstream stream;
+		stream << hex << i;
+		string filename(stream.str());
+		filename = "../world/" + filename;
+
+		// check if file exists
+		struct stat buffer;
+		allExist &= (stat(filename.c_str(), &buffer) == 0);
 	}
-	return mapDefinition;
-	*/
-	mapDefinition = worldGenerator.detailRegion();
+
+	if (!allExist) {
+		worldGenerator.runAll();
+		loadRegion(currentRegion);
+	}
+	else {
+		// mapDefinition = worldGenerator.sampleRegion();
+		loadRegion(currentRegion);
+	}
+
 	return mapDefinition;
 }
 
@@ -217,4 +233,31 @@ sf::Texture* GameEnvironment::getTileset() {
 void GameEnvironment::summonProjectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y) {
 	Projectile* proj = new Projectile(projType, x, y, vel_x, vel_y, acc_x, acc_y, &tileMap, &entities, &resourceManager);
 	projectiles.push_back(proj);
+}
+
+void GameEnvironment::loadRegion(int index) {
+	stringstream stream;
+	stream << hex << index;
+	string filename(stream.str());
+	filename = "../world/" + filename;
+
+	ifstream fin(filename);
+
+	int expectedIndex, x1, y1, x2, y2; // use expected index as a way to assert that the region is correct
+	// coordinates of upper left and lower right bounds of the region (in the world)
+	fin >> expectedIndex >> x1 >> y1 >> x2 >> y2;
+
+	assert(expectedIndex == index);
+
+	mapDefinition.resize(x2 - x1 + 1, vector<int>(y2 - y1 + 1));
+
+	for (int i = 0; i <= x2 - x1; i++) {
+		for (int j = 0; j <= y2 - y1; j++) {
+			fin >> mapDefinition[i][j];
+		}
+	}
+
+	// for (int j = 0; j < y2-y1; j++) 
+
+	fin.close();
 }
