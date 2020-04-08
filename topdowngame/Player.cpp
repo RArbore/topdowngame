@@ -19,6 +19,7 @@ acc(0.f, 0.f)
 	isSwordAttacking = false;
 	currentAttackAngle = 0.f;
 	endAttackAngle = 0.f;
+	swordAttackSpeed = 5.f;
 }
 
 void Player::loadAnimations() {
@@ -54,7 +55,7 @@ void Player::tick(double dt) {
 	attackDelayCounter += dt;
 
 	if (isSwordAttacking) {
-		currentAttackAngle += dt;
+		currentAttackAngle += dt * swordAttackSpeed;
 		if (currentAttackAngle >= endAttackAngle) {
 			isSwordAttacking = false;
 			currentAttackAngle = 0.f;
@@ -86,8 +87,7 @@ void Player::tick(double dt) {
 			double dx = mouseX - screenX;
 			double dy = mouseY - screenY;
 			double PI = 3.14159265;
-			currentAttackAngle = (atan2(dy, dx) * 180.f / PI) + 270.f;
-			if (currentAttackAngle > 360) currentAttackAngle -= 360.f;
+			currentAttackAngle = (atan2(dy, dx) * 180.f / PI);
 			endAttackAngle = currentAttackAngle + 60.f;
 
 			/*
@@ -244,26 +244,13 @@ void Player::render(sf::RenderWindow* window) {
 	screenY = (window->mapCoordsToPixel(sf::Vector2f(h.getCX(), h.getCY()))).y;
 
 	if (isSwordAttacking) {
-		/*
-		sf::RectangleShape sword(sf::Vector2f(16, 16));
-		sword.setRotation(currentAttackAngle);
-		sword.setPosition(h.getCX(), h.getCY());
-		sword.setFillColor(sf::Color::White);
-		window->draw(sword);
-		*/
-		
 		swordSprite.setTexture(*(resourceManager->getTexture("items_texture")));
 		swordSprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
+		swordSprite.setOrigin(0, 16);
+		swordSprite.setRotation(currentAttackAngle);
+		swordSprite.setPosition(h.getCX(), h.getCY());
 
-		sf::Transform tr;
-		tr.rotate(currentAttackAngle, h.getCX()+0.f, h.getCY()+16.f);
-		tr.translate(h.getCX(), h.getCY()+16);
-
-		// swordSprite.setRotation(currentAttackAngle);
-		// swordSprite.setPosition(h.getCX(), h.getCY());
-
-		window->draw(swordSprite, tr);
-		
+		window->draw(swordSprite);
 	}
 
 	Entity::render(window);
