@@ -45,7 +45,7 @@ void WorldGenerator::generateGrid() {
 }
 
 void WorldGenerator::outputData() {
-	PerlinNoise pn("../extra/perm.txt");
+	PerlinNoise pn("../extra/perm.txt"); // TODO: generate permutation randomly
 	int cnt = 0;
 	for (int i = 0; i < _size; i++) {
 		for (int j = 0; j < _size; j++) {

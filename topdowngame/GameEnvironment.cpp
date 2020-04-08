@@ -199,6 +199,7 @@ void GameEnvironment::eventHandler(sf::Event& event) {
 }
 
 vector<vector<int>>& GameEnvironment::generateMap() {
+	system("mkdir \"../world\"");
 	// check if all the map files exist
 	bool allExist = true;
 	for (int i = 0; i < WORLD_CELLS_COUNT; i++) {
