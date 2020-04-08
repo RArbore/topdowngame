@@ -41,7 +41,7 @@ void Mushroom::tick(double dt) {
 	else {
 		setAnimationIndex(1);
 		double theta = ((double) (rand() % 360)) / 180 * 3.14159265358979323846;
-		double magnitude = ((double)(rand() % 40)) / 100 + 0.6;
+		double magnitude = ((double)(rand() % 60)) / 100 + 0.4;
 		gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX()+24.0*cos(theta), h.getCY()+24.0*sin(theta), 0, -1000000, tileMap, entityList, resourceManager));
 		if ((int) counter % 2 == 0) gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX()+24.0*cos(theta)*magnitude, h.getCY()+24.0*sin(theta)*magnitude, 0, -1000000, tileMap, entityList, resourceManager));
 	}

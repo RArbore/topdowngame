@@ -243,15 +243,30 @@ void Player::render(sf::RenderWindow* window) {
 	screenX = (window->mapCoordsToPixel(sf::Vector2f(h.getCX(), h.getCY()))).x;
 	screenY = (window->mapCoordsToPixel(sf::Vector2f(h.getCX(), h.getCY()))).y;
 
-	if (isSwordAttacking) {
-		swordSprite.setTexture(*(resourceManager->getTexture("items_texture")));
-		swordSprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
-		swordSprite.setOrigin(0, 16);
-		swordSprite.setRotation(currentAttackAngle);
-		swordSprite.setPosition(h.getCX(), h.getCY());
+	if (screenY - mouseY > 0) {
+		if (isSwordAttacking) {
+			swordSprite.setTexture(*(resourceManager->getTexture("items_texture")));
+			swordSprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
+			swordSprite.setOrigin(0, 16);
+			swordSprite.setRotation(currentAttackAngle);
+			swordSprite.setPosition(h.getCX()+cos(currentAttackAngle/180*3.14159265358979323846)*4, h.getCY()+sin(currentAttackAngle/180*3.14159265358979323846)*4);
 
-		window->draw(swordSprite);
+			window->draw(swordSprite);
+		}
+
+		Entity::render(window);
 	}
+	else {
+		Entity::render(window);
 
-	Entity::render(window);
+		if (isSwordAttacking) {
+			swordSprite.setTexture(*(resourceManager->getTexture("items_texture")));
+			swordSprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
+			swordSprite.setOrigin(0, 16);
+			swordSprite.setRotation(currentAttackAngle);
+			swordSprite.setPosition(h.getCX()+cos(currentAttackAngle/180*3.14159265358979323846)*4, h.getCY()+sin(currentAttackAngle/180*3.14159265358979323846)*4);
+
+			window->draw(swordSprite);
+		}
+	}
 }
