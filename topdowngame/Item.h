@@ -28,13 +28,18 @@ public:
 
 	ResourceManager* resourceManager;
 
+
 	Item(string itemName, string itemType, string description, int iconNumber, ResourceManager* resourceManager);
 
 	void addAtrribute(Attribute attribute);
 
 	sf::Sprite getUnpositionedSprite();
 
-	void drawInfoBox(sf::Vector2f mousePos, sf::Window* window);
+	vector<string> splitString(string input, char c);
+
+	void placeEnters(string input, sf::Text* text, int limit);
+
+	void drawInfoBox(double mouseX, double mouseY, sf::RenderWindow* window, sf::Font* font);
 
 };
 

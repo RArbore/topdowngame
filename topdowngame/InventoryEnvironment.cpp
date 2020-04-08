@@ -144,7 +144,7 @@ void InventoryEnvironment::render() {
 	}
 
 	if (selectedSlot != -1 && playerSave->inventory.at(selectedSlot) != NULL) {
-		playerSave->inventory.at(selectedSlot)->drawInfoBox(sf::Vector2f(mouseX, mouseY), window);
+		playerSave->inventory.at(selectedSlot)->drawInfoBox(mouseX, mouseY, window, &font);
 	}
 }
 

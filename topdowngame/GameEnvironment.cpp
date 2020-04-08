@@ -25,7 +25,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	playerSave->inventory[8] = new Item("Tier 1 Sword", "Sword", "A sword", 0, &resourceManager);
 	playerSave->inventory[20] = new Item("Tier 6 Sword", "Sword", "A sword", 5, &resourceManager);
 	playerSave->inventory[0] = new Item("Tier 11 Sword", "Sword", "A sword", 10, &resourceManager);
-	playerSave->inventory[6] = new Item("Tier 1 Bow", "Bow", "A bow", 15, &resourceManager);
+	playerSave->inventory[6] = new Item("Tier 1 Bow", "Bow", "This is a really long description! Wow, I didn't know that some items could be so complicated as to warrant such a detailed story just to be able to understand what it does at a basic level. That's pretty amazing! Who would've thought, certainly not me.", 15, &resourceManager);
 	releasedR = true;
 
 	currentRegion = 0;
