@@ -21,3 +21,7 @@ sf::Sprite Item::getUnpositionedSprite() {
 	sprite.setTextureRect(sf::IntRect(x*16, y*16, 16, 16));
 	return sprite;
 }
+
+void Item::drawInfoBox(sf::Vector2f mousePos, sf::Window* window) {
+	
+}

@@ -34,5 +34,7 @@ public:
 
 	sf::Sprite getUnpositionedSprite();
 
+	void drawInfoBox(sf::Vector2f mousePos, sf::Window* window);
+
 };
 

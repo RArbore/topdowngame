@@ -144,12 +144,7 @@ void InventoryEnvironment::render() {
 	}
 
 	if (selectedSlot != -1 && playerSave->inventory.at(selectedSlot) != NULL) {
-		sf::RectangleShape infoBoxBorder(sf::Vector2f(75, 75));
-
-		infoBoxBorder.setPosition(sf::Vector2f(mouseX, mouseY));
-		infoBoxBorder.setFillColor(sf::Color(50, 50, 50));
-
-		window->draw(infoBoxBorder);
+		playerSave->inventory.at(selectedSlot)->drawInfoBox(sf::Vector2f(mouseX, mouseY), window);
 	}
 }
 
