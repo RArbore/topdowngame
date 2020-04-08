@@ -92,21 +92,26 @@ void GameEnvironment::render() {
 
 	window->draw(tileMap);
 
-	for (int i = entities.size() - 1; i >= 0; i--) {
-		entities.at(i)->render(window);
-	}
+	struct {
+        bool operator()(Entity* a, Entity* b) const
+        {   
+            return a->h.getCY() + a->renderOrderOffset > b->h.getCY() + b->renderOrderOffset;
+        }   
+    } entityHeightCompare;
 
-	for (int i = projectiles.size() - 1; i >= 0; i--) {
-		// if (projectiles.at(i) == nullptr) continue;
-		projectiles.at(i)->render(window);
-	}
+	sort(entities.begin(), entities.end(), entityHeightCompare);
+	sort(projectiles.begin(), projectiles.end(), entityHeightCompare);
+	sort(visuals.begin(), visuals.end(), entityHeightCompare);
 
-	for (int i = visuals.size() - 1; i >= 0; i--) {
-		// if (projectiles.at(i) == nullptr) continue;
-		visuals.at(i)->render(window);
-	}
+	vector<Entity*> intermediate(entities.size() + projectiles.size());
+	vector<Entity*> allEntities(entities.size() + projectiles.size() + visuals.size());
 
-	//focusEntity->render(window);
+	merge(entities.begin(), entities.end(), projectiles.begin(), projectiles.end(), intermediate.begin(), entityHeightCompare);
+	merge(intermediate.begin(), intermediate.end(), visuals.begin(), visuals.end(), allEntities.begin(), entityHeightCompare);
+
+	for (int i = allEntities.size() - 1; i >= 0; i--) {
+		allEntities.at(i)->render(window);
+	}
 
 	//Draw at absolute positions
 
