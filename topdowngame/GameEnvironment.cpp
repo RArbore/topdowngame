@@ -1,6 +1,6 @@
 #include "GameEnvironment.h"
 
-GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, PlayerSave* playerSave) :
+GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, PlayerSave* playerSave, bool* debug) :
 	Environment(window, settings, transitionEnvironment, playerSave),
 	tileMap(generateMap(), getTileset()),
 	worldGenerator(WORLD_CELLS_COUNT, WORLD_MAP_SIZE, 10) // TODO: generate custom seed
@@ -27,7 +27,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	playerSave->inventory[0] = new Item("Tier 11 Sword", "Sword", "A sword", 10, &resourceManager);
 	playerSave->inventory[6] = new Item("Tier 1 Bow", "Bow", "This is a really long description! Wow, I didn't know that some items could be so complicated as to warrant such a detailed story just to be able to understand what it does at a basic level. That's pretty amazing! Who would've thought, certainly not me.", 15, &resourceManager);
 	releasedR = true;
-
+	this->debug = debug;
 	currentRegion = 0;
 }
 

@@ -11,10 +11,9 @@ acc(0.f, 0.f)
 
 	h.w = 16;
 	h.h = 16;
-	movementSpeed = 2.f;
 	lastDirection = 0;
-	health = 100;
-	maxHealth = 100;
+	health = gameEnvironment->playerSave->baseStats[0];
+	maxHealth = gameEnvironment->playerSave->baseStats[0];
 	attackDelayCounter = 0;
 	isSwordAttacking = false;
 	currentAttackAngle = 0.f;
@@ -73,6 +72,13 @@ void Player::loadAnimations() {
 
 void Player::tick(double dt) {
 	attackDelayCounter += dt;
+
+	if (*gameEnvironment->debug) {
+		movementSpeed = 20.f;
+	}
+	else {
+		movementSpeed = gameEnvironment->playerSave->baseStats[3];
+	}
 
 	if (isSwordAttacking) {
 		currentAttackAngle += dt * swordAttackSpeed;

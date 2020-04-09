@@ -58,6 +58,8 @@ public:
 
 	int currentRegion;
 
+	bool* debug;
+
 	void tick(double dt);
 	void render();
 
@@ -66,7 +68,7 @@ public:
 	vector<vector<int>>& generateMap();
 	sf::Texture* getTileset();
 
-	GameEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, PlayerSave* playerSave);
+	GameEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, PlayerSave* playerSave, bool* debug);
 	~GameEnvironment();
 
 	void tickProjectiles(double dt);

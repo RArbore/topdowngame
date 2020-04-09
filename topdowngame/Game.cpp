@@ -21,7 +21,7 @@ Game::~Game() {
 
 void Game::initEnvironments() {
 	transitionEnvironment = "";
-	environments.insert(pair<string, Environment*>("Game Environment", new GameEnvironment(&main_window, &settings, &transitionEnvironment, &playerSave)));
+	environments.insert(pair<string, Environment*>("Game Environment", new GameEnvironment(&main_window, &settings, &transitionEnvironment, &playerSave, &showDebug)));
 	environments.insert(pair<string, Environment*>("Inventory Environment", new InventoryEnvironment(&main_window, &settings, &transitionEnvironment, environments.at("Game Environment"), &playerSave)));
 	currentEnvironment = environments.at("Game Environment");
 }

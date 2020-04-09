@@ -13,7 +13,7 @@ public:
 
 	int playerXP;
 
-	int baseStats[4]; //HP, Attack, Defense, Speed
+	double baseStats[4]; //HP, Attack, Defense, Speed
 
 	PlayerSave();
 
