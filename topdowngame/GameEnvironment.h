@@ -31,7 +31,7 @@ class GameEnvironment : public Environment
 	
 public:
 
-	const static int WORLD_CELLS_COUNT = 100; // number of regions/cells
+	const static int WORLD_CELLS_COUNT = 25; // number of regions/cells
 	const static int WORLD_MAP_SIZE = 1000; // size of the generated map
 	const static int WORLD_MAP_SCALE = 1; // how much to scale the generated map
 
