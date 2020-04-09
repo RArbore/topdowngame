@@ -15,7 +15,20 @@ TileMap::~TileMap() {
 void TileMap::loadMapDefinition(std::vector<std::vector<int>>& map) {
 	for (int i = 0; i < map.size(); i++) {
 		for (int j = 0; j < map[i].size(); j++) {
-			int type = map[i][j];
+			int noise = map[i][j];
+
+			int type = 0;
+			if (noise == -1) type = -1;
+
+			// Map from [0, 100] to type (index of the sprite)
+			if (noise >= 0 && noise < 10) type = 12;
+			if (noise >= 10 && noise < 15) type = 8;
+			if (noise >= 15 && noise < 18.33) type = 13;
+			if (noise >= 18.33 && noise < 21.67) type = 14;
+			if (noise >= 21.67 && noise < 25) type = 15;
+			if (noise >= 25 && noise < 50) type = 0;
+			if (noise >= 50 && noise < 75) type = 6;
+			if (noise >= 75) type = 7;
 
 			// tile coordinates
 			int x = i * (int)Tile::TILE_SIZE;

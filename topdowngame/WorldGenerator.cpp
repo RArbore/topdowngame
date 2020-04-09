@@ -45,7 +45,8 @@ void WorldGenerator::generateGrid() {
 }
 
 void WorldGenerator::outputData() {
-	PerlinNoise pn("../extra/perm.txt"); // TODO: generate permutation randomly
+	SimplexNoise noise;
+
 	int cnt = 0;
 	for (int i = 0; i < _size; i++) {
 		for (int j = 0; j < _size; j++) {
@@ -69,12 +70,12 @@ void WorldGenerator::outputData() {
 				for (int y = minCoord.second; y <= maxCoord.second; y++) {
 					if (grid->at(x).at(y) != grid->at(i).at(j)) fout << -1 << " ";
 					else {
-						double n = pn.noise((double)x / 100, (double)y / 100, (double)cnt+6.9420);
-						n += sqrt(0.5);
-						n /= 2.f * sqrt(0.5);
-						n *= 29;
+						double xi = x / FEATURE_SIZE;
+						double yi = y / FEATURE_SIZE;
+						double n = noise.noise(xi, yi);
+						n += 1.f;
+						n *= 50.f;
 						fout << (int)n << " ";
-						//fout << (int)(rand() % 29) << " ";
 					}
 				}
 				fout << endl;
@@ -85,20 +86,6 @@ void WorldGenerator::outputData() {
 	}
 }
 
-vector<vector<int>> WorldGenerator::sampleRegion() {
-	PerlinNoise pn("../extra/perm.txt");
-	vector<vector<int>> map(100, vector<int>(100));
-	for (int i = 0; i < 100; i++) {
-		for (int j = 0; j < 100; j++) {
-			double n = pn.noise((double)i/100, (double)j/100, 6.9420);
-			n += sqrt(0.5);
-			n /= 2.f * sqrt(0.5);
-			n *= 29;
-			map[i][j] = (int)n;
-		}
-	}
-	return map;
-}
 
 int WorldGenerator::dist(int x1, int x2, int y1, int y2) {
 	return abs(x1 - x2) + abs(y1 - y2);

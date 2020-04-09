@@ -165,6 +165,7 @@
     <ClCompile Include="PlayerSave.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="SimplexNoise.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileMap.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Settings.h" />
+    <ClInclude Include="SimplexNoise.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileMap.h" />

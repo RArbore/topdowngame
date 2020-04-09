@@ -6,7 +6,8 @@
 #include <algorithm>
 #include <iomanip>
 #include <sstream>
-#include "PerlinNoise.h"
+
+#include "SimplexNoise.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ public:
 	void generateGrid(); // "color" in the grid
 	void outputData(); // create output file
 
-	vector<vector<int>> sampleRegion();
+	static constexpr double FEATURE_SIZE = 48.f;
 
 private:
 	int seed; // used for random number generation
