@@ -83,7 +83,6 @@ void Item::drawInfoBox(double mouseX, double mouseY, sf::RenderWindow* window, s
 	float descriptionHeight = description.getLocalBounds().height;
 	float height = nameHeight + descriptionHeight;
 
-
 	sf::RectangleShape outline(sf::Vector2f(width+20, height+35));
 	outline.setPosition(sf::Vector2f(mouseX, mouseY));
 	outline.setFillColor(sf::Color(50, 50, 50));
