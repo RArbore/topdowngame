@@ -6,7 +6,9 @@ InventoryEnvironment::InventoryEnvironment(sf::RenderWindow* window, Settings* s
 	this->background = background;
 	counter = 0;
 	releasedR = false;
+	releasedMouse = true;
 	selectedSlot = -1;
+	heldSlot = -1;
 	if (!font.loadFromFile("..\\spritesheets\\coders_crux.ttf"))
 	{
 		cout << "Could not load font to display debug screen." << endl;
@@ -63,7 +65,7 @@ void InventoryEnvironment::render() {
 		slot.setFillColor(sf::Color(65, 65, 65));
 		window->draw(slot);
 		Item* itemPointer = playerSave->inventory.at(5 + armorSlot);
-		if (itemPointer != NULL) {
+		if (itemPointer != NULL && 5 + armorSlot != heldSlot) {
 			sf::Sprite icon = itemPointer->getUnpositionedSprite();
 			icon.setPosition(-380 + 2.5 + 5.5, -280 + 85 * armorSlot + 20 - 10 + 5.5);
 			icon.scale(sf::Vector2f(4.f, 4.f));
@@ -84,7 +86,7 @@ void InventoryEnvironment::render() {
 		slot.setFillColor(sf::Color(65, 65, 65));
 		window->draw(slot);
 		Item* itemPointer = playerSave->inventory.at(accessorySlot);
-		if (itemPointer != NULL) {
+		if (itemPointer != NULL && accessorySlot != heldSlot) {
 			sf::Sprite icon = itemPointer->getUnpositionedSprite();
 			icon.setPosition(-280+85*accessorySlot+2.5 + 5.5, -280+20-10 + 5.5);
 			icon.scale(sf::Vector2f(4.f, 4.f));
@@ -108,7 +110,7 @@ void InventoryEnvironment::render() {
 			slot.setFillColor(sf::Color(65, 65, 65));
 			window->draw(slot);
 			Item* itemPointer = playerSave->inventory.at(i+17);
-			if (itemPointer != NULL) {
+			if (itemPointer != NULL && i + 17 != heldSlot) {
 				sf::Sprite icon = itemPointer->getUnpositionedSprite();
 				icon.setPosition(-380+85*invX+2.5 + 5.5, -280+85*3+20+85*invY+20-10 + 5.5);
 				icon.scale(sf::Vector2f(4.f, 4.f));
@@ -131,7 +133,7 @@ void InventoryEnvironment::render() {
 		slot.setFillColor(sf::Color(65, 65, 65));
 		window->draw(slot);
 		Item* itemPointer = playerSave->inventory.at(invX+8);
-		if (itemPointer != NULL) {
+		if (itemPointer != NULL && invX + 8 != heldSlot) {
 			sf::Sprite icon = itemPointer->getUnpositionedSprite();
 			icon.setPosition(-380+85*invX+2.5 + 5.5, -280+85*3+20+85*2+40-10 + 5.5);
 			icon.scale(sf::Vector2f(4.f, 4.f));
@@ -143,8 +145,17 @@ void InventoryEnvironment::render() {
 		}
 	}
 
-	if (selectedSlot != -1 && playerSave->inventory.at(selectedSlot) != NULL) {
+	if (selectedSlot != -1 && heldSlot == -1 && playerSave->inventory.at(selectedSlot) != NULL) {
 		playerSave->inventory.at(selectedSlot)->drawInfoBox(mouseX, mouseY, window, &font);
+	}
+	else if (heldSlot != -1) {
+		Item* itemPointer = playerSave->inventory.at(heldSlot);
+		if (itemPointer != NULL) {
+			sf::Sprite icon = itemPointer->getUnpositionedSprite();
+			icon.setPosition(mouseX - 32, mouseY - 32);
+			icon.scale(sf::Vector2f(4.f, 4.f));
+			window->draw(icon);
+		}
 	}
 }
 
@@ -159,5 +170,25 @@ void InventoryEnvironment::eventHandler(sf::Event& event) {
 		if (event.key.code == settings->keyBindings.at("Inventory")) {
 			releasedR = true;
 		}
+	}
+	else if (event.type == sf::Event::MouseButtonPressed && releasedMouse) {
+		if (heldSlot == -1 && selectedSlot != -1 && playerSave->inventory.at(selectedSlot) != NULL) {
+			heldSlot = selectedSlot;
+		}
+		else if (heldSlot != -1) {
+			if (selectedSlot != -1) {
+				Item* transition = playerSave->inventory.at(selectedSlot);
+				playerSave->inventory.at(selectedSlot) = playerSave->inventory.at(heldSlot);
+				playerSave->inventory.at(heldSlot) = transition;
+				heldSlot = -1;
+			}
+			else {
+				heldSlot = -1;
+			}
+		}
+		releasedMouse = false;
+	}
+	else if (event.type == sf::Event::MouseButtonReleased) {
+		releasedMouse = true;
 	}
 }

@@ -13,7 +13,11 @@ public:
 
 	int selectedSlot;
 
+	int heldSlot;
+
 	bool releasedR;
+
+	bool releasedMouse;
 
 	Environment* background;
 

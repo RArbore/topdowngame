@@ -60,22 +60,22 @@ void Item::drawInfoBox(double mouseX, double mouseY, sf::RenderWindow* window, s
 	sf::Text name;
 	name.setFont(*font);
 	name.setString(itemName);
-	name.setCharacterSize(24);
-	name.setPosition(sf::Vector2f(mouseX+10, mouseY));
+	name.setCharacterSize(32);
+	name.setPosition(sf::Vector2f(mouseX+10, mouseY-6));
 	float nameHeight = name.getLocalBounds().height;
 
 	sf::Text description;
 	description.setFont(*font);
 	description.setString(this->description);
-	description.setCharacterSize(16);
+	description.setCharacterSize(24);
 	description.setPosition(sf::Vector2f(mouseX+10, mouseY+nameHeight+10));
 
 	float nameWidth = name.getLocalBounds().width;
 	float descriptionWidth = description.getLocalBounds().width;
-	float width = std::max(nameWidth, std::min(descriptionWidth, 300.f));
+	float width = std::max(nameWidth, std::min(descriptionWidth, 400.f));
 
 	if (descriptionWidth > 300) {
-		placeEnters(description.getString(), &description, 300);
+		placeEnters(description.getString(), &description, 400);
 	}
 
 	this->description = description.getString();
@@ -84,10 +84,10 @@ void Item::drawInfoBox(double mouseX, double mouseY, sf::RenderWindow* window, s
 	float height = nameHeight + descriptionHeight;
 
 
-	sf::RectangleShape outline(sf::Vector2f(width+20, height+30));
+	sf::RectangleShape outline(sf::Vector2f(width+20, height+35));
 	outline.setPosition(sf::Vector2f(mouseX, mouseY));
 	outline.setFillColor(sf::Color(50, 50, 50));
-	sf::RectangleShape box(sf::Vector2f(width+10, height+20));
+	sf::RectangleShape box(sf::Vector2f(width+10, height+25));
 	box.setPosition(sf::Vector2f(mouseX+5, mouseY+5));
 	box.setFillColor(sf::Color(65, 65, 65));
 
