@@ -214,6 +214,9 @@
     <Image Include="..\spritesheets\particles.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\spritesheets\desert_biome.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\spritesheets\arial.ttf">

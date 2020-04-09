@@ -5,7 +5,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	tileMap(generateMap(), getTileset()),
 	worldGenerator(WORLD_CELLS_COUNT, WORLD_MAP_SIZE, 10) // TODO: generate custom seed
 {
-	camera = Camera(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f), 0.5);
+	camera = Camera(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f), 2.0);
 	resourceManager.loadTexture("player_entity", "player.png");
 	resourceManager.loadTexture("slime_entity", "slime.png");
 	resourceManager.loadTexture("coin_entity", "coin.png");
