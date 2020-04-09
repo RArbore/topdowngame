@@ -5,7 +5,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	tileMap(generateMap(), getTileset()),
 	worldGenerator(WORLD_CELLS_COUNT, WORLD_MAP_SIZE, 10) // TODO: generate custom seed
 {
-	camera = Camera(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f), 2.0);
+	camera = Camera(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f), 0.5);
 	resourceManager.loadTexture("player_entity", "player.png");
 	resourceManager.loadTexture("slime_entity", "slime.png");
 	resourceManager.loadTexture("coin_entity", "coin.png");
@@ -138,6 +138,37 @@ void GameEnvironment::render() {
 
 		window->draw(healthBorder);
 		window->draw(healthBar);
+	}
+
+	float hotbarScale = float(size.x)/795*0.4;
+
+	sf::RectangleShape hotbarOutline(sf::Vector2f(795*hotbarScale, 115*hotbarScale));
+	hotbarOutline.setPosition(-795.f/2.f*hotbarScale, float(size.y) / 2.f - 115.f*hotbarScale);
+	hotbarOutline.setFillColor(sf::Color(65, 65, 65));
+
+	sf::RectangleShape hotbarBox(sf::Vector2f(775*hotbarScale, 95*hotbarScale));
+	hotbarBox.setPosition(-795.f / 2.f * hotbarScale + 10 * hotbarScale, float(size.y) / 2.f - 115.f * hotbarScale + 10 * hotbarScale);
+	hotbarBox.setFillColor(sf::Color(80, 80, 80));
+
+	window->draw(hotbarOutline);
+	window->draw(hotbarBox);
+
+	sf::RectangleShape slot(sf::Vector2f(75.f * hotbarScale, 75.f * hotbarScale));
+	slot.setFillColor(sf::Color(65, 65, 65));
+	for (int i = 0; i < 9; i++) {
+		slot.setPosition(-795.f / 2.f * hotbarScale + 20 * hotbarScale + i*85*hotbarScale, float(size.y) / 2.f - 115.f * hotbarScale + 20 * hotbarScale);
+		window->draw(slot);
+		Item* itemPointer = playerSave->inventory.at(i+8);
+		if (itemPointer != NULL) {
+			sf::Sprite icon = itemPointer->getUnpositionedSprite();
+			icon.setPosition(-795.f / 2.f * hotbarScale + 20 * hotbarScale + i*85*hotbarScale + 5.5*hotbarScale, float(size.y) / 2.f - 115.f * hotbarScale + 20 * hotbarScale + 5.5*hotbarScale);
+			icon.scale(sf::Vector2f(4.f*hotbarScale, 4.f*hotbarScale));
+			window->draw(icon);
+			sf::RectangleShape borderCover(sf::Vector2f(75*hotbarScale, 6*hotbarScale));
+			borderCover.setPosition(-795.f / 2.f * hotbarScale + 20 * hotbarScale + i*85*hotbarScale, float(size.y) / 2.f - 115.f * hotbarScale + 20 * hotbarScale + 69*hotbarScale);
+			borderCover.setFillColor(sf::Color(65, 65, 65));
+			window->draw(borderCover);
+		}
 	}
 }
 
