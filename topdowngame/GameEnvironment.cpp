@@ -29,6 +29,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	releasedR = true;
 	this->debug = debug;
 	currentRegion = 0;
+	selectedItem = 0;
 }
 
 GameEnvironment::~GameEnvironment() {
@@ -156,6 +157,12 @@ void GameEnvironment::render() {
 	sf::RectangleShape slot(sf::Vector2f(75.f * hotbarScale, 75.f * hotbarScale));
 	slot.setFillColor(sf::Color(65, 65, 65));
 	for (int i = 0; i < 9; i++) {
+		if (i == selectedItem) {
+			sf::RectangleShape selectedSlotBorder(sf::Vector2f(85.f * hotbarScale, 85.f * hotbarScale));
+			selectedSlotBorder.setFillColor(sf::Color(95, 95, 95));
+			selectedSlotBorder.setPosition(-795.f / 2.f * hotbarScale + 15 * hotbarScale + i*85*hotbarScale, float(size.y) / 2.f - 115.f * hotbarScale + 15 * hotbarScale);
+			window->draw(selectedSlotBorder);
+		}
 		slot.setPosition(-795.f / 2.f * hotbarScale + 20 * hotbarScale + i*85*hotbarScale, float(size.y) / 2.f - 115.f * hotbarScale + 20 * hotbarScale);
 		window->draw(slot);
 		Item* itemPointer = playerSave->inventory.at(i+8);
@@ -176,6 +183,7 @@ void GameEnvironment::eventHandler(sf::Event& event) {
 	// TODO: finish this
 
 	if (event.type == sf::Event::KeyPressed) {
+		cout << event.key.code << endl;
 		if (event.key.code == settings->keyBindings.at("Move Up")) {
 			keys["Move Up"] = true;
 		}
@@ -195,6 +203,14 @@ void GameEnvironment::eventHandler(sf::Event& event) {
 			keys["Move Left"] = false;
 			keys["Move Down"] = false;
 			keys["Move Right"] = false;
+		}
+		else {
+			for (int i = 1; i < 10; i++) {
+				if (event.key.code == settings->keyBindings.at("Slot "+to_string(i))) {
+					selectedItem = i - 1;
+					break;
+				}
+			}
 		}
 	}
 
@@ -225,6 +241,13 @@ void GameEnvironment::eventHandler(sf::Event& event) {
 	if (event.type == sf::Event::MouseButtonReleased) {
 		if (event.mouseButton.button == sf::Mouse::Left) {
 			keys["Left Click"] = false;
+		}
+	}
+
+	if (event.type == sf::Event::MouseWheelScrolled) {
+		selectedItem = (selectedItem - (int)event.mouseWheelScroll.delta) % 9;
+		while (selectedItem < 0) {
+			selectedItem += 9;
 		}
 	}
 }

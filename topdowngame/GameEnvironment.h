@@ -58,6 +58,8 @@ public:
 
 	int currentRegion;
 
+	int selectedItem;
+
 	bool* debug;
 
 	void tick(double dt);
