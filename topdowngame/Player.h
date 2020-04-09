@@ -35,13 +35,12 @@ private:
 	float movementSpeed;
 	int lastDirection; // store the last direction (0-7, north going clockwise)
 	int animationIndexOffset;
-
-	double attackDelayCounter;
+	double useDelayCounter; 
+	Item* useItem;
 	
 	// used for sword attacks
 	// currentAttackAngle - current angle rotation 
 	// endAttackAngle - angle for when to stop the animation (and stop attacking)
-	sf::Sprite swordSprite;
 	bool isSwordAttacking;
 	double currentAttackAngle;
 	double endAttackAngle;

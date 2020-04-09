@@ -14,7 +14,7 @@ acc(0.f, 0.f)
 	lastDirection = 0;
 	health = gameEnvironment->playerSave->baseStats[0];
 	maxHealth = gameEnvironment->playerSave->baseStats[0];
-	attackDelayCounter = 0;
+	useDelayCounter = 0;
 	isSwordAttacking = false;
 	currentAttackAngle = 0.f;
 	endAttackAngle = 0.f;
@@ -72,8 +72,11 @@ void Player::loadAnimations() {
 }
 
 void Player::tick(double dt) {
-	animationIndexOffset = 0;
-	attackDelayCounter += dt;
+	useDelayCounter -= dt;
+	if (useDelayCounter <= 0) {
+		useDelayCounter = 0;
+		animationIndexOffset = 0;
+	}
 
 	if (*gameEnvironment->debug) {
 		movementSpeed = 20.f;
@@ -108,13 +111,13 @@ void Player::tick(double dt) {
 	if ((*keys)["Move Right"]) {
 		keyX += 1;
 	}
-	if ((*keys)["Left Click"]) {
+	if ((*keys)["Left Click"] && useDelayCounter <= 0) {
 		Item* useItem = gameEnvironment->playerSave->inventory.at(gameEnvironment->selectedItem+8);
 		if (useItem != NULL) {
 			string itemType = useItem->itemType;
 			animationIndexOffset = 16;
 			if (itemType == "Sword") {
-				if (attackDelayCounter >= 10.f && !isSwordAttacking) {
+				if (!isSwordAttacking) {
 					isSwordAttacking = true;
 
 					double dx = mouseX - screenX;
@@ -122,6 +125,7 @@ void Player::tick(double dt) {
 					double PI = 3.14159265;
 					currentAttackAngle = (atan2(dy, dx) * 180.f / PI);
 					endAttackAngle = currentAttackAngle + 60.f;
+					useDelayCounter = 10.;
 				}
 			}
 			else if(itemType == "Bow") {
@@ -139,11 +143,13 @@ void Player::tick(double dt) {
 				dx *= speedMultiplier;
 				dy *= speedMultiplier;
 				gameEnvironment->summonProjectile(projType, h.getCX(), h.getCY(), dx, dy, 0.f, 0.f);
-
-				attackDelayCounter = 0.f;
+				useDelayCounter = 5.;
 			}
 			else {
 				animationIndexOffset = 0;
+			}
+			if (useDelayCounter > 0) {
+				this->useItem = useItem;
 			}
 		}
 	}
@@ -213,7 +219,7 @@ void Player::movement(int keyX, int keyY, double dt) {
 	// else setAnimationIndex(lastDirection);
 
 	// if mouse is pressed, override direction to direction of mouse
-	if ((*keys)["Left Click"]) {
+	if ((*keys)["Left Click"] || useDelayCounter > 0) {
 		double dx = mouseX - screenX;
 		double dy = mouseY - screenY;
 		double PI = 3.14159265;
@@ -280,8 +286,7 @@ void Player::render(sf::RenderWindow* window) {
 
 	if (screenY - mouseY > 0) {
 		if (isSwordAttacking) {
-			swordSprite.setTexture(*(resourceManager->getTexture("items_texture")));
-			swordSprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
+			sf::Sprite swordSprite = useItem->getUnpositionedSprite();
 			swordSprite.setOrigin(0, 16);
 			swordSprite.setRotation(currentAttackAngle);
 			swordSprite.setPosition(h.getCX()+cos(currentAttackAngle/180*3.14159265358979323846)*4, h.getCY()+sin(currentAttackAngle/180*3.14159265358979323846)*4);
@@ -295,8 +300,7 @@ void Player::render(sf::RenderWindow* window) {
 		Entity::render(window);
 
 		if (isSwordAttacking) {
-			swordSprite.setTexture(*(resourceManager->getTexture("items_texture")));
-			swordSprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
+			sf::Sprite swordSprite = useItem->getUnpositionedSprite();
 			swordSprite.setOrigin(0, 16);
 			swordSprite.setRotation(currentAttackAngle);
 			swordSprite.setPosition(h.getCX()+cos(currentAttackAngle/180*3.14159265358979323846)*4, h.getCY()+sin(currentAttackAngle/180*3.14159265358979323846)*4);
