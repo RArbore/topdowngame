@@ -183,7 +183,6 @@ void GameEnvironment::eventHandler(sf::Event& event) {
 	// TODO: finish this
 
 	if (event.type == sf::Event::KeyPressed) {
-		cout << event.key.code << endl;
 		if (event.key.code == settings->keyBindings.at("Move Up")) {
 			keys["Move Up"] = true;
 		}

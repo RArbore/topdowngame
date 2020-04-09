@@ -19,6 +19,7 @@ acc(0.f, 0.f)
 	currentAttackAngle = 0.f;
 	endAttackAngle = 0.f;
 	swordAttackSpeed = 5.f;
+	animationIndexOffset = 0;
 }
 
 void Player::loadAnimations() {
@@ -53,7 +54,7 @@ void Player::loadAnimations() {
 	for (int j = 0; j < 8; j++) {
 		Animation* a = new Animation(1);
 		a->editFrame(0, tex);
-		a->editCoords(0, sf::IntRect(13 * j, 18 * 6, 13, 18));
+		a->editCoords(0, sf::IntRect(13 * (j + 8), 0, 13, 18));
 		a->editDelay(0, 1e9);
 		this->pushAnimation(a);
 	}
@@ -63,7 +64,7 @@ void Player::loadAnimations() {
 		Animation* a = new Animation(6);
 		for (int i = 0; i < 6; i++) {
 			a->editFrame(i, tex);
-			a->editCoords(i, sf::IntRect(13 * j, 18 * (i + 6), 13, 18));
+			a->editCoords(i, sf::IntRect(13 * (j + 8), 18 * i, 13, 18));
 			a->editDelay(i, 5);
 		}
 		this->pushAnimation(a);
@@ -71,6 +72,7 @@ void Player::loadAnimations() {
 }
 
 void Player::tick(double dt) {
+	animationIndexOffset = 0;
 	attackDelayCounter += dt;
 
 	if (*gameEnvironment->debug) {
@@ -107,34 +109,42 @@ void Player::tick(double dt) {
 		keyX += 1;
 	}
 	if ((*keys)["Left Click"]) {
-		if (attackDelayCounter >= 10.f && !isSwordAttacking) {
-			isSwordAttacking = true;
+		Item* useItem = gameEnvironment->playerSave->inventory.at(gameEnvironment->selectedItem+8);
+		if (useItem != NULL) {
+			string itemType = useItem->itemType;
+			animationIndexOffset = 16;
+			if (itemType == "Sword") {
+				if (attackDelayCounter >= 10.f && !isSwordAttacking) {
+					isSwordAttacking = true;
 
-			double dx = mouseX - screenX;
-			double dy = mouseY - screenY;
-			double PI = 3.14159265;
-			currentAttackAngle = (atan2(dy, dx) * 180.f / PI);
-			endAttackAngle = currentAttackAngle + 60.f;
+					double dx = mouseX - screenX;
+					double dy = mouseY - screenY;
+					double PI = 3.14159265;
+					currentAttackAngle = (atan2(dy, dx) * 180.f / PI);
+					endAttackAngle = currentAttackAngle + 60.f;
+				}
+			}
+			else if(itemType == "Bow") {
+				double dx = mouseX - screenX;
+				double dy = mouseY - screenY;
+				double mag = sqrt(dx * dx + dy * dy);
+				if (mag == 0.f) mag = 1.f;
+				dx /= mag;
+				dy /= mag;
 
-			/*
-			// fire projectile
-			double dx = mouseX - screenX;
-			double dy = mouseY - screenY;
-			double mag = sqrt(dx * dx + dy * dy);
-			if (mag == 0.f) mag = 1.f;
-			dx /= mag;
-			dy /= mag;
+				double speedMultiplier = 0.f;
+				string projType = "arrow";
+				if (projType == "arrow") speedMultiplier = 5.f;
 
-			double speedMultiplier = 0.f;
-			string projType = "arrow"; // TODO: use inventory or something to determine this
-			if (projType == "arrow") speedMultiplier = 5.f;
+				dx *= speedMultiplier;
+				dy *= speedMultiplier;
+				gameEnvironment->summonProjectile(projType, h.getCX(), h.getCY(), dx, dy, 0.f, 0.f);
 
-			dx *= speedMultiplier;
-			dy *= speedMultiplier;
-			gameEnvironment->summonProjectile(projType, h.getCX(), h.getCY(), dx, dy, 0.f, 0.f);
-
-			attackDelayCounter = 0.f;
-			*/
+				attackDelayCounter = 0.f;
+			}
+			else {
+				animationIndexOffset = 0;
+			}
 		}
 	}
 
@@ -152,7 +162,6 @@ void Player::movement(int keyX, int keyY, double dt) {
 	// direction order: north, northeast, east, southeast, south, southwest, west, northwest
 	// 0-7 => resting 
 	// 8-15 => walking  
-
 	double mv = dt * movementSpeed;
 
 	// if attacking, use attacking direction instead of movement direction
@@ -234,26 +243,26 @@ void Player::movement(int keyX, int keyY, double dt) {
 		else if (angle > -157.5 && angle <= -112.5) baseIndex = 7;
 
 		baseIndex += moving ? 8 : 0;
-		setAnimationIndex(baseIndex);
+		setAnimationIndex(baseIndex + animationIndexOffset);
 	}
 	else {
-		if (keyY == -1 && keyX == 0) setAnimationIndex(8);
+		if (keyY == -1 && keyX == 0) setAnimationIndex(8 + animationIndexOffset);
 		// northeast
-		else if (keyY == -1 && keyX == 1) setAnimationIndex(9);
+		else if (keyY == -1 && keyX == 1) setAnimationIndex(9 + animationIndexOffset);
 		// east
-		else if (keyY == 0 && keyX == 1) setAnimationIndex(10);
+		else if (keyY == 0 && keyX == 1) setAnimationIndex(10 + animationIndexOffset);
 		// southeast
-		else if (keyY == 1 && keyX == 1) setAnimationIndex(11);
+		else if (keyY == 1 && keyX == 1) setAnimationIndex(11 + animationIndexOffset);
 		// south
-		else if (keyY == 1 && keyX == 0) setAnimationIndex(12);
+		else if (keyY == 1 && keyX == 0) setAnimationIndex(12 + animationIndexOffset);
 		// southwest
-		else if (keyY == 1 && keyX == -1) setAnimationIndex(13);
+		else if (keyY == 1 && keyX == -1) setAnimationIndex(13 + animationIndexOffset);
 		// west
-		else if (keyY == 0 && keyX == -1) setAnimationIndex(14);
+		else if (keyY == 0 && keyX == -1) setAnimationIndex(14 + animationIndexOffset);
 		// northwest
-		else if (keyY == -1 && keyX == -1) setAnimationIndex(15);
+		else if (keyY == -1 && keyX == -1) setAnimationIndex(15 + animationIndexOffset);
 		// resting animation (based on last direction which is 0-7)
-		else setAnimationIndex(lastDirection);
+		else setAnimationIndex(lastDirection + animationIndexOffset);
 	}
 
 	// set last direction

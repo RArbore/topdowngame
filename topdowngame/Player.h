@@ -34,6 +34,7 @@ private:
 	sf::Vector2f acc;
 	float movementSpeed;
 	int lastDirection; // store the last direction (0-7, north going clockwise)
+	int animationIndexOffset;
 
 	double attackDelayCounter;
 	
