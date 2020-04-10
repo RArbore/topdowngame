@@ -47,6 +47,10 @@ void Entity::setAnimationIndex(int index) {
 	animationIndex = index;
 }
 
+bool Entity::damage(double damage) {
+	return false;
+}
+
 bool Entity::moveH(double dx, int tileId) {
 	bool everTouchedWall = false;
 	if (dx == 0) {

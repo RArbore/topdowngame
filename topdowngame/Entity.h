@@ -45,6 +45,8 @@ public:
 
 	void pushAnimation(Animation* a);
 
+	virtual bool damage(double damage);
+
 protected:
 	std::vector<Animation*> animations;
 	int animationIndex;

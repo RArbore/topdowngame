@@ -25,6 +25,8 @@ public:
 	void render(sf::RenderWindow* window);
 	void movement(double dt);
 
+	bool damage(double damage);
+
 private:
 
 	Entity* target;

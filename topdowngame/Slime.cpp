@@ -80,3 +80,7 @@ void Slime::movement(double dt) {
 void Slime::render(sf::RenderWindow* window) {
 	Entity::render(window);
 }
+
+bool Slime::damage(double damage) {
+	return true;
+}
