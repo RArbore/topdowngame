@@ -79,6 +79,8 @@ public:
 	void deleteProjectile(int index);
 	void deleteParticle(int index);
 
+	void changeRegion(int index);
+
 private:
 	void loadRegion(int index);
 };

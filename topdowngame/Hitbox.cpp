@@ -51,3 +51,41 @@ bool Hitbox::checkCollision(TileMap* map, int tileId) {
 	}
 	return false;
 }
+
+// return -2 if collision with no other region or edge of the world
+// return -1 if collision with the edge of the entire world
+// return region id if there is a collision with an adjacent region
+int Hitbox::checkWorldEdgeCollision(TileMap* map) {
+	int adjX = (int)(getCX() / 16);
+	int adjY = (int)(getCY() / 16);
+
+	int dx = std::ceil(w / 32);
+	int dy = std::ceil(h / 32);
+
+	/*
+	priority in this order:
+	adjacent region, world boundary, nothing
+	*/
+	std::vector<int> collWith;
+
+	for (int x = adjX - dx; x <= adjX + dx; x++) {
+		for (int y = adjY - dy; y <= adjY + dy; y++) {
+			Tile* tile = map->getTile(x, y);
+
+			if (tile != NULL && tile->type < 0) { // < 0 means that it is an adjacent region
+				if (checkCollision(tile->x, tile->y, Tile::TILE_SIZE, Tile::TILE_SIZE)) {
+					if (tile->type == -1) collWith.push_back(-1);
+					else collWith.push_back(-1 * tile->type - 2);
+				}
+			}
+		}
+	}
+	
+	if (collWith.size() == 0) return -2;
+
+	sort(collWith.begin(), collWith.end(), std::greater<int>());
+	if (collWith[0] == -1) return -1;
+	else {
+		return collWith[0];
+	}
+}

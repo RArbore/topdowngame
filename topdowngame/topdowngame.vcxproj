@@ -174,7 +174,6 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Attribute.h" />
-    <ClInclude Include="bitmap_image.hpp" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Entity.h" />

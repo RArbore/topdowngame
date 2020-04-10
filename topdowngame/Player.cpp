@@ -73,6 +73,13 @@ void Player::loadAnimations() {
 
 void Player::tick(double dt) {
 
+	// cout << h.checkCollision(tileMap, -2) << endl;
+	// cout << h.checkWorldEdgeCollision(tileMap) << endl;
+	int regionCollision = h.checkWorldEdgeCollision(tileMap);
+	if (regionCollision >= 0) {
+		gameEnvironment->changeRegion(regionCollision);
+	}
+
 	useDelayCounter -= dt;
 	if (useDelayCounter <= 0) {
 		useDelayCounter = 0;

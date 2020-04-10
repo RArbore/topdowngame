@@ -6,6 +6,13 @@ TileMap::TileMap(std::vector<std::vector<int>>& mapDefinition, sf::Texture* tile
 	loadVertexArray();
 }
 
+void TileMap::resetTileMap(std::vector<std::vector<int>>& mapDefinition, sf::Texture* tileset) {
+	this->tileset = tileset;
+	this->tiles.clear();
+	loadMapDefinition(mapDefinition);
+	loadVertexArray();
+}
+
 TileMap::~TileMap() {
 	for (std::pair<std::pair<int, int>, Tile*> t : tiles) {
 		delete t.second;
@@ -25,7 +32,8 @@ void TileMap::loadMapDefinition(std::vector<std::vector<int>>& map) {
 			int noise = map[i][j];
 
 			int type = 0;
-			if (noise == -1) type = -1;
+			// note this is -1 x (regionId+2)
+			if (noise < 0) type = noise;
 
 			// Map from [0, 100] to type (index of the sprite)
 			if (noise >= 0 && noise < 10) type = 12;
@@ -38,12 +46,14 @@ void TileMap::loadMapDefinition(std::vector<std::vector<int>>& map) {
 			if (noise >= 75) type = 7;
 
 			// tile coordinates
-			int x = i * (int)Tile::TILE_SIZE;
-			int y = j * (int)Tile::TILE_SIZE;
+			// subtract 1 from i and j since there are a layer of tiles
+			// for the purpose of detecting adjacent regions
+			int x = (i-1) * (int)Tile::TILE_SIZE;
+			int y = (j-1) * (int)Tile::TILE_SIZE;
 
 			// texture coordinates
 			int tx, ty;
-			if (type != -1) {
+			if (type >= 0) {
 				tx = (type % 16) * (int)Tile::TILE_SIZE;
 				ty = ((int)floor(type / 16) * Tile::TILE_SIZE) + Tile::TILE_SIZE;
 			}

@@ -54,8 +54,10 @@ void WorldGenerator::outputData() {
 	World Files:
 		- labeled using hexadecimal string of region index - [0, _cells)
 		- coords of bounding box
-		- each cell either has the noise value (positive value from 0 to 100)
-			or it has -1 x (region+1) if it belongs to another region
+		- each cell either has:
+			- noise value (positive value from 0 to 100)
+			- -1 x (region+2) if it belongs to another region
+			- -1 if it is the edge of the world
 	Adjacency File:
 		- number of cells (_cell)
 		- each line thereafter lists all the regions it is connected to
@@ -95,10 +97,15 @@ void WorldGenerator::outputData() {
 			assert(cnt == colorToRegion[grid->at(i).at(j)]);
 			fout << minCoord.first << " " << minCoord.second << std::endl;
 			fout << maxCoord.first << " " << maxCoord.second << std::endl;
-			for (int x = minCoord.first; x <= maxCoord.first; x++) {
-				for (int y = minCoord.second; y <= maxCoord.second; y++) {
+			for (int x = minCoord.first-1; x <= maxCoord.first+1; x++) {
+				for (int y = minCoord.second-1; y <= maxCoord.second+1; y++) {
+					if (x < 0 || x >= _size || y < 0 || y >= _size) { // edge of the world
+						fout << -1 << " ";
+						continue;
+					}
+
 					if (grid->at(x).at(y) != grid->at(i).at(j)) {
-						fout << -1 * (colorToRegion[grid->at(x).at(y)]+1) << " ";
+						fout << -1 * (colorToRegion[grid->at(x).at(y)]+2) << " ";
 					}
 					else {
 						double xi = x / FEATURE_SIZE;

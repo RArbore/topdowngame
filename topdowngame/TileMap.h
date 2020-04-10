@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
 
 #include <SFML/Graphics.hpp>
@@ -14,18 +15,21 @@ public:
 	~TileMap();
 
 	Tile* getTile(int x, int y);
+	
+	void resetTileMap(std::vector<std::vector<int>>& mapDefinition, sf::Texture* tileset);
 
 private:
-	std::map<std::pair<int, int>, Tile*> tiles; 
 	sf::Texture* tileset; // texture of all the tile sprites
 
 	sf::VertexArray vertices;
 
 	// note: sprites stored in rows of 16 
-	void loadMapDefinition(std::vector<std::vector<int>>& mapDefintion);
 	void loadVertexArray();
 
 	// use window.draw(TileMap object) in render loop
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+	void loadMapDefinition(std::vector<std::vector<int>>& mapDefintion);
+	std::map<std::pair<int, int>, Tile*> tiles;
 };
 

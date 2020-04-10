@@ -28,7 +28,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	playerSave->inventory[6] = new Item("Tier 1 Bow", "Bow", "This is a really long description! Wow, I didn't know that some items could be so complicated as to warrant such a detailed story just to be able to understand what it does at a basic level. That's pretty amazing! Who would've thought, certainly not me.", 15, &resourceManager);
 	releasedR = true;
 	this->debug = debug;
-	currentRegion = 0;
+	currentRegion = 0; // TODO: initialize this before creating the world so it starts at the right place
 	selectedItem = 0;
 }
 
@@ -294,10 +294,13 @@ void GameEnvironment::summonProjectile(std::string projType, double x, double y,
 }
 
 void GameEnvironment::loadRegion(int index) {
+
 	stringstream stream;
 	stream << hex << index;
 	string filename(stream.str());
 	filename = "../world/" + filename;
+
+	cout << "Loading region " << index << " from " << filename << endl;
 
 	ifstream fin(filename);
 
@@ -307,15 +310,25 @@ void GameEnvironment::loadRegion(int index) {
 
 	assert(expectedIndex == index);
 
-	mapDefinition.resize(x2 - x1 + 1, vector<int>(y2 - y1 + 1));
+	// +1 + 2 because there is an extra layer on each side for the purpose
+	// of knowing which regions are adjacent to it
+	// mapDefinition.resize((size_t)x2 - x1 + 3, vector<int>((size_t)y2 - y1 + 3));
+	mapDefinition = vector<vector<int>>(x2 - x1 + 3, vector<int>(y2 - y1 + 3));
 
-	for (int i = 0; i <= x2 - x1; i++) {
-		for (int j = 0; j <= y2 - y1; j++) {
-			fin >> mapDefinition[i][j];
+	for (int i = 0; i <= x2 - x1 + 2; i++) {
+		for (int j = 0; j <= y2 - y1 + 2; j++) {
+  			fin >> mapDefinition[i][j];
 		}
 	}
 
-	// for (int j = 0; j < y2-y1; j++) 
-
 	fin.close();
+}
+
+void GameEnvironment::changeRegion(int index) {
+	// TODO: there will eventually be more things here but for now it's just loading thew new file
+	loadRegion(index);
+	tileMap.resetTileMap(mapDefinition, getTileset());
+	// TODO: right now the player spawns in the middle but make it so that isn't the case
+	player->h.x = mapDefinition.size() / 2 * 16;
+	player->h.y = mapDefinition[0].size() / 2 * 16;
 }
