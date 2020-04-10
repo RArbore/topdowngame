@@ -24,7 +24,7 @@ bool Hitbox::checkCollision(double hx, double hy, double hw, double hh) {
 	double y3 = hy;
 	double x4 = hx + hw;
 	double y4 = hy + hh;
-	return !(x3 > x2 || x1 > x4 || y3 > y2 || y1 > y4);
+	return !(x3 >= x2 || x1 >= x4 || y3 >= y2 || y1 >= y4);
 }
 
 
@@ -42,13 +42,10 @@ bool Hitbox::checkCollision(TileMap* map, int tileId) {
 	for (int x = adjX - dx; x <= adjX + dx; x++) {
 		for (int y = adjY - dy; y <= adjY + dy; y++) {
 			Tile* tile = map->getTile(x, y);
-			if (tile != NULL && tile->type == tileId) {
-				if (checkCollision(tile->x, tile->y, Tile::TILE_SIZE, Tile::TILE_SIZE)) {
+			if (tile == NULL || tile->type == tileId) {
+				if (checkCollision(x * Tile::TILE_SIZE, y * Tile::TILE_SIZE, Tile::TILE_SIZE, Tile::TILE_SIZE)) {
 					return true;
 				}
-			}
-			else if (tile == NULL) {
-				return true;
 			}
 		}
 	}

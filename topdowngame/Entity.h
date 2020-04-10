@@ -36,8 +36,8 @@ public:
 	
 	Entity(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager);
 
-	bool moveH();
-	bool moveV();
+	bool moveH(double dx, int tileId);
+	bool moveV(double dy, int tileId);
 
 	virtual void tick(double dt) = 0;
 

@@ -17,7 +17,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	entities = vector<Entity*>();
 	projectiles = vector<Projectile*>();
 	visuals = vector<Particle*>();
-	entities.push_back(new Player(this, 0, 0, &tileMap, &entities, &keys, &resourceManager));
+	entities.push_back(new Player(this, 16, 16, &tileMap, &entities, &keys, &resourceManager));
 	focusEntity = entities.at(0);
 	player = (Player*) entities.at(0);
 	entities.push_back(new Slime(this, 100, 100, &tileMap, &entities, &resourceManager));

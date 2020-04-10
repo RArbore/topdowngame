@@ -73,8 +73,6 @@ void Player::loadAnimations() {
 
 void Player::tick(double dt) {
 
-	cout << h.checkCollision(tileMap, 7) << endl;
-
 	useDelayCounter -= dt;
 	if (useDelayCounter <= 0) {
 		useDelayCounter = 0;
@@ -177,46 +175,58 @@ void Player::movement(int keyX, int keyY, double dt) {
 	// north 
 	if (keyY == -1 && keyX == 0) {
 		// setAnimationIndex(8);
-		h.y -= mv;
+		//h.y -= mv;
+		moveV(-mv, 7);
 	}
 	// northeast
 	else if (keyY == -1 && keyX == 1) {
 		// setAnimationIndex(9);
-		h.y -= sqrt(2) / 2.f * mv;
-		h.x += sqrt(2) / 2.f * mv;
+		//h.y -= sqrt(2) / 2.f * mv;
+		//h.x += sqrt(2) / 2.f * mv;
+		moveH(sqrt(2) / 2. * mv, 7);
+		moveV(-sqrt(2) / 2. * mv, 7);
 	}
 	// east
 	else if (keyY == 0 && keyX == 1) {
 		// setAnimationIndex(10);
-		h.x += mv;
+		//h.x += mv;
+		moveH(mv, 7);
 	}
 	// southeast
 	else if (keyY == 1 && keyX == 1) {
 		// setAnimationIndex(11);
-		h.y += sqrt(2) / 2.f * mv;
-		h.x += sqrt(2) / 2.f * mv;
+		//h.y += sqrt(2) / 2.f * mv;
+		//h.x += sqrt(2) / 2.f * mv;
+		moveH(sqrt(2) / 2. * mv, 7);
+		moveV(sqrt(2) / 2. * mv, 7);
 	}
 	// south
 	else if (keyY == 1 && keyX == 0) {
 		// setAnimationIndex(12);
-		h.y += mv;
+		//h.y += mv;
+		moveV(mv, 7);
 	}
 	// southwest
 	else if (keyY == 1 && keyX == -1) {
 		// setAnimationIndex(13);
-		h.y += sqrt(2) / 2.f * mv;
-		h.x -= sqrt(2) / 2.f * mv;
+		//h.y += sqrt(2) / 2.f * mv;
+		//h.x -= sqrt(2) / 2.f * mv;
+		moveH(-sqrt(2) / 2. * mv, 7);
+		moveV(sqrt(2) / 2. * mv, 7);
 	}
 	// west
 	else if (keyY == 0 && keyX == -1) {
 		// setAnimationIndex(14);
-		h.x -= mv;
+		//h.x -= mv;
+		moveH(-mv, 7);
 	}
 	// northwest
 	else if (keyY == -1 && keyX == -1) {
 		// setAnimationIndex(15);
-		h.y -= sqrt(2) / 2.f * mv;
-		h.x -= sqrt(2) / 2.f * mv;
+		//h.y -= sqrt(2) / 2.f * mv;
+		//h.x -= sqrt(2) / 2.f * mv;
+		moveH(-sqrt(2) / 2. * mv, 7);
+		moveV(-sqrt(2) / 2. * mv, 7);
 	}
 	// resting animation (based on last direction which is 0-7)
 	// else setAnimationIndex(lastDirection);

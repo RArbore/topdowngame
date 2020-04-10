@@ -40,9 +40,114 @@ void Entity::playCurrentAnimation(double dt) {
 }
 
 void Entity::setAnimationIndex(int index) {
-	if (index >= animations.size()) {
+	if (index >= animations.size()) {	
 		std::cout << "ERROR: Could not set animation index due to an out of bounds error." << std::endl;
 		return;
 	}
 	animationIndex = index;
 }
+
+bool Entity::moveH(double dx, int tileId) {
+	bool everTouchedWall = false;
+	if (dx == 0) {
+		return true;
+	}
+	else if (dx > 0) {
+		double remainder = dx - (int)dx;
+		for (int i = 0; i < (int)dx; i++) {
+			h.x++;
+			if (h.checkCollision(tileMap, tileId)) {
+				everTouchedWall = true;
+				h.x = (int)h.x;
+				while (h.checkCollision(tileMap, tileId)) {
+					h.x--;
+				}
+			}
+		}
+		h.x += remainder;
+		if (h.checkCollision(tileMap, tileId)) {
+			everTouchedWall = true;
+			h.x = (int)h.x;
+			while (h.checkCollision(tileMap, tileId)) {
+				h.x--;
+			}
+		}
+	}
+	else {
+		dx *= -1;
+		double remainder = dx - (int)dx;
+		for (int i = 0; i < (int)dx; i++) {
+			h.x--;
+			if (h.checkCollision(tileMap, tileId)) {
+				everTouchedWall = true;
+				h.x = (int)h.x;
+				while (h.checkCollision(tileMap, tileId)) {
+					h.x++;
+				}
+			}
+		}
+		h.x -= remainder;
+		if (h.checkCollision(tileMap, tileId)) {
+			everTouchedWall = true;
+			h.x = (int)h.x;
+			while (h.checkCollision(tileMap, tileId)) {
+				h.x++;
+			}
+		}
+	}
+
+	return !everTouchedWall;
+}
+
+bool Entity::moveV(double dy, int tileId) {
+	bool everTouchedWall = false;
+	if (dy == 0) {
+		return true;
+	}
+	else if (dy > 0) {
+		double remainder = dy - (int)dy;
+		for (int i = 0; i < (int)dy; i++) {
+			h.y++;
+			if (h.checkCollision(tileMap, tileId)) {
+				everTouchedWall = true;
+				h.y = (int)h.y;
+				while (h.checkCollision(tileMap, tileId)) {
+					h.y--;
+				}
+			}
+		}
+		h.y += remainder;
+		if (h.checkCollision(tileMap, tileId)) {
+			everTouchedWall = true;
+			h.y = (int)h.y;
+			while (h.checkCollision(tileMap, tileId)) {
+				h.y--;
+			}
+		}
+	}
+	else {
+		dy *= -1;
+		double remainder = dy - (int)dy;
+		for (int i = 0; i < (int)dy; i++) {
+			h.y--;
+			if (h.checkCollision(tileMap, tileId)) {
+				everTouchedWall = true;
+				h.y = (int)h.y;
+				while (h.checkCollision(tileMap, tileId)) {
+					h.y++;
+				}
+			}
+		}
+		h.y -= remainder;
+		if (h.checkCollision(tileMap, tileId)) {
+			everTouchedWall = true;
+			h.y = (int)h.y;
+			while (h.checkCollision(tileMap, tileId)) {
+				h.y++;
+			}
+		}
+	}
+
+	return !everTouchedWall;
+}
+
