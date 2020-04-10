@@ -62,7 +62,7 @@ void TileMap::loadMapDefinition(std::vector<std::vector<int>>& map) {
 			}
 
 			Tile* t = new Tile(x, y, tx, ty, type);
-			this->tiles.insert(std::pair<std::pair<int, int>, Tile*>(std::pair<int, int>(i, j), t));
+			this->tiles.insert(std::pair<std::pair<int, int>, Tile*>(std::pair<int, int>(i-1, j-1), t));
 		}
 	}
 }
