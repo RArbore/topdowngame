@@ -9,11 +9,15 @@ WorldGenerator::WorldGenerator(int cells, int size, int seed) {
 	color.resize(_cells);
 	this->grid = new vector<vector<int>>(_size, std::vector<int>(_size));
 	this->vis = new vector<vector<bool>>(_size, std::vector<bool>(_size));
+	this->vis2 = new vector<vector<bool>>(_size, vector<bool>(_size));
+	adj.resize(cells + 1);
+	colorToRegion.resize(cells+1);
 }
 
 WorldGenerator::~WorldGenerator() {
 	delete grid;
 	delete vis;
+	delete vis2;
 }
 
 void WorldGenerator::runAll() {
@@ -45,9 +49,33 @@ void WorldGenerator::generateGrid() {
 }
 
 void WorldGenerator::outputData() {
+	/*
+	FORMAT OF WORLD DATA
+	World Files:
+		- labeled using hexadecimal string of region index - [0, _cells)
+		- coords of bounding box
+		- each cell either has the noise value (positive value from 0 to 100)
+			or it has -1 x (region+1) if it belongs to another region
+	Adjacency File:
+		- number of cells (_cell)
+		- each line thereafter lists all the regions it is connected to
+	*/
+
 	SimplexNoise noise;
 
+	// generate colorToRegion for use with adjacency list (found in next set of loops)
 	int cnt = 0;
+	for (int i = 0; i < _size; i++) {
+		for (int j = 0; j < _size; j++) {
+			if (vis2->at(i).at(j)) continue;
+			colorToRegion[grid->at(i).at(j)] = cnt;
+			determineRegionInd(i, j, grid->at(i).at(j));
+			cnt++;
+		}
+	}
+
+	// output world data and create adjacency list
+	cnt = 0;
 	for (int i = 0; i < _size; i++) {
 		for (int j = 0; j < _size; j++) {
 			if (vis->at(i).at(j)) continue;
@@ -64,11 +92,14 @@ void WorldGenerator::outputData() {
 			ofstream fout(filename);
 
 			fout << cnt << std::endl;
+			assert(cnt == colorToRegion[grid->at(i).at(j)]);
 			fout << minCoord.first << " " << minCoord.second << std::endl;
 			fout << maxCoord.first << " " << maxCoord.second << std::endl;
 			for (int x = minCoord.first; x <= maxCoord.first; x++) {
 				for (int y = minCoord.second; y <= maxCoord.second; y++) {
-					if (grid->at(x).at(y) != grid->at(i).at(j)) fout << -1 << " ";
+					if (grid->at(x).at(y) != grid->at(i).at(j)) {
+						fout << -1 * (colorToRegion[grid->at(x).at(y)]+1) << " ";
+					}
 					else {
 						double xi = x / FEATURE_SIZE;
 						double yi = y / FEATURE_SIZE;
@@ -84,6 +115,15 @@ void WorldGenerator::outputData() {
 			fout.close();
 		}
 	}
+
+	// output adjacency list
+	ofstream fout("../world/adj");
+	fout << _cells << endl;
+	for (int i = 0; i < _cells; i++) {
+		for (auto& j : adj[i]) fout << j << " ";
+		fout << endl;
+	}
+	fout.close();
 }
 
 
@@ -103,8 +143,27 @@ void WorldGenerator::findBounds(int i, int j, int c) {
 		int ni = i + dx[a];
 		int nj = j + dy[a];
 		if (ni < 0 || ni >= _size || nj < 0 || nj >= _size) continue;
+		if (grid->at(ni).at(nj) != c) {
+			adj[colorToRegion[c]].insert(colorToRegion[grid->at(ni).at(nj)]);
+			adj[colorToRegion[grid->at(ni).at(nj)]].insert(colorToRegion[c]);
+			continue;
+		}
 		if (vis->at(ni).at(nj)) continue;
-		if (grid->at(ni).at(nj) != c) continue;
 		findBounds(ni, nj, c);
+	}
+}
+
+void WorldGenerator::determineRegionInd(int i, int j, int c) {
+	// just floodfill and visit so we know we visited these cells
+	vis2->at(i).at(j) = true;
+	int dx[4] = { 0, 0, 1, -1 };
+	int dy[4] = { 1, -1, 0, 0 };
+	for (int a = 0; a < 4; a++) {
+		int ni = i + dx[a];
+		int nj = j + dy[a];
+		if (ni < 0 || ni >= _size || nj < 0 || nj >= _size) continue;
+		if (vis2->at(ni).at(nj)) continue;
+		if (grid->at(ni).at(nj) != c) continue;
+		determineRegionInd(ni, nj, c);
 	}
 }

@@ -266,6 +266,10 @@ vector<vector<int>>& GameEnvironment::generateMap() {
 		struct stat buffer;
 		allExist &= (stat(filename.c_str(), &buffer) == 0);
 	}
+	// check if adj exists
+	string filename = "../world/adj";
+	struct stat buffer;
+	allExist &= (stat(filename.c_str(), &buffer) == 0);
 
 	if (!allExist) {
 		worldGenerator.runAll();
