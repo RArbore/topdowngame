@@ -45,6 +45,12 @@ void GameEnvironment::tick(double dt) {
 	
 	for (int i = entities.size() - 1; i >= 0; i--) {
 		entities.at(i)->tick(dt);
+		if (entities.at(i)->removeMe) {
+			if (entities.at(i) == focusEntity) {
+				focusEntity = player;
+			}
+			entities.erase(entities.begin() + i);
+		}
 	}
 
 	tickProjectiles(dt);

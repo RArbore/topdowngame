@@ -15,6 +15,7 @@ acc(0.f, 0.f)
 	maxHealth = 100;
 	attackDelayCounter = 0;
 	setAnimationIndex(0);
+	hurtTimer = 0;
 	counter = 0;
 }
 
@@ -42,12 +43,22 @@ void Slime::loadAnimations() {
 	c->editCoords(0, sf::IntRect(0, 80, 16, 16));
 	c->editDelay(0, 1e9);
 	this->pushAnimation(c);
+
+	Animation* d = new Animation(3);
+	for (int i = 0; i < 3; i++) {
+		d->editFrame(i, tex);
+		d->editCoords(i, sf::IntRect(0, i*16+96, 16, 16));
+		d->editDelay(i, 10);
+	}
+	this->pushAnimation(d);
 }
 
 void Slime::tick(double dt) {
 	if (target == NULL) {
 		target = gameEnvironment->focusEntity;
 	}
+
+	hurtTimer -= dt;
 
 	attackDelayCounter += dt;
 
@@ -58,19 +69,35 @@ void Slime::tick(double dt) {
 }
 
 void Slime::movement(double dt) {
-	if (counter > 60) {
-		double mv = dt * movementSpeed;
-
-		double dx = target->h.getCX() - h.getCX();
-		double dy = target->h.getCY() - h.getCY();
-		double distance = sqrt(dx * dx + dy * dy);
-
-		h.x += dx / distance * mv;
-		h.y += dy / distance * mv;
-		setAnimationIndex(0);
+	if (health > 0) {
+		if (counter > 60) {
+			double mv = dt * movementSpeed;
+			double dx = target->h.getCX() - h.getCX();
+			double dy = target->h.getCY() - h.getCY();
+			double distance = sqrt(dx * dx + dy * dy);
+			h.x += dx / distance * mv;
+			h.y += dy / distance * mv;
+			if (hurtTimer > 0) {
+				setAnimationIndex(2);
+			}
+			else {
+				setAnimationIndex(0);
+				hurtTimer = 0;
+			}
+		}
+		else {
+			setAnimationIndex(1);
+		}
 	}
 	else {
-		setAnimationIndex(1);
+		setAnimationIndex(3);
+		if (counter >= 30) {
+			for (int i = 0; i < 5; i++) {
+				double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
+				gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 8.0 * cos(theta), h.getCY() + 8.0 * sin(theta), 2, 1000000, tileMap, entityList, resourceManager));
+			}
+			removeMe = true;
+		}
 	}
 	if ((int) counter % 120 == 119) {
 		gameEnvironment->entities.push_back(new Coin(gameEnvironment, h.getCX(), h.getCY(), &gameEnvironment->tileMap, &gameEnvironment->entities, resourceManager));
@@ -82,5 +109,14 @@ void Slime::render(sf::RenderWindow* window) {
 }
 
 bool Slime::damage(double damage) {
+	if (health <= 0) {
+		return false;
+	}
+	health -= damage;
+	setAnimationIndex(2);
+	hurtTimer = 5;
+	if (health <= 0) {
+		counter = 0;
+	}
 	return true;
 }

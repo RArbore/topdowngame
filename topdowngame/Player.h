@@ -45,6 +45,7 @@ private:
 	double currentAttackAngle;
 	double endAttackAngle;
 	double swordAttackSpeed;
+	map<Entity*, bool> alreadyHit;
 
 	double mouseX, mouseY; // use these for determining what direction to move in
 	double screenX, screenY; // coordinates of player on the actual screen

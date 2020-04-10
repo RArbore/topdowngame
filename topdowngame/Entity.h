@@ -34,6 +34,8 @@ public:
 
 	double renderOrderOffset;
 	
+	bool removeMe;
+
 	Entity(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager);
 
 	bool moveH(double dx, int tileId);

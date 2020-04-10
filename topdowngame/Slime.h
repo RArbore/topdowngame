@@ -35,6 +35,8 @@ private:
 	sf::Vector2f acc;
 	float movementSpeed;
 
+	double hurtTimer;
+
 	double attackDelayCounter;
 
 	void loadAnimations();

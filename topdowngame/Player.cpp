@@ -83,6 +83,9 @@ void Player::tick(double dt) {
 	useDelayCounter -= dt;
 	if (useDelayCounter <= 0) {
 		useDelayCounter = 0;
+		if (animationIndexOffset != 0) {
+			alreadyHit.clear();
+		}
 		animationIndexOffset = 0;
 	}
 
@@ -105,7 +108,7 @@ void Player::tick(double dt) {
 			double y = h.getCY() + sin(currentAttackAngle / 180 * 3.14159265358979323846) * 20;
 			Hitbox swordTip(x-4, y-4, 8, 8);
 			for (Entity* e : *entityList) {
-				if (swordTip.checkCollision(&e->h) && e->damage(10)) {
+				if (!alreadyHit.count(e) && swordTip.checkCollision(&e->h) && e->damage(10)) {
 					double dx = e->h.getCX() - h.getCX();
 					double dy = e->h.getCY() - h.getCY();
 					double d = sqrt(dx * dx + dy * dy);
@@ -113,6 +116,7 @@ void Player::tick(double dt) {
 					dy /= d;
 					e->moveH(dx * 5, 7);
 					e->moveV(dy * 5, 7);
+					alreadyHit.insert(pair<Entity*, bool>(e, true));
 				}
 			}
 		}
