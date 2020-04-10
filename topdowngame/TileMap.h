@@ -14,7 +14,7 @@ public:
 	~TileMap();
 
 private:
-	std::vector<Tile*> tiles; 
+	std::map<std::pair<int, int>, Tile*> tiles; 
 	sf::Texture* tileset; // texture of all the tile sprites
 
 	sf::VertexArray vertices;

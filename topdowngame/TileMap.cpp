@@ -7,8 +7,8 @@ TileMap::TileMap(std::vector<std::vector<int>>& mapDefinition, sf::Texture* tile
 }
 
 TileMap::~TileMap() {
-	for (auto t : tiles) {
-		delete t;
+	for (std::pair<std::pair<int, int>, Tile*> t : tiles) {
+		delete t.second;
 	}
 }
 
@@ -45,7 +45,7 @@ void TileMap::loadMapDefinition(std::vector<std::vector<int>>& map) {
 			}
 
 			Tile* t = new Tile(x, y, tx, ty, type);
-			tiles.push_back(t);
+			this->tiles.insert(std::pair<std::pair<int, int>, Tile*>(std::pair<int, int>(i, j), t));
 		}
 	}
 }
@@ -55,8 +55,10 @@ void TileMap::loadVertexArray() {
 	vertices.setPrimitiveType(sf::Quads);
 	vertices.resize(tiles.size() * 4);
 
-	for (int i = 0; i < tiles.size(); i++) {
-		Tile* tile = tiles[i];
+	int i = 0;
+
+	for (std::pair<std::pair<int, int>, Tile*> t : tiles) {
+		Tile* tile = t.second;
 
 		// find position in texture coords
 		// TODO: implement this (need to standardize texture file format)
@@ -77,6 +79,7 @@ void TileMap::loadVertexArray() {
 		quad[1].texCoords = sf::Vector2f((float)(tile->texture_x + Tile::TILE_SIZE), (float)tile->texture_y);
 		quad[2].texCoords = sf::Vector2f((float)(tile->texture_x + Tile::TILE_SIZE), (float)(tile->texture_y + Tile::TILE_SIZE));
 		quad[3].texCoords = sf::Vector2f((float)tile->texture_x, (float)(tile->texture_y + Tile::TILE_SIZE));
+		i++;
 	}
 }
 
