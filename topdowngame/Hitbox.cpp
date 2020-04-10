@@ -31,3 +31,26 @@ bool Hitbox::checkCollision(double hx, double hy, double hw, double hh) {
 bool Hitbox::checkCollision(Hitbox* h) {
 	return checkCollision(h->x, h->y, h->w, h->h);
 }
+
+bool Hitbox::checkCollision(TileMap* map, int tileId) {
+	int adjX = (int)(getCX() / 16);
+	int adjY = (int)(getCY() / 16);
+
+	int dx = std::ceil(w / 32);
+	int dy = std::ceil(h / 32);
+
+	for (int x = adjX - dx; x <= adjX + dx; x++) {
+		for (int y = adjY - dy; y <= adjY + dy; y++) {
+			Tile* tile = map->getTile(x, y);
+			if (tile != NULL && tile->type == tileId) {
+				if (checkCollision(tile->x, tile->y, Tile::TILE_SIZE, Tile::TILE_SIZE)) {
+					return true;
+				}
+			}
+			else if (tile == NULL) {
+				return true;
+			}
+		}
+	}
+	return false;
+}

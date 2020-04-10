@@ -72,6 +72,9 @@ void Player::loadAnimations() {
 }
 
 void Player::tick(double dt) {
+
+	cout << h.checkCollision(tileMap, 7) << endl;
+
 	useDelayCounter -= dt;
 	if (useDelayCounter <= 0) {
 		useDelayCounter = 0;

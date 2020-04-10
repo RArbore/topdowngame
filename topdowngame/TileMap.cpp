@@ -12,6 +12,13 @@ TileMap::~TileMap() {
 	}
 }
 
+Tile* TileMap::getTile(int x, int y) {
+	if (tiles.count(std::pair<int, int>(x, y))) {
+		return tiles.at(std::pair<int, int>(x, y));
+	}
+	return NULL;
+}
+
 void TileMap::loadMapDefinition(std::vector<std::vector<int>>& map) {
 	for (int i = 0; i < map.size(); i++) {
 		for (int j = 0; j < map[i].size(); j++) {
@@ -69,10 +76,10 @@ void TileMap::loadVertexArray() {
 		sf::Vertex* quad = &vertices[(size_t)i * 4];
 
 		// define 4 corners
-		quad[0].position = sf::Vector2f((float)tile->h.x, (float)tile->h.y);
-		quad[1].position = sf::Vector2f((float)(tile->h.x + Tile::TILE_SIZE), (float)tile->h.y);
-		quad[2].position = sf::Vector2f((float)(tile->h.x + Tile::TILE_SIZE), (float)(tile->h.y + Tile::TILE_SIZE));
-		quad[3].position = sf::Vector2f((float)(tile->h.x), (float)(tile->h.y + Tile::TILE_SIZE));
+		quad[0].position = sf::Vector2f((float)tile->x, (float)tile->y);
+		quad[1].position = sf::Vector2f((float)(tile->x + Tile::TILE_SIZE), (float)tile->y);
+		quad[2].position = sf::Vector2f((float)(tile->x + Tile::TILE_SIZE), (float)(tile->y + Tile::TILE_SIZE));
+		quad[3].position = sf::Vector2f((float)(tile->x), (float)(tile->y + Tile::TILE_SIZE));
 
 		// define texture coordinates
 		quad[0].texCoords = sf::Vector2f((float)(tile->texture_x), (float)(tile->texture_y));

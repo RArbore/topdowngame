@@ -13,6 +13,8 @@ public:
 
 	~TileMap();
 
+	Tile* getTile(int x, int y);
+
 private:
 	std::map<std::pair<int, int>, Tile*> tiles; 
 	sf::Texture* tileset; // texture of all the tile sprites

@@ -1,5 +1,8 @@
 #pragma once
 
+#include "TileMap.h"
+#include "Tile.h"
+
 class Hitbox
 {
 
@@ -15,6 +18,7 @@ public:
 	double getCY();
 	bool checkCollision(double hx, double hy, double hw, double hh);
 	bool checkCollision(Hitbox* h);
+	bool checkCollision(TileMap* map, int tileId);
 
 };
 
