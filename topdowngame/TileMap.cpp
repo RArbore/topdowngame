@@ -8,6 +8,7 @@ TileMap::TileMap(std::vector<std::vector<int>>& mapDefinition, sf::Texture* tile
 
 void TileMap::resetTileMap(std::vector<std::vector<int>>& mapDefinition, sf::Texture* tileset) {
 	this->tileset = tileset;
+	for (auto& t : tiles) delete t.second;
 	this->tiles.clear();
 	loadMapDefinition(mapDefinition);
 	loadVertexArray();
