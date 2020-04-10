@@ -37,6 +37,8 @@ private:
 
 	double hurtTimer;
 
+	double attackTimer;
+
 	double attackDelayCounter;
 
 	void loadAnimations();

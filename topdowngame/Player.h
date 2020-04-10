@@ -27,11 +27,10 @@ public:
 	void tick(double dt);	
 	void render(sf::RenderWindow* window);
 	void movement(int keyX, int keyY, double dt);
+	bool damage(double damage);
 
 private:
-	// velocity and acceleration
-	sf::Vector2f vel;
-	sf::Vector2f acc;
+
 	float movementSpeed;
 	int lastDirection; // store the last direction (0-7, north going clockwise)
 	int animationIndexOffset;

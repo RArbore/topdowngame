@@ -25,6 +25,8 @@ public:
 	void tick(double dt);	
 	void render(sf::RenderWindow* window);
 
+	bool damage(double damage);
+
 private:
 
 	void loadAnimations();

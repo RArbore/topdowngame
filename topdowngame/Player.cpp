@@ -1,9 +1,7 @@
 #include "Player.h"
 
 Player::Player(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
-Entity::Entity(x, y, tileMap, entityList, resourceManager),
-vel(0.f, 0.f),
-acc(0.f, 0.f)
+Entity::Entity(x, y, tileMap, entityList, resourceManager)
 {
 	this->keys = keys;
 	this->gameEnvironment = gameEnvironment;
@@ -348,4 +346,9 @@ void Player::render(sf::RenderWindow* window) {
 			window->draw(swordSprite);
 		}
 	}
+}
+
+bool Player::damage(double damage) {
+	health -= damage;
+	return true;
 }

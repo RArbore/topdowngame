@@ -8,8 +8,8 @@ Entity::Entity(x, y, tileMap, entityList, resourceManager)
 
 	h.w = 16;
 	h.h = 16;
-	health = 100;
-	maxHealth = 100;
+	health = 150;
+	maxHealth = 150;
 	setAnimationIndex(0);
 	counter = 0;
 }
@@ -35,15 +35,31 @@ void Mushroom::loadAnimations() {
 }
 
 void Mushroom::tick(double dt) {
-	if (counter < 30) {
-		setAnimationIndex(0);
+	if (health > 0) {
+		if (counter < 30) {
+			setAnimationIndex(0);
+		}
+		else {
+			setAnimationIndex(1);
+			double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
+			double magnitude = ((double)(rand() % 60)) / 100 + 0.4;
+			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 24.0 * cos(theta), h.getCY() + 24.0 * sin(theta), 0, -1000000, tileMap, entityList, resourceManager));
+			if ((int)counter % 2 == 0) gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 24.0 * cos(theta) * magnitude, h.getCY() + 24.0 * sin(theta) * magnitude, 0, -1000000, tileMap, entityList, resourceManager));
+			double dx = h.getCX() - gameEnvironment->player->h.getCX();
+			double dy = h.getCY() - gameEnvironment->player->h.getCY();
+			double distance = sqrt(dx * dx + dy * dy);
+			if (distance < 24) {
+				gameEnvironment->player->damage(dt/6);
+			}
+		}
 	}
 	else {
-		setAnimationIndex(1);
-		double theta = ((double) (rand() % 360)) / 180 * 3.14159265358979323846;
-		double magnitude = ((double)(rand() % 60)) / 100 + 0.4;
-		gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX()+24.0*cos(theta), h.getCY()+24.0*sin(theta), 0, -1000000, tileMap, entityList, resourceManager));
-		if ((int) counter % 2 == 0) gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX()+24.0*cos(theta)*magnitude, h.getCY()+24.0*sin(theta)*magnitude, 0, -1000000, tileMap, entityList, resourceManager));
+		for (int i = 0; i < 5; i++) {
+			double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
+			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 8.0 * cos(theta), h.getCY() + 8.0 * sin(theta), 2, 1000000, tileMap, entityList, resourceManager));
+		}
+		gameEnvironment->entities.push_back(new Coin(gameEnvironment, h.getCX()-3, h.getCY()-3.5, &gameEnvironment->tileMap, &gameEnvironment->entities, resourceManager));
+		removeMe = true;
 	}
 
 	this->playCurrentAnimation(dt);
@@ -52,4 +68,12 @@ void Mushroom::tick(double dt) {
 
 void Mushroom::render(sf::RenderWindow* window) {
 	Entity::render(window);
+}
+
+bool Mushroom::damage(double damage) {
+	if (health <= 0) {
+		return false;
+	}
+	health -= damage;
+	return true;
 }
