@@ -30,6 +30,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	this->debug = debug;
 	currentRegion = 0; // TODO: initialize this before creating the world so it starts at the right place
 	selectedItem = 0;
+	sf::Vector2f cameraPos(focusEntity->h.getCX(), focusEntity->h.getCY());
 }
 
 GameEnvironment::~GameEnvironment() {
@@ -96,7 +97,10 @@ void GameEnvironment::deleteParticle(int index) {
 
 void GameEnvironment::render() {
 	sf::View prevView = window->getDefaultView();
-	sf::Vector2f cameraPos(focusEntity->h.getCX(), focusEntity->h.getCY());
+	float dx = focusEntity->h.getCX() - cameraPos.x;
+	float dy = focusEntity->h.getCY() - cameraPos.y;
+	cameraPos.x += dx / 5;
+	cameraPos.y += dy / 5;
 	camera.setCenter(cameraPos);
 	camera.setSize(static_cast<sf::Vector2f>(window->getSize()));
 	window->setView(camera.getView());

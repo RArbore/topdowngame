@@ -83,5 +83,7 @@ public:
 
 private:
 	void loadRegion(int index);
+
+	sf::Vector2f cameraPos;
 };
 
