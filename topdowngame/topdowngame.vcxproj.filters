@@ -96,6 +96,9 @@
     <ClCompile Include="SimplexNoise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Zombie.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -176,6 +179,9 @@
     <ClInclude Include="SimplexNoise.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Zombie.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\spritesheets\jungle_biome.png">
@@ -215,6 +221,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\spritesheets\desert_biome.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\spritesheets\zombie.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

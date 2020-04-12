@@ -97,8 +97,8 @@ void Slime::movement(double dt) {
 				attackTimer = 0;
 				double mv = dt * movementSpeed;
 				double distance = sqrt(dx * dx + dy * dy);
-				h.x += dx / distance * mv;
-				h.y += dy / distance * mv;
+				moveH(dx / distance * mv, 7);
+				moveV(dy / distance * mv, 7);
 				if (hurtTimer > 0) {
 					setAnimationIndex(2);
 				}

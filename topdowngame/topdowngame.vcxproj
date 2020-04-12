@@ -170,6 +170,7 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="WorldGenerator.cpp" />
+    <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="WorldGenerator.h" />
+    <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\spritesheets\arrow.png" />
@@ -211,6 +213,7 @@
     <Image Include="..\spritesheets\slime.png" />
     <Image Include="..\spritesheets\swords.png" />
     <Image Include="..\spritesheets\wands.png" />
+    <Image Include="..\spritesheets\zombie.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\spritesheets\arial.ttf" />

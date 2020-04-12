@@ -10,6 +10,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	resourceManager.loadTexture("slime_entity", "slime.png");
 	resourceManager.loadTexture("coin_entity", "coin.png");
 	resourceManager.loadTexture("mushroom_entity", "mushroom.png");
+	resourceManager.loadTexture("zombie_entity", "zombie.png");
 	resourceManager.loadTexture("particle_entity", "particles.png");
 	resourceManager.loadTexture("items_texture", "items.png");
 	resourceManager.loadTexture("wands", "wands.png");
@@ -22,6 +23,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	player = (Player*) entities.at(0);
 	entities.push_back(new Slime(this, 100, 100, &tileMap, &entities, &resourceManager));
 	entities.push_back(new Mushroom(this, 200, 200, &tileMap, &entities, &resourceManager));
+	entities.push_back(new Zombie(this, 0, 100, &tileMap, &entities, &resourceManager));
 	playerSave->inventory[8] = new Item("Tier 1 Sword", "Sword", "A sword", 0, &resourceManager);
 	playerSave->inventory[20] = new Item("Tier 6 Sword", "Sword", "A sword", 5, &resourceManager);
 	playerSave->inventory[0] = new Item("Tier 11 Sword", "Sword", "A sword", 10, &resourceManager);

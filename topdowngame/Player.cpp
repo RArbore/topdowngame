@@ -104,7 +104,7 @@ void Player::tick(double dt) {
 		else {
 			double x = h.getCX() + cos(currentAttackAngle / 180 * 3.14159265358979323846) * 20;
 			double y = h.getCY() + sin(currentAttackAngle / 180 * 3.14159265358979323846) * 20;
-			Hitbox swordTip(x-4, y-4, 8, 8);
+			Hitbox swordTip(x-6, y-6, 12, 12);
 			for (Entity* e : *entityList) {
 				if (!alreadyHit.count(e) && swordTip.checkCollision(&e->h) && e->damage(10)) {
 					double dx = e->h.getCX() - h.getCX();
