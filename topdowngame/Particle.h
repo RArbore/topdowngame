@@ -8,6 +8,7 @@
 using namespace std;
 
 class GameEnvironment;
+class JungleTree;
 
 class Particle : public Entity
 {
@@ -30,7 +31,7 @@ private:
 
 	int particleType;
 
-	void loadAnimations();
+	virtual void loadAnimations();
 
 };
 

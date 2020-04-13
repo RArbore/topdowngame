@@ -8,6 +8,7 @@
 #include "Zombie.h"
 #include "Projectile.h"
 #include "Particle.h"
+#include "JungleTree.h"
 #include "ResourceManager.h"
 #include "WorldGenerator.h"
 #include "Item.h"
@@ -26,6 +27,7 @@ using namespace std;
 
 class Player;
 class Particle;
+class JungleTree;
 
 class GameEnvironment : public Environment
 {
@@ -87,6 +89,8 @@ public:
 
 private:
 	void loadRegion(int index);
+
+	void loadRegionEntities(int index);
 
 	sf::Vector2f cameraPos;
 };

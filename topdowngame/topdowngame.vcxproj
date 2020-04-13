@@ -157,6 +157,7 @@
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="InventoryEnvironment.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="JungleTree.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="Particle.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Hitbox.h" />
     <ClInclude Include="InventoryEnvironment.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="JungleTree.h" />
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="PerlinNoise.h" />
@@ -206,7 +208,9 @@
     <Image Include="..\spritesheets\desert_biome.png" />
     <Image Include="..\spritesheets\items.png" />
     <Image Include="..\spritesheets\jungle_biome.png" />
+    <Image Include="..\spritesheets\jungle_trees.png" />
     <Image Include="..\spritesheets\magic_bolt.png" />
+    <Image Include="..\spritesheets\magic_rock.png" />
     <Image Include="..\spritesheets\mushroom.png" />
     <Image Include="..\spritesheets\particles.png" />
     <Image Include="..\spritesheets\player.png" />
