@@ -340,7 +340,7 @@ void GameEnvironment::loadRegionEntities(int index) {
 			map<pair<int, int>, bool> treeAtPos;
 			for (std::pair<std::pair<int, int>, Tile*> t : tileMap.tiles) {
 				Tile* tile = t.second;
-				if (tile->type == 7 && rand() % 10 == 0) {
+				if (tile->type == 7 && rand() % 3 == 0) {
 					int tx = tile->x / Tile::TILE_SIZE;
 					int ty = tile->y / Tile::TILE_SIZE;
 					bool check = true;
@@ -355,7 +355,7 @@ void GameEnvironment::loadRegionEntities(int index) {
 						treeAtPos.insert(pair<pair<int, int>, bool>(pair<int, int>(tx, ty), true));
 					}
 				}
-				if (tile->type == 6 && rand() % 300 == 0) {
+				if (tile->type == 6 && rand() % 200 == 0) {
 					addEntity(new Mushroom(this, tile->x, tile->y, &tileMap, &resourceManager));
 				}
 			}
