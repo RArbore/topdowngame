@@ -375,26 +375,27 @@ void GameEnvironment::loadRegion(int index) {
 }
 
 void GameEnvironment::loadRegionEntities(int index) {
-	if (true) { //Check for region type
-		entities[currentRegion].clear();
-		for (std::pair<std::pair<int, int>, Tile*> t : tileMap.tiles) {
-			Tile* tile = t.second;
-			if (tile->type == 7 && rand() % 10 == 0) {
-				int tx = tile->x / Tile::TILE_SIZE;
-				int ty = tile->y / Tile::TILE_SIZE;
-				bool check = true;
-				for (int x = -2; x <= 2 && check; x++) {
-					for (int y = -1; y <= 1 && check; y++) {
-						Tile* neighbor = tileMap.getTile(x + tx, y + ty);
-						check = neighbor != NULL && neighbor->type == 7;
+	if (entities[currentRegion].size() <= 0) {
+		if (true) { //Check for region type
+			for (std::pair<std::pair<int, int>, Tile*> t : tileMap.tiles) {
+				Tile* tile = t.second;
+				if (tile->type == 7 && rand() % 10 == 0) {
+					int tx = tile->x / Tile::TILE_SIZE;
+					int ty = tile->y / Tile::TILE_SIZE;
+					bool check = true;
+					for (int x = -2; x <= 2 && check; x++) {
+						for (int y = -1; y <= 1 && check; y++) {
+							Tile* neighbor = tileMap.getTile(x + tx, y + ty);
+							check = neighbor != NULL && neighbor->type == 7;
+						}
+					}
+					if (check) {
+						addEntity(new Particle(this, tile->x + 8, tile->y + 8, "jungle_tree_entity", -1, 1000000, &tileMap, &resourceManager));
 					}
 				}
-				if (check) {
-					addEntity(new Particle(this, tile->x + 8, tile->y + 8, "jungle_tree_entity", -1, 1000000, &tileMap, &resourceManager));
+				if (tile->type == 6 && rand() % 500 == 0) {
+					addEntity(new Mushroom(this, tile->x, tile->y, &tileMap, &resourceManager));
 				}
-			}
-			if (tile->type == 6 && rand() % 500 == 0) {
-				addEntity(new Mushroom(this, tile->x, tile->y, &tileMap, &resourceManager));
 			}
 		}
 	}
