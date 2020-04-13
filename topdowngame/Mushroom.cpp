@@ -43,13 +43,15 @@ void Mushroom::tick(double dt) {
 			setAnimationIndex(1);
 			double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
 			double magnitude = ((double)(rand() % 60)) / 100 + 0.4;
-			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 24.0 * cos(theta), h.getCY() + 24.0 * sin(theta), 0, -1000000, tileMap, resourceManager));
-			if ((int)counter % 2 == 0) gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 24.0 * cos(theta) * magnitude, h.getCY() + 24.0 * sin(theta) * magnitude, 0, -1000000, tileMap, resourceManager));
 			double dx = h.getCX() - gameEnvironment->player->h.getCX();
 			double dy = h.getCY() - gameEnvironment->player->h.getCY();
 			double distance = sqrt(dx * dx + dy * dy);
 			if (distance < 24) {
 				gameEnvironment->player->damage(dt/6);
+			}
+			else if (distance < 256) {
+				gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 24.0 * cos(theta), h.getCY() + 24.0 * sin(theta), 0, -1000000, tileMap, resourceManager));
+				if ((int)counter % 2 == 0) gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 24.0 * cos(theta) * magnitude, h.getCY() + 24.0 * sin(theta) * magnitude, 0, -1000000, tileMap, resourceManager));
 			}
 		}
 	}
