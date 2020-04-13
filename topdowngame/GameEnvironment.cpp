@@ -354,9 +354,10 @@ void GameEnvironment::loadRegionEntities(int index) {
 				int tx = tile->x / Tile::TILE_SIZE;
 				int ty = tile->y / Tile::TILE_SIZE;
 				bool check = true;
-				for (int x = -1; x <= 1 && check; x++) {
+				for (int x = -2; x <= 2 && check; x++) {
 					for (int y = -1; y <= 1 && check; y++) {
-						check = tileMap.getTile(x+tx, y+ty)->type == 7;
+						Tile* neighbor = tileMap.getTile(x + tx, y + ty);
+						check = neighbor != NULL && neighbor->type == 7;
 					}
 				}
 				if (check) {
