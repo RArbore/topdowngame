@@ -60,6 +60,12 @@ void Slime::loadAnimations() {
 		e->editDelay(i, 5);
 	}
 	this->pushAnimation(e);
+
+	Animation* f = new Animation(1);
+	f->editFrame(0, tex);
+	f->editCoords(0, sf::IntRect(0, 0, 16, 16));
+	f->editDelay(0, 1e9);
+	this->pushAnimation(f);
 }
 
 void Slime::tick(double dt) {
@@ -97,14 +103,19 @@ void Slime::movement(double dt) {
 				attackTimer = 0;
 				double mv = dt * movementSpeed;
 				double distance = sqrt(dx * dx + dy * dy);
-				moveH(dx / distance * mv, 7);
-				moveV(dy / distance * mv, 7);
-				if (hurtTimer > 0) {
-					setAnimationIndex(2);
+				if (distance < 384) {
+					moveH(dx / distance * mv, 7);
+					moveV(dy / distance * mv, 7);
+					if (hurtTimer > 0) {
+						setAnimationIndex(2);
+					}
+					else {
+						setAnimationIndex(0);
+						hurtTimer = 0;
+					}
 				}
 				else {
-					setAnimationIndex(0);
-					hurtTimer = 0;
+					setAnimationIndex(5);
 				}
 			}
 		}

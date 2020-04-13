@@ -390,6 +390,15 @@ void GameEnvironment::loadRegionEntities(int index) {
 				if (tile->type == 6 && rand() % 200 == 0) {
 					addEntity(new Mushroom(this, tile->x, tile->y, &tileMap, &resourceManager));
 				}
+				else if (tile->type == 0) {
+					int r = rand() % 200;
+					if (r == 0) {
+						addEntity(new Slime(this, tile->x, tile->y, &tileMap, &resourceManager));
+					}
+					else if (r == 1) {
+						addEntity(new Zombie(this, tile->x, tile->y, &tileMap, &resourceManager));
+					}
+				}
 			}
 		}
 	}

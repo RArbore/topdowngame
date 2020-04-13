@@ -17,6 +17,7 @@ acc(0.f, 0.f)
 	setAnimationIndex(0);
 	attackTimer = 0;
 	counter = 0;
+	lastDirection = 4;
 }
 
 void Zombie::loadAnimations() {
@@ -67,38 +68,44 @@ void Zombie::movement(double dt) {
 		if (counter > 96) {
 			double dx = target->h.getCX() - h.getCX();
 			double dy = target->h.getCY() - h.getCY();
-			if (h.checkCollision(&target->h) && attackTimer <= 0) {
-				target->damage(20);
-				target->moveH(dx, 7);
-				target->moveV(dy, 7);
-				attackTimer = 15;
-			}
-			else if (attackTimer > 0) {
-				attackTimer -= dt;
+			double distance = sqrt(dx * dx + dy * dy);
+			if (distance < 384) {
+				if (h.checkCollision(&target->h) && attackTimer <= 0) {
+					target->damage(20);
+					target->moveH(dx, 7);
+					target->moveV(dy, 7);
+					attackTimer = 15;
+				}
+				else if (attackTimer > 0) {
+					attackTimer -= dt;
+				}
+				else {
+					attackTimer = 0;
+					double mv = dt * movementSpeed;
+					moveH(dx / distance * mv, 7);
+					moveV(dy / distance * mv, 7);
+				}
+
+				double PI = 3.14159265;
+				double angle = (int)(atan2(dy, dx) * 180.f / PI);
+
+				int baseIndex = 0;
+				if (angle > -112.5 && angle <= -67.5) baseIndex = 0;
+				else if (angle > -67.5 && angle <= -22.5) baseIndex = 1;
+				else if (angle > -22.5 && angle <= 22.5) baseIndex = 2;
+				else if (angle > 22.5 && angle <= 67.5) baseIndex = 3;
+				else if (angle > 67.5 && angle <= 112.5) baseIndex = 4;
+				else if (angle > 112.5 && angle <= 157.5) baseIndex = 5;
+				else if ((angle > 157.5 && angle <= 180) || (angle >= -180 && angle <= -157.5)) baseIndex = 6;
+				else if (angle > -157.5 && angle <= -112.5) baseIndex = 7;
+
+				baseIndex += 8;
+				lastDirection = baseIndex - 8;
+				setAnimationIndex(baseIndex);
 			}
 			else {
-				attackTimer = 0;
-				double mv = dt * movementSpeed;
-				double distance = sqrt(dx * dx + dy * dy);
-				moveH(dx / distance * mv, 7);
-				moveV(dy / distance * mv, 7);
+				setAnimationIndex(lastDirection);
 			}
-
-			double PI = 3.14159265;
-			double angle = (int) (atan2(dy, dx) * 180.f / PI);
-		
-			int baseIndex = 0;
-			if (angle > -112.5 && angle <= -67.5) baseIndex = 0;
-			else if (angle > -67.5 && angle <= -22.5) baseIndex = 1;
-			else if (angle > -22.5 && angle <= 22.5) baseIndex = 2;
-			else if (angle > 22.5 && angle <= 67.5) baseIndex = 3;
-			else if (angle > 67.5 && angle <= 112.5) baseIndex = 4;
-			else if (angle > 112.5 && angle <= 157.5) baseIndex = 5;
-			else if ((angle > 157.5 && angle <= 180) || (angle >= -180 && angle <= -157.5)) baseIndex = 6;
-			else if (angle > -157.5 && angle <= -112.5) baseIndex = 7;
-
-			baseIndex += 8;
-			setAnimationIndex(baseIndex);
 		}
 		else {
 			setAnimationIndex(16);
