@@ -1,16 +1,12 @@
 #include "TileMap.h"
 
-TileMap::TileMap(std::vector<std::vector<int>>& mapDefinition, sf::Texture* tileset) {
-	this->tileset = tileset;
-	loadMapDefinition(mapDefinition);
-	loadVertexArray();
-}
+TileMap::TileMap() {}
 
-void TileMap::resetTileMap(std::vector<std::vector<int>>& mapDefinition, sf::Texture* tileset) {
+void TileMap::resetTileMap(int index, sf::Texture* tileset) {
 	this->tileset = tileset;
 	for (auto& t : tiles) delete t.second;
 	this->tiles.clear();
-	loadMapDefinition(mapDefinition);
+	loadRegion(index);
 	loadVertexArray();
 }
 
@@ -27,7 +23,35 @@ Tile* TileMap::getTile(int x, int y) {
 	return NULL;
 }
 
-void TileMap::loadMapDefinition(std::vector<std::vector<int>>& map) {
+void TileMap::loadRegion(int index) {
+	// load world data file
+	stringstream stream;
+	stream << hex << index;
+	string filename(stream.str());
+	filename = "../world/" + filename;
+
+	cout << "Loading region " << index << " from " << filename << endl;
+	ifstream fin(filename);
+	int expectedIndex, x1, y1, x2, y2; // use expected index as a way to assert that the region is correct
+	// coordinates of upper left and lower right bounds of the region (in the world)
+	fin >> expectedIndex >> x1 >> y1 >> x2 >> y2;
+
+	assert(expectedIndex == index);
+
+	// +1 + 2 because there is an extra layer on each side for the purpose
+	// of knowing which regions are adjacent to it
+	// mapDefinition.resize((size_t)x2 - x1 + 3, vector<int>((size_t)y2 - y1 + 3));
+	vector<vector<int>> map(x2 - x1 + 3, vector<int>(y2 - y1 + 3));
+
+	for (int i = 0; i <= x2 - x1 + 2; i++) {
+		for (int j = 0; j <= y2 - y1 + 2; j++) {
+			fin >> map[i][j];
+		}
+	}
+
+	fin.close();
+
+	// create tile map from map definition
 	for (int i = 0; i < map.size(); i++) {
 		for (int j = 0; j < map[i].size(); j++) {
 			int noise = map[i][j];
@@ -49,8 +73,8 @@ void TileMap::loadMapDefinition(std::vector<std::vector<int>>& map) {
 			// tile coordinates
 			// subtract 1 from i and j since there are a layer of tiles
 			// for the purpose of detecting adjacent regions
-			int x = (i-1) * (int)Tile::TILE_SIZE;
-			int y = (j-1) * (int)Tile::TILE_SIZE;
+			int x = (i - 1) * (int)Tile::TILE_SIZE;
+			int y = (j - 1) * (int)Tile::TILE_SIZE;
 
 			// texture coordinates
 			int tx, ty;
@@ -63,7 +87,7 @@ void TileMap::loadMapDefinition(std::vector<std::vector<int>>& map) {
 			}
 
 			Tile* t = new Tile(x, y, tx, ty, type);
-			this->tiles.insert(std::pair<std::pair<int, int>, Tile*>(std::pair<int, int>(i-1, j-1), t));
+			this->tiles.insert(std::pair<std::pair<int, int>, Tile*>(std::pair<int, int>(i - 1, j - 1), t));
 		}
 	}
 }

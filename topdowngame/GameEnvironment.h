@@ -58,7 +58,6 @@ public:
 
 	WorldGenerator worldGenerator;
 	TileMap tileMap;
-	vector<vector<int>> mapDefinition;
 
 	int currentRegion;
 
@@ -72,7 +71,7 @@ public:
 
 	void eventHandler(sf::Event& event);
 
-	vector<vector<int>>& generateMap();
+	void generateMap();
 	sf::Texture* getTileset();
 
 	GameEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, PlayerSave* playerSave, bool* debug);
@@ -90,8 +89,6 @@ public:
 	vector<Entity*>& getEntities();
 
 private:
-	void loadRegion(int index);
-
 	void loadRegionEntities(int index);
 
 	sf::Vector2f cameraPos;
