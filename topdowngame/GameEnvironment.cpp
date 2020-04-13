@@ -351,7 +351,17 @@ void GameEnvironment::loadRegionEntities(int index) {
 		for (std::pair<std::pair<int, int>, Tile*> t : tileMap.tiles) {
 			Tile* tile = t.second;
 			if (tile->type == 7 && rand() % 10 == 0) {
-				addEntity(new Particle(this, tile->x, tile->y, "jungle_tree_entity", -1, 1000000, &tileMap, &resourceManager));
+				int tx = tile->x / Tile::TILE_SIZE;
+				int ty = tile->y / Tile::TILE_SIZE;
+				bool check = true;
+				for (int x = -1; x <= 1 && check; x++) {
+					for (int y = -1; y <= 1 && check; y++) {
+						check = tileMap.getTile(x+tx, y+ty)->type == 7;
+					}
+				}
+				if (check) {
+					addEntity(new Particle(this, tile->x + 8, tile->y + 8, "jungle_tree_entity", -1, 1000000, &tileMap, &resourceManager));
+				}
 			}
 		}
 	}
