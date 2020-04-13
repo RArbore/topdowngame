@@ -57,7 +57,7 @@ void Game::run() {
 		double dt = clock.restart().asSeconds()*(double)MAX_TPS;
 		this->dt = dt;
 		currentEnvironment->tick(dt);
-		render();
+		render(dt);
 
 		if (!transitionEnvironment.empty()) {
 			currentEnvironment = environments.at(transitionEnvironment);
@@ -107,9 +107,9 @@ void Game::handleEvents(sf::Event& event) {
 	}
 }
 
-void Game::render() {
+void Game::render(double dt) {
 	main_window.clear();
-	currentEnvironment->render();
+	currentEnvironment->render(dt);
 	if (showDebug) {
 		sf::Text text;
 		text.setFont(debugScreenFont);

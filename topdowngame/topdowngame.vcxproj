@@ -157,7 +157,6 @@
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="InventoryEnvironment.cpp" />
     <ClCompile Include="Item.cpp" />
-    <ClCompile Include="JungleTree.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="Particle.cpp" />

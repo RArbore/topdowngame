@@ -104,7 +104,7 @@ void GameEnvironment::deleteParticle(int index) {
 	visuals.erase(visuals.begin() + index);
 }
 
-void GameEnvironment::render() {
+void GameEnvironment::render(double dt) {
 	sf::View prevView = window->getDefaultView();
 	float dx = (float)focusEntity->h.getCX() - cameraPos.x;
 	float dy = (float)focusEntity->h.getCY() - cameraPos.y;
@@ -350,7 +350,9 @@ void GameEnvironment::loadRegionEntities(int index) {
 	if (index == 0) {
 		for (std::pair<std::pair<int, int>, Tile*> t : tileMap.tiles) {
 			Tile* tile = t.second;
-			addEntity(new JungleTree(this, tile->x, tile->y, &tileMap, &resourceManager));
+			if (tile->type == 7 && rand() % 10 == 0) {
+				addEntity(new Particle(this, tile->x, tile->y, "jungle_tree_entity", -1, 1000000, &tileMap, &resourceManager));
+			}
 		}
 	}
 }

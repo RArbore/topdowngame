@@ -21,7 +21,7 @@ public:
 	Environment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, PlayerSave* playerSave);
 	
 	virtual void tick(double dt) = 0;
-	virtual void render() = 0;
+	virtual void render(double dt) = 0;
 	virtual void eventHandler(sf::Event& event) = 0;
 
 protected:

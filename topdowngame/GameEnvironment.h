@@ -8,7 +8,6 @@
 #include "Zombie.h"
 #include "Projectile.h"
 #include "Particle.h"
-#include "JungleTree.h"
 #include "ResourceManager.h"
 #include "WorldGenerator.h"
 #include "Item.h"
@@ -66,7 +65,7 @@ public:
 	bool* debug;
 
 	void tick(double dt);
-	void render();
+	void render(double dt);
 
 	void eventHandler(sf::Event& event);
 
