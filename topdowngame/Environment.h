@@ -23,6 +23,7 @@ public:
 	virtual void tick(double dt) = 0;
 	virtual void render(double dt) = 0;
 	virtual void eventHandler(sf::Event& event) = 0;
+	virtual string debugText();
 
 protected:
 	sf::RenderWindow* window;

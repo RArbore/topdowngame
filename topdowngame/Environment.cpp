@@ -8,3 +8,7 @@ Environment::Environment(sf::RenderWindow* window, Settings* settings, string* t
 	this->transitionEnvironment = transitionEnvironment;
 	this->playerSave = playerSave;
 }
+
+string Environment::debugText() {
+	return "";
+}

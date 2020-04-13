@@ -111,9 +111,10 @@ void Game::render(double dt) {
 	main_window.clear();
 	currentEnvironment->render(dt);
 	if (showDebug) {
+		string envDebugText = currentEnvironment->debugText();
 		sf::Text text;
 		text.setFont(debugScreenFont);
-		text.setString(to_string(tps) + "\n" + to_string(dt));
+		text.setString(to_string(tps) + "\n" + to_string(dt) + "\n" + envDebugText);
 		text.setCharacterSize(24);
 		sf::Vector2u size = main_window.getSize();
 		sf::View defView = main_window.getDefaultView();

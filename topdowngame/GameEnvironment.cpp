@@ -139,7 +139,23 @@ void GameEnvironment::render(double dt) {
 	player->render(window);
 
 	for (int i = allEntities.size() - 1; i >= 0; i--) {
-		allEntities.at(i)->render(window);
+		Entity* e = allEntities.at(i);
+		/*
+		sf::FloatRect eBounds(e->h.x, e->h.y, e->h.w, e->h.h);
+		if (eBounds.width <= 0) {
+			eBounds.width = 0.00001;
+		}
+		if (eBounds.height <= 0) {
+			eBounds.height = 0.00001;
+		}
+		sf::FloatRect viewBounds(cameraPos.x - camera.getSize().x / 2, cameraPos.y - camera.getSize().y / 2, camera.getSize().x, camera.getSize().y);
+		if (eBounds.intersects(viewBounds)) {
+			e->render(window);
+		}
+		*/
+		if (e->h.x >= cameraPos.x - camera.getSize().x / 2 - 200 && e->h.y >= cameraPos.y - camera.getSize().y / 2 - 200 && e->h.x + e->h.w <= cameraPos.x + camera.getSize().x / 2 + 200 && e->h.y + e->h.h <= cameraPos.y + camera.getSize().y / 2 + 200) {
+			e->render(window);
+		}
 	}
 
 	//Draw at absolute positions
@@ -199,6 +215,18 @@ void GameEnvironment::render(double dt) {
 			window->draw(borderCover);
 		}
 	}
+}
+
+string GameEnvironment::debugText() {
+	string ret = to_string(focusEntity->h.getCX()) + " " + to_string(focusEntity->h.getCY()) + "\n";
+	Tile* tile = tileMap.getTile((int)(focusEntity->h.getCX()/16), (int)(focusEntity->h.getCY()/16));
+	if (tile == NULL) {
+		ret += "-1\n";
+	}
+	else {
+		ret += to_string(tile->type) + "\n";
+	}
+	return ret;
 }
 
 void GameEnvironment::eventHandler(sf::Event& event) {
@@ -347,7 +375,8 @@ void GameEnvironment::loadRegion(int index) {
 }
 
 void GameEnvironment::loadRegionEntities(int index) {
-	if (index == 0) {
+	if (true) { //Check for region type
+		entities[currentRegion].clear();
 		for (std::pair<std::pair<int, int>, Tile*> t : tileMap.tiles) {
 			Tile* tile = t.second;
 			if (tile->type == 7 && rand() % 10 == 0) {
@@ -364,6 +393,9 @@ void GameEnvironment::loadRegionEntities(int index) {
 					addEntity(new Particle(this, tile->x + 8, tile->y + 8, "jungle_tree_entity", -1, 1000000, &tileMap, &resourceManager));
 				}
 			}
+			if (tile->type == 6 && rand() % 500 == 0) {
+				addEntity(new Mushroom(this, tile->x, tile->y, &tileMap, &resourceManager));
+			}
 		}
 	}
 }
@@ -372,8 +404,8 @@ void GameEnvironment::changeRegion(int index) {
 	// TODO: there will eventually be more things here but for now it's just loading thew new file
 	currentRegion = index;
 	loadRegion(index);
-	loadRegionEntities(index);
 	tileMap.resetTileMap(mapDefinition, getTileset());
+	loadRegionEntities(index);
 	// TODO: right now the player spawns in the middle but make it so that isn't the case
 	player->h.x = mapDefinition.size() / 2 * 16;
 	player->h.y = mapDefinition[0].size() / 2 * 16;

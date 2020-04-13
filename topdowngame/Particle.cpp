@@ -51,7 +51,7 @@ Entity::Entity(x, y, tileMap, resourceManager)
 }
 
 void Particle::loadAnimations() {
-	if (visual == "") {
+	if (visual == "") {	
 		sf::Texture* tex = resourceManager->getTexture("particle_entity");
 
 		Animation* a = new Animation(4);

@@ -66,6 +66,7 @@ public:
 
 	void tick(double dt);
 	void render(double dt);
+	string debugText();
 
 	void eventHandler(sf::Event& event);
 
