@@ -26,6 +26,7 @@ using namespace std;
 
 class Player;
 class Particle;
+class JungleTree;
 
 class GameEnvironment : public Environment
 {
@@ -64,7 +65,7 @@ public:
 	bool* debug;
 
 	void tick(double dt);
-	void render();
+	void render(double dt);
 
 	void eventHandler(sf::Event& event);
 
@@ -87,6 +88,8 @@ public:
 
 private:
 	void loadRegion(int index);
+
+	void loadRegionEntities(int index);
 
 	sf::Vector2f cameraPos;
 };

@@ -50,6 +50,6 @@ private:
 	sf::RenderWindow main_window;
 	
 	void handleEvents(sf::Event& event);
-	void render();
+	void render(double dt);
 };
 

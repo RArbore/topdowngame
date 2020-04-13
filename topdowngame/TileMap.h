@@ -15,6 +15,8 @@ public:
 	~TileMap();
 
 	Tile* getTile(int x, int y);
+
+	std::map<std::pair<int, int>, Tile*> tiles;
 	
 	void resetTileMap(std::vector<std::vector<int>>& mapDefinition, sf::Texture* tileset);
 
@@ -30,6 +32,5 @@ private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	void loadMapDefinition(std::vector<std::vector<int>>& mapDefintion);
-	std::map<std::pair<int, int>, Tile*> tiles;
 };
 

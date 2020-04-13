@@ -24,7 +24,7 @@ public:
 	sf::Font font;
 
 	void tick(double dt);
-	void render();
+	void render(double dt);
 
 	void eventHandler(sf::Event& event);
 

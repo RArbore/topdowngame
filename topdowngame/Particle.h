@@ -8,6 +8,7 @@
 using namespace std;
 
 class GameEnvironment;
+class JungleTree;
 
 class Particle : public Entity
 {
@@ -22,6 +23,7 @@ public:
 
 	Particle(GameEnvironment* gameEnvironment, double x, double y, int particleType, TileMap* tileMap, ResourceManager* resourceManager);
 	Particle(GameEnvironment* gameEnvironment, double x, double y, int particleType, double renderOrderOffset, TileMap* tileMap, ResourceManager* resourceManager);
+	Particle(GameEnvironment* gameEnvironment, double x, double y, string visual, int timeAlive, double renderOrderOffset, TileMap* tileMap, ResourceManager* resourceManager);
 
 	void tick(double dt);	
 	void render(sf::RenderWindow* window);
@@ -30,7 +32,9 @@ private:
 
 	int particleType;
 
-	void loadAnimations();
+	string visual;
+
+	virtual void loadAnimations();
 
 };
 

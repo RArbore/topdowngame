@@ -24,9 +24,9 @@ void InventoryEnvironment::tick(double dt) {
 
 }
 
-void InventoryEnvironment::render() {
+void InventoryEnvironment::render(double dt) {
 	selectedSlot = -1;
-	background->render();
+	background->render(dt);
 	sf::View view = window->getDefaultView();
 	view.setSize(static_cast<sf::Vector2f>(window->getSize()));
 	view.setCenter(sf::Vector2f(0, 0));

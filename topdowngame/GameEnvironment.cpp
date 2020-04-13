@@ -12,6 +12,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	resourceManager.loadTexture("mushroom_entity", "mushroom.png");
 	resourceManager.loadTexture("zombie_entity", "zombie.png");
 	resourceManager.loadTexture("particle_entity", "particles.png");
+	resourceManager.loadTexture("jungle_tree_entity", "jungle_trees.png");
 	resourceManager.loadTexture("items_texture", "items.png");
 	resourceManager.loadTexture("wands", "wands.png");
 	resourceManager.loadTexture("arrow", "arrow.png");
@@ -24,9 +25,11 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	player = new Player(this, 16, 16, &tileMap, &keys, &resourceManager);
 	focusEntity = player;
 
-	addEntity(new Slime(this, 100, 100, &tileMap, &resourceManager));
-	addEntity(new Mushroom(this, 200, 200, &tileMap, &resourceManager));
-	addEntity(new Zombie(this, 0, 100, &tileMap, &resourceManager));
+	loadRegionEntities(currentRegion);
+
+	//addEntity(new Slime(this, 100, 100, &tileMap, &resourceManager));
+	//addEntity(new Mushroom(this, 200, 200, &tileMap, &resourceManager));
+	//addEntity(new Zombie(this, 0, 100, &tileMap, &resourceManager));
 
 	playerSave->inventory[8] = new Item("Tier 1 Sword", "Sword", "A sword", 0, &resourceManager);
 	playerSave->inventory[20] = new Item("Tier 6 Sword", "Sword", "A sword", 5, &resourceManager);
@@ -79,7 +82,7 @@ void GameEnvironment::tickProjectiles(double dt) {
 void GameEnvironment::tickParticles(double dt) {
 	for (int i = visuals.size() - 1; i >= 0; i--) {
 		visuals[i]->tick(dt);
-		if (visuals[i]->counter >= visuals[i]->timeAlive) deleteParticle(i);
+		if (visuals[i]->counter >= visuals[i]->timeAlive && visuals[i]->timeAlive > 0) deleteParticle(i);
 	}
 }
 
@@ -101,7 +104,7 @@ void GameEnvironment::deleteParticle(int index) {
 	visuals.erase(visuals.begin() + index);
 }
 
-void GameEnvironment::render() {
+void GameEnvironment::render(double dt) {
 	sf::View prevView = window->getDefaultView();
 	float dx = (float)focusEntity->h.getCX() - cameraPos.x;
 	float dy = (float)focusEntity->h.getCY() - cameraPos.y;
@@ -343,10 +346,22 @@ void GameEnvironment::loadRegion(int index) {
 	fin.close();
 }
 
+void GameEnvironment::loadRegionEntities(int index) {
+	if (index == 0) {
+		for (std::pair<std::pair<int, int>, Tile*> t : tileMap.tiles) {
+			Tile* tile = t.second;
+			if (tile->type == 7 && rand() % 10 == 0) {
+				addEntity(new Particle(this, tile->x, tile->y, "jungle_tree_entity", -1, 1000000, &tileMap, &resourceManager));
+			}
+		}
+	}
+}
+
 void GameEnvironment::changeRegion(int index) {
 	// TODO: there will eventually be more things here but for now it's just loading thew new file
 	currentRegion = index;
 	loadRegion(index);
+	loadRegionEntities(index);
 	tileMap.resetTileMap(mapDefinition, getTileset());
 	// TODO: right now the player spawns in the middle but make it so that isn't the case
 	player->h.x = mapDefinition.size() / 2 * 16;
