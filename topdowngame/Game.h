@@ -10,6 +10,9 @@
 #include <string>
 #include <chrono>
 #include <thread>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>  
 
 using namespace std;
 using namespace std::chrono;

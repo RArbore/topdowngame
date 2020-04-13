@@ -15,7 +15,9 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <stdio.h>
 #include <stdlib.h>
+#include <time.h>  
 #include <algorithm>
 #include <iomanip>
 #include <sstream>

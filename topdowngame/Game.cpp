@@ -11,6 +11,7 @@ Game::Game() {
 	}
 	debugKeyDown = false;
 	showDebug = false;
+	srand(time(NULL));
 }
 
 Game::~Game() {

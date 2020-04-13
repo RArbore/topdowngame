@@ -135,24 +135,16 @@ void GameEnvironment::render(double dt) {
 	merge(getEntities().begin(), getEntities().end(), projectiles.begin(), projectiles.end(), intermediate.begin(), entityHeightCompare);
 	merge(intermediate.begin(), intermediate.end(), visuals.begin(), visuals.end(), allEntities.begin(), entityHeightCompare);
 
-	// TODO: make player fit in with the rest of the height based rendering
-	player->render(window);
+	//player->render(window);
+
+	bool belowPlayer = false;
 
 	for (int i = allEntities.size() - 1; i >= 0; i--) {
 		Entity* e = allEntities.at(i);
-		/*
-		sf::FloatRect eBounds(e->h.x, e->h.y, e->h.w, e->h.h);
-		if (eBounds.width <= 0) {
-			eBounds.width = 0.00001;
+		if (e->h.getCY() + e->renderOrderOffset > player->h.getCY() + player->renderOrderOffset && !belowPlayer) {
+			belowPlayer = true;
+			player->render(window);
 		}
-		if (eBounds.height <= 0) {
-			eBounds.height = 0.00001;
-		}
-		sf::FloatRect viewBounds(cameraPos.x - camera.getSize().x / 2, cameraPos.y - camera.getSize().y / 2, camera.getSize().x, camera.getSize().y);
-		if (eBounds.intersects(viewBounds)) {
-			e->render(window);
-		}
-		*/
 		if (e->h.x >= cameraPos.x - camera.getSize().x / 2 - 200 && e->h.y >= cameraPos.y - camera.getSize().y / 2 - 200 && e->h.x + e->h.w <= cameraPos.x + camera.getSize().x / 2 + 200 && e->h.y + e->h.h <= cameraPos.y + camera.getSize().y / 2 + 200) {
 			e->render(window);
 		}
@@ -377,6 +369,7 @@ void GameEnvironment::loadRegion(int index) {
 void GameEnvironment::loadRegionEntities(int index) {
 	if (entities[currentRegion].size() <= 0) {
 		if (true) { //Check for region type
+			map<pair<int, int>, bool> treeAtPos;
 			for (std::pair<std::pair<int, int>, Tile*> t : tileMap.tiles) {
 				Tile* tile = t.second;
 				if (tile->type == 7 && rand() % 10 == 0) {
@@ -386,14 +379,15 @@ void GameEnvironment::loadRegionEntities(int index) {
 					for (int x = -2; x <= 2 && check; x++) {
 						for (int y = -1; y <= 1 && check; y++) {
 							Tile* neighbor = tileMap.getTile(x + tx, y + ty);
-							check = neighbor != NULL && neighbor->type == 7;
+							check = neighbor != NULL && neighbor->type == 7 && !treeAtPos.count(pair<int, int>(x + tx, y + ty));
 						}
 					}
 					if (check) {
 						addEntity(new Particle(this, tile->x + 8, tile->y + 8, "jungle_tree_entity", -1, 1000000, &tileMap, &resourceManager));
+						treeAtPos.insert(pair<pair<int, int>, bool>(pair<int, int>(tx, ty), true));
 					}
 				}
-				if (tile->type == 6 && rand() % 500 == 0) {
+				if (tile->type == 6 && rand() % 300 == 0) {
 					addEntity(new Mushroom(this, tile->x, tile->y, &tileMap, &resourceManager));
 				}
 			}
@@ -403,6 +397,7 @@ void GameEnvironment::loadRegionEntities(int index) {
 
 void GameEnvironment::changeRegion(int index) {
 	// TODO: there will eventually be more things here but for now it's just loading thew new file
+	srand(time(NULL));
 	currentRegion = index;
 	loadRegion(index);
 	tileMap.resetTileMap(mapDefinition, getTileset());
