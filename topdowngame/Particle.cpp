@@ -62,11 +62,11 @@ void Particle::loadAnimations() {
 		}
 		this->pushAnimation(a);
 	}
-	else {
-		sf::Texture* tex = resourceManager->getTexture(visual);
+	else if (visual == "jungle_tree_entity") {
+		sf::Texture* tex = resourceManager->getTexture("jungle_tree_entity");
 		Animation* a = new Animation(1);
 		a->editFrame(0, tex);
-		a->editCoords(0, sf::IntRect(0, 0, 80, 176));
+		a->editCoords(0, sf::IntRect((rand() % 3)*80, 0, 80, 176));
 		a->editDelay(0, 1e9);
 		this->pushAnimation(a);
 	}

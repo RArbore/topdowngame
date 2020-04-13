@@ -4,6 +4,7 @@
 #include "Environment.h"
 #include "GameEnvironment.h"
 #include <string>
+#include <stdlib.h>
 
 using namespace std;
 
