@@ -2,9 +2,10 @@
 
 GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, PlayerSave* playerSave, bool* debug) :
 	Environment(window, settings, transitionEnvironment, playerSave),
-	tileMap(generateMap(), getTileset()),
 	worldGenerator(WORLD_CELLS_COUNT, WORLD_MAP_SIZE, 10) // TODO: generate custom seed
 {
+	this->generateMap(); // create map and load into tileMap
+
 	camera = Camera(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f), 0.5);
 	resourceManager.loadTexture("player_entity", "player.png");
 	resourceManager.loadTexture("slime_entity", "slime.png");
@@ -293,7 +294,7 @@ void GameEnvironment::eventHandler(sf::Event& event) {
 	}
 }
 
-vector<vector<int>>& GameEnvironment::generateMap() {
+void GameEnvironment::generateMap() {
 	system("mkdir \"../world\"");
 	// check if all the map files exist
 	bool allExist = true;
@@ -315,14 +316,12 @@ vector<vector<int>>& GameEnvironment::generateMap() {
 
 	if (!allExist) {
 		worldGenerator.runAll();
-		loadRegion(currentRegion);
+		tileMap.resetTileMap(currentRegion, getTileset());
 	}
 	else {
 		// mapDefinition = worldGenerator.sampleRegion();
-		loadRegion(currentRegion);
+		tileMap.resetTileMap(currentRegion, getTileset());
 	}
-
-	return mapDefinition;
 }
 
 sf::Texture* GameEnvironment::getTileset() {
@@ -333,37 +332,6 @@ sf::Texture* GameEnvironment::getTileset() {
 void GameEnvironment::summonProjectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y) {
 	Projectile* proj = new Projectile(projType, x, y, vel_x, vel_y, acc_x, acc_y, &tileMap, &resourceManager);
 	projectiles.push_back(proj);
-}
-
-void GameEnvironment::loadRegion(int index) {
-
-	stringstream stream;
-	stream << hex << index;
-	string filename(stream.str());
-	filename = "../world/" + filename;
-
-	cout << "Loading region " << index << " from " << filename << endl;
-
-	ifstream fin(filename);
-
-	int expectedIndex, x1, y1, x2, y2; // use expected index as a way to assert that the region is correct
-	// coordinates of upper left and lower right bounds of the region (in the world)
-	fin >> expectedIndex >> x1 >> y1 >> x2 >> y2;
-
-	assert(expectedIndex == index);
-
-	// +1 + 2 because there is an extra layer on each side for the purpose
-	// of knowing which regions are adjacent to it
-	// mapDefinition.resize((size_t)x2 - x1 + 3, vector<int>((size_t)y2 - y1 + 3));
-	mapDefinition = vector<vector<int>>(x2 - x1 + 3, vector<int>(y2 - y1 + 3));
-
-	for (int i = 0; i <= x2 - x1 + 2; i++) {
-		for (int j = 0; j <= y2 - y1 + 2; j++) {
-  			fin >> mapDefinition[i][j];
-		}
-	}
-
-	fin.close();
 }
 
 void GameEnvironment::loadRegionEntities(int index) {
@@ -399,12 +367,11 @@ void GameEnvironment::changeRegion(int index) {
 	// TODO: there will eventually be more things here but for now it's just loading thew new file
 	srand(time(NULL));
 	currentRegion = index;
-	loadRegion(index);
-	tileMap.resetTileMap(mapDefinition, getTileset());
+	tileMap.resetTileMap(index, getTileset());
 	loadRegionEntities(index);
 	// TODO: right now the player spawns in the middle but make it so that isn't the case
-	player->h.x = mapDefinition.size() / 2 * 16;
-	player->h.y = mapDefinition[0].size() / 2 * 16;
+	player->h.x = (int)sqrt(tileMap.tiles.size()) / 2 * 16;
+	player->h.y = (int)sqrt(tileMap.tiles.size()) / 2 * 16;
 }
 
 void GameEnvironment::addEntity(Entity* e) {
