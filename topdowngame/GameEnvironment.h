@@ -46,7 +46,7 @@ public:
 		{"Left Click", false}
 	};
 
-	vector<Entity*> entities;
+	map<int, vector<Entity*>> entities; // map region -> entity list
 	vector<Projectile*> projectiles;
 	vector<Particle*> visuals;
 
@@ -81,6 +81,9 @@ public:
 	void deleteParticle(int index);
 
 	void changeRegion(int index);
+
+	void addEntity(Entity* e);
+	vector<Entity*>& getEntities();
 
 private:
 	void loadRegion(int index);

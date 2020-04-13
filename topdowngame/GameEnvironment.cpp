@@ -15,29 +15,32 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	resourceManager.loadTexture("items_texture", "items.png");
 	resourceManager.loadTexture("wands", "wands.png");
 	resourceManager.loadTexture("arrow", "arrow.png");
-	entities = vector<Entity*>();
+
+	currentRegion = 0; // TODO: initialize this before creating the world so it starts at the right place
+
 	projectiles = vector<Projectile*>();
 	visuals = vector<Particle*>();
-	entities.push_back(new Player(this, 16, 16, &tileMap, &entities, &keys, &resourceManager));
-	focusEntity = entities.at(0);
-	player = (Player*) entities.at(0);
-	entities.push_back(new Slime(this, 100, 100, &tileMap, &entities, &resourceManager));
-	entities.push_back(new Mushroom(this, 200, 200, &tileMap, &entities, &resourceManager));
-	entities.push_back(new Zombie(this, 0, 100, &tileMap, &entities, &resourceManager));
+	
+	player = new Player(this, 16, 16, &tileMap, &keys, &resourceManager);
+	focusEntity = player;
+
+	addEntity(new Slime(this, 100, 100, &tileMap, &resourceManager));
+	addEntity(new Mushroom(this, 200, 200, &tileMap, &resourceManager));
+	addEntity(new Zombie(this, 0, 100, &tileMap, &resourceManager));
+
 	playerSave->inventory[8] = new Item("Tier 1 Sword", "Sword", "A sword", 0, &resourceManager);
 	playerSave->inventory[20] = new Item("Tier 6 Sword", "Sword", "A sword", 5, &resourceManager);
 	playerSave->inventory[0] = new Item("Tier 11 Sword", "Sword", "A sword", 10, &resourceManager);
 	playerSave->inventory[6] = new Item("Tier 1 Bow", "Bow", "This is a really long description! Wow, I didn't know that some items could be so complicated as to warrant such a detailed story just to be able to understand what it does at a basic level. That's pretty amazing! Who would've thought, certainly not me.", 15, &resourceManager);
 	releasedR = true;
 	this->debug = debug;
-	currentRegion = 0; // TODO: initialize this before creating the world so it starts at the right place
 	selectedItem = 0;
-	sf::Vector2f cameraPos(focusEntity->h.getCX(), focusEntity->h.getCY());
+	sf::Vector2f cameraPos((float)focusEntity->h.getCX(), (float)focusEntity->h.getCY());
 }
 
 GameEnvironment::~GameEnvironment() {
-	for (auto entity : entities) {
-		delete entity;
+	for (auto region : entities) {
+		for (auto entity : region.second) delete entity;
 	}
 	for (auto proj : projectiles) delete proj;
 	for (auto visual : visuals) delete visual;
@@ -46,13 +49,14 @@ GameEnvironment::~GameEnvironment() {
 
 void GameEnvironment::tick(double dt) {
 	
-	for (int i = entities.size() - 1; i >= 0; i--) {
-		entities.at(i)->tick(dt);
-		if (entities.at(i)->removeMe) {
-			if (entities.at(i) == focusEntity) {
+	player->tick(dt);
+	for (int i = getEntities().size() - 1; i >= 0; i--) {
+		getEntities().at(i)->tick(dt);
+		if (getEntities().at(i)->removeMe) {
+			if (getEntities().at(i) == focusEntity) {
 				focusEntity = player;
 			}
-			entities.erase(entities.begin() + i);
+			getEntities().erase(getEntities().begin() + i);
 		}
 	}
 
@@ -99,8 +103,8 @@ void GameEnvironment::deleteParticle(int index) {
 
 void GameEnvironment::render() {
 	sf::View prevView = window->getDefaultView();
-	float dx = focusEntity->h.getCX() - cameraPos.x;
-	float dy = focusEntity->h.getCY() - cameraPos.y;
+	float dx = (float)focusEntity->h.getCX() - cameraPos.x;
+	float dy = (float)focusEntity->h.getCY() - cameraPos.y;
 	cameraPos.x += dx / 5;
 	cameraPos.y += dy / 5;
 	camera.setCenter(cameraPos);
@@ -118,15 +122,18 @@ void GameEnvironment::render() {
         }   
     } entityHeightCompare;
 
-	sort(entities.begin(), entities.end(), entityHeightCompare);
+	sort(getEntities().begin(), getEntities().end(), entityHeightCompare);
 	sort(projectiles.begin(), projectiles.end(), entityHeightCompare);
 	sort(visuals.begin(), visuals.end(), entityHeightCompare);
 
-	vector<Entity*> intermediate(entities.size() + projectiles.size());
-	vector<Entity*> allEntities(entities.size() + projectiles.size() + visuals.size());
+	vector<Entity*> intermediate(getEntities().size() + projectiles.size());
+	vector<Entity*> allEntities(getEntities().size() + projectiles.size() + visuals.size());
 
-	merge(entities.begin(), entities.end(), projectiles.begin(), projectiles.end(), intermediate.begin(), entityHeightCompare);
+	merge(getEntities().begin(), getEntities().end(), projectiles.begin(), projectiles.end(), intermediate.begin(), entityHeightCompare);
 	merge(intermediate.begin(), intermediate.end(), visuals.begin(), visuals.end(), allEntities.begin(), entityHeightCompare);
+
+	// TODO: make player fit in with the rest of the height based rendering
+	player->render(window);
 
 	for (int i = allEntities.size() - 1; i >= 0; i--) {
 		allEntities.at(i)->render(window);
@@ -145,7 +152,7 @@ void GameEnvironment::render() {
 		healthBorder.setPosition(sf::Vector2f(-float(size.x) / 2 + 10, -float(size.y) / 2 + 10));
 		healthBorder.setFillColor(sf::Color(150, 0, 0));
 
-		sf::RectangleShape healthBar(sf::Vector2f(max(380.f*focusEntity->health/focusEntity->maxHealth, 0.), 60));
+		sf::RectangleShape healthBar(sf::Vector2f((float)max(380.f*focusEntity->health/focusEntity->maxHealth, 0.), 60.f));
 		healthBar.setPosition(sf::Vector2f(-float(size.x) / 2 + 20, -float(size.y) / 2 + 20));
 		healthBar.setFillColor(sf::Color(220, 0, 0));
 
@@ -301,7 +308,7 @@ sf::Texture* GameEnvironment::getTileset() {
 }
 
 void GameEnvironment::summonProjectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y) {
-	Projectile* proj = new Projectile(projType, x, y, vel_x, vel_y, acc_x, acc_y, &tileMap, &entities, &resourceManager);
+	Projectile* proj = new Projectile(projType, x, y, vel_x, vel_y, acc_x, acc_y, &tileMap, &resourceManager);
 	projectiles.push_back(proj);
 }
 
@@ -338,9 +345,18 @@ void GameEnvironment::loadRegion(int index) {
 
 void GameEnvironment::changeRegion(int index) {
 	// TODO: there will eventually be more things here but for now it's just loading thew new file
+	currentRegion = index;
 	loadRegion(index);
 	tileMap.resetTileMap(mapDefinition, getTileset());
 	// TODO: right now the player spawns in the middle but make it so that isn't the case
 	player->h.x = mapDefinition.size() / 2 * 16;
 	player->h.y = mapDefinition[0].size() / 2 * 16;
+}
+
+void GameEnvironment::addEntity(Entity* e) {
+	entities[currentRegion].push_back(e);
+}
+
+vector<Entity*>& GameEnvironment::getEntities() {
+	return entities[currentRegion];
 }

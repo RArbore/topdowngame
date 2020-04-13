@@ -1,7 +1,7 @@
 #include "Projectile.h"
 
-Projectile::Projectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager):
-	Entity(x, y, tileMap, entityList, resourceManager),
+Projectile::Projectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y, TileMap* tileMap, ResourceManager* resourceManager):
+	Entity(x, y, tileMap, resourceManager),
 	vel(vel_x, vel_y),
 	acc(acc_x, acc_y)
 {	

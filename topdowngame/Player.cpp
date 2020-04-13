@@ -1,7 +1,7 @@
 #include "Player.h"
 
-Player::Player(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, map<string, bool>* keys, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
-Entity::Entity(x, y, tileMap, entityList, resourceManager)
+Player::Player(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, map<string, bool>* keys, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
+Entity::Entity(x, y, tileMap, resourceManager)
 {
 	this->keys = keys;
 	this->gameEnvironment = gameEnvironment;
@@ -105,7 +105,7 @@ void Player::tick(double dt) {
 			double x = h.getCX() + cos(currentAttackAngle / 180 * 3.14159265358979323846) * 20;
 			double y = h.getCY() + sin(currentAttackAngle / 180 * 3.14159265358979323846) * 20;
 			Hitbox swordTip(x-6, y-6, 12, 12);
-			for (Entity* e : *entityList) {
+			for (Entity* e : gameEnvironment->getEntities()) {
 				if (!alreadyHit.count(e) && swordTip.checkCollision(&e->h) && e->damage(10)) {
 					double dx = e->h.getCX() - h.getCX();
 					double dy = e->h.getCY() - h.getCY();
@@ -183,7 +183,7 @@ void Player::tick(double dt) {
 	movement(keyX, keyY, dt);
 
 	if ((keyX != 0 || keyY != 0) && rand() % 2 == 0) {
-		gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX(), h.getCY()+7, 1, -1000000, tileMap, entityList, resourceManager));
+		gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX(), h.getCY()+7, 1, -1000000, tileMap, resourceManager));
 	}
 
 	this->playCurrentAnimation(dt);

@@ -25,8 +25,6 @@ public:
 
 	TileMap* tileMap;
 
-	vector<Entity*>* entityList;
-
 	ResourceManager* resourceManager;
 
 	double health;
@@ -36,7 +34,7 @@ public:
 	
 	bool removeMe;
 
-	Entity(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager);
+	Entity(double x, double y, TileMap* tileMap, ResourceManager* resourceManager);
 
 	bool moveH(double dx, int tileId);
 	bool moveV(double dy, int tileId);

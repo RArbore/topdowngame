@@ -1,12 +1,11 @@
 #include "Entity.h"
 
-Entity::Entity(double x, double y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager):
+Entity::Entity(double x, double y, TileMap* tileMap, ResourceManager* resourceManager):
 h(0, 0, 0, 0)
 {
 	h.x = x;
 	h.y = y;
 	this->tileMap = tileMap;
-	this->entityList = entityList;
 	this->resourceManager = resourceManager;
 	animationIndex = 0;
 	health = 0;
@@ -24,16 +23,16 @@ void Entity::render(sf::RenderWindow* window) {
 	sprite.setTexture(*(anim->getCurrentFrame()));
 	sprite.setTextureRect(anim->getCurrentCoords());
 	sf::IntRect textureCoords = anim->getCurrentCoords();
-	sprite.setPosition(h.getCX() - float(textureCoords.width) / 2.f, h.getCY() - float(textureCoords.height) / 2.f);
+	sprite.setPosition((float)(h.getCX() - (float)textureCoords.width / 2.f), (float)(h.getCY() - (float)textureCoords.height / 2.f));
 	window->draw(sprite);
 	if (maxHealth > 0 && health < maxHealth && health > 0) {
 		double portion = health / maxHealth;
 		sf::RectangleShape outline(sf::Vector2f(20, 5));
-		outline.setFillColor(sf::Color(200*(1-portion), 200*portion, 10));
+		outline.setFillColor(sf::Color((sf::Uint8)200*(1-portion), (sf::Uint8)200*portion, 10));
 		outline.setPosition(h.getCX() - 10, h.getCY() + float(textureCoords.height) / 2.f + 3);
 		sf::RectangleShape inner(sf::Vector2f(18*portion, 3));
-		inner.setFillColor(sf::Color(255*(1-portion), 255*portion, 0));
-		inner.setPosition(h.getCX() - 10 + 1, h.getCY() + float(textureCoords.height) / 2.f + 3 + 1);
+		inner.setFillColor(sf::Color((sf::Uint8)255*(1-portion), (sf::Uint8)255*portion, 0));
+		inner.setPosition((float)(h.getCX() - 10 + 1), (float)(h.getCY() + (float)(textureCoords.height) / 2.f + 3 + 1));
 		window->draw(outline);
 		window->draw(inner);
 	}

@@ -1,7 +1,7 @@
 #include "Particle.h"
 
-Particle::Particle(GameEnvironment* gameEnvironment, double x, double y, int particleType, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager) :
-Entity::Entity(x, y, tileMap, entityList, resourceManager)
+Particle::Particle(GameEnvironment* gameEnvironment, double x, double y, int particleType, TileMap* tileMap, ResourceManager* resourceManager) :
+Entity::Entity(x, y, tileMap, resourceManager)
 {
 	this->gameEnvironment = gameEnvironment;
 	this->particleType = particleType;
@@ -16,8 +16,8 @@ Entity::Entity(x, y, tileMap, entityList, resourceManager)
 	setAnimationIndex(0);
 }
 
-Particle::Particle(GameEnvironment* gameEnvironment, double x, double y, int particleType, double renderOrderOffset, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager) :
-Entity::Entity(x, y, tileMap, entityList, resourceManager)
+Particle::Particle(GameEnvironment* gameEnvironment, double x, double y, int particleType, double renderOrderOffset, TileMap* tileMap, ResourceManager* resourceManager) :
+Entity::Entity(x, y, tileMap, resourceManager)
 {
 	this->gameEnvironment = gameEnvironment;
 	this->particleType = particleType;

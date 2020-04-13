@@ -1,7 +1,7 @@
 #include "Mushroom.h"
 
-Mushroom::Mushroom(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, vector<Entity*>* entityList, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
-Entity::Entity(x, y, tileMap, entityList, resourceManager)
+Mushroom::Mushroom(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
+Entity::Entity(x, y, tileMap, resourceManager)
 {
 	this->gameEnvironment = gameEnvironment;
 	this->loadAnimations();
@@ -43,8 +43,8 @@ void Mushroom::tick(double dt) {
 			setAnimationIndex(1);
 			double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
 			double magnitude = ((double)(rand() % 60)) / 100 + 0.4;
-			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 24.0 * cos(theta), h.getCY() + 24.0 * sin(theta), 0, -1000000, tileMap, entityList, resourceManager));
-			if ((int)counter % 2 == 0) gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 24.0 * cos(theta) * magnitude, h.getCY() + 24.0 * sin(theta) * magnitude, 0, -1000000, tileMap, entityList, resourceManager));
+			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 24.0 * cos(theta), h.getCY() + 24.0 * sin(theta), 0, -1000000, tileMap, resourceManager));
+			if ((int)counter % 2 == 0) gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 24.0 * cos(theta) * magnitude, h.getCY() + 24.0 * sin(theta) * magnitude, 0, -1000000, tileMap, resourceManager));
 			double dx = h.getCX() - gameEnvironment->player->h.getCX();
 			double dy = h.getCY() - gameEnvironment->player->h.getCY();
 			double distance = sqrt(dx * dx + dy * dy);
@@ -56,9 +56,9 @@ void Mushroom::tick(double dt) {
 	else {
 		for (int i = 0; i < 5; i++) {
 			double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
-			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 8.0 * cos(theta), h.getCY() + 8.0 * sin(theta), 2, 1000000, tileMap, entityList, resourceManager));
+			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 8.0 * cos(theta), h.getCY() + 8.0 * sin(theta), 2, 1000000, tileMap, resourceManager));
 		}
-		gameEnvironment->entities.push_back(new Coin(gameEnvironment, h.getCX()-3, h.getCY()-3.5, &gameEnvironment->tileMap, &gameEnvironment->entities, resourceManager));
+		gameEnvironment->addEntity(new Coin(gameEnvironment, h.getCX()-3, h.getCY()-3.5, &gameEnvironment->tileMap, resourceManager));
 		removeMe = true;
 	}
 
