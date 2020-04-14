@@ -338,8 +338,13 @@ void GameEnvironment::loadRegionEntities(int index) {
 	if (entities[currentRegion].size() <= 0) {
 		if (true) { //Check for region type
 			map<pair<int, int>, bool> treeAtPos;
+			vector<Tile*> tileVector;
 			for (std::pair<std::pair<int, int>, Tile*> t : tileMap.tiles) {
 				Tile* tile = t.second;
+				tileVector.push_back(tile);
+			}
+			random_shuffle(tileVector.begin(), tileVector.end());
+			for (Tile* tile : tileVector) {
 				if (tile->type == 7 && rand() % 3 == 0) {
 					int tx = tile->x / Tile::TILE_SIZE;
 					int ty = tile->y / Tile::TILE_SIZE;
