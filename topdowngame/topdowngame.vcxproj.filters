@@ -99,6 +99,9 @@
     <ClCompile Include="Zombie.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Minotaur.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -185,6 +188,9 @@
     <ClInclude Include="JungleTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Minotaur.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\spritesheets\jungle_biome.png">
@@ -233,6 +239,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\spritesheets\jungle_trees.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\spritesheets\minotaur.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

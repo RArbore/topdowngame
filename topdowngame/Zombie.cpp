@@ -1,9 +1,7 @@
 #include "Zombie.h"
 
 Zombie::Zombie(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, ResourceManager* resourceManager) :
-Entity::Entity(x, y, tileMap, resourceManager),
-vel(0.f, 0.f),
-acc(0.f, 0.f)
+Entity::Entity(x, y, tileMap, resourceManager)
 {
 	this->gameEnvironment = gameEnvironment;
 	this->loadAnimations();
@@ -13,7 +11,6 @@ acc(0.f, 0.f)
 	movementSpeed = 0.4f;
 	health = 100;
 	maxHealth = 100;
-	attackDelayCounter = 0;
 	setAnimationIndex(0);
 	attackTimer = 0;
 	counter = 0;
@@ -54,8 +51,6 @@ void Zombie::tick(double dt) {
 	if (target == NULL) {
 		target = gameEnvironment->focusEntity;
 	}
-
-	attackDelayCounter += dt;
 
 	movement(dt);
 

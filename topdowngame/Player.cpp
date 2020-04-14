@@ -89,6 +89,7 @@ void Player::tick(double dt) {
 
 	if (*gameEnvironment->debug) {
 		movementSpeed = 20.f;
+		health = maxHealth;
 	}
 	else {
 		movementSpeed = gameEnvironment->playerSave->baseStats[3];

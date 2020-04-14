@@ -6,6 +6,7 @@
 #include "Slime.h"
 #include "Mushroom.h"
 #include "Zombie.h"
+#include "Minotaur.h"
 #include "Projectile.h"
 #include "Particle.h"
 #include "ResourceManager.h"

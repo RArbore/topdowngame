@@ -12,6 +12,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	resourceManager.loadTexture("coin_entity", "coin.png");
 	resourceManager.loadTexture("mushroom_entity", "mushroom.png");
 	resourceManager.loadTexture("zombie_entity", "zombie.png");
+	resourceManager.loadTexture("minotaur_entity", "minotaur.png");
 	resourceManager.loadTexture("particle_entity", "particles.png");
 	resourceManager.loadTexture("jungle_tree_entity", "jungle_trees.png");
 	resourceManager.loadTexture("items_texture", "items.png");
@@ -27,6 +28,8 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	focusEntity = player;
 
 	loadRegionEntities(currentRegion);
+
+	addEntity(new Minotaur(this, 200, 200, &tileMap, &resourceManager));
 
 	//addEntity(new Slime(this, 100, 100, &tileMap, &resourceManager));
 	//addEntity(new Mushroom(this, 200, 200, &tileMap, &resourceManager));

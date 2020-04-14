@@ -5,12 +5,13 @@
 #include "Environment.h"
 #include "GameEnvironment.h"
 #include <string>
+#include <stdio.h>
 
 using namespace std;
 
 class GameEnvironment;
 
-class Zombie : public Entity
+class Minotaur : public Entity
 {
 
 public:
@@ -19,7 +20,7 @@ public:
 
 	GameEnvironment* gameEnvironment;
 
-	Zombie(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, ResourceManager* resourceManager);
+	Minotaur(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, ResourceManager* resourceManager);
 
 	void tick(double dt);	
 	void render(sf::RenderWindow* window);
@@ -32,9 +33,12 @@ private:
 	Entity* target;
 
 	float movementSpeed;
-	int lastDirection;
 
 	double attackTimer;
+
+	int attackType;
+
+	int animOffset;
 
 	void loadAnimations();
 
