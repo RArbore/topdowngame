@@ -1,7 +1,7 @@
 #include "Player.h"
 
-Player::Player(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, map<string, bool>* keys, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
-Entity::Entity(x, y, tileMap, resourceManager)
+Player::Player(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, map<string, bool>* keys) : //Add pointer to hashmap for input keys
+Entity::Entity(x, y, tileMap)
 {
 	this->keys = keys;
 	this->gameEnvironment = gameEnvironment;
@@ -26,7 +26,7 @@ void Player::loadAnimations() {
 	// 0-7 => resting 
 	// 8-15 => walking  
 
-	sf::Texture* tex = resourceManager->getTexture("player_entity");
+	sf::Texture* tex = ResourceManager::getTexture("player_entity");
 
 	// set resting animations
 	for (int j = 0; j < 8; j++) {
@@ -184,7 +184,7 @@ void Player::tick(double dt) {
 	movement(keyX, keyY, dt);
 
 	if ((keyX != 0 || keyY != 0) && rand() % 2 == 0) {
-		gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX(), h.getCY()+7, 1, -1000000, tileMap, resourceManager));
+		gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX(), h.getCY()+7, 1, -1000000, tileMap));
 	}
 
 	this->playCurrentAnimation(dt);

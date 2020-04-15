@@ -1,7 +1,7 @@
 #include "Particle.h"
 
-Particle::Particle(GameEnvironment* gameEnvironment, double x, double y, int particleType, TileMap* tileMap, ResourceManager* resourceManager) :
-Entity::Entity(x, y, tileMap, resourceManager)
+Particle::Particle(GameEnvironment* gameEnvironment, double x, double y, int particleType, TileMap* tileMap) :
+Entity::Entity(x, y, tileMap)
 {
 	this->gameEnvironment = gameEnvironment;
 	this->particleType = particleType;
@@ -16,8 +16,8 @@ Entity::Entity(x, y, tileMap, resourceManager)
 	setAnimationIndex(0);
 }
 
-Particle::Particle(GameEnvironment* gameEnvironment, double x, double y, int particleType, double renderOrderOffset, TileMap* tileMap, ResourceManager* resourceManager) :
-Entity::Entity(x, y, tileMap, resourceManager)
+Particle::Particle(GameEnvironment* gameEnvironment, double x, double y, int particleType, double renderOrderOffset, TileMap* tileMap) :
+Entity::Entity(x, y, tileMap)
 {
 	this->gameEnvironment = gameEnvironment;
 	this->particleType = particleType;
@@ -33,8 +33,8 @@ Entity::Entity(x, y, tileMap, resourceManager)
 	this->renderOrderOffset = renderOrderOffset;
 }
 
-Particle::Particle(GameEnvironment* gameEnvironment, double x, double y, string visual, int timeAlive, double renderOrderOffset, TileMap* tileMap, ResourceManager* resourceManager) :
-Entity::Entity(x, y, tileMap, resourceManager)
+Particle::Particle(GameEnvironment* gameEnvironment, double x, double y, string visual, int timeAlive, double renderOrderOffset, TileMap* tileMap) :
+Entity::Entity(x, y, tileMap)
 {
 	this->gameEnvironment = gameEnvironment;
 	this->visual = visual;
@@ -52,7 +52,7 @@ Entity::Entity(x, y, tileMap, resourceManager)
 
 void Particle::loadAnimations() {
 	if (visual == "") {	
-		sf::Texture* tex = resourceManager->getTexture("particle_entity");
+		sf::Texture* tex = ResourceManager::getTexture("particle_entity");
 
 		Animation* a = new Animation(4);
 		for (int i = 0; i < 4; i++) {
@@ -63,7 +63,7 @@ void Particle::loadAnimations() {
 		this->pushAnimation(a);
 	}
 	else if (visual == "jungle_tree_entity") {
-		sf::Texture* tex = resourceManager->getTexture("jungle_tree_entity");
+		sf::Texture* tex = ResourceManager::getTexture("jungle_tree_entity");
 		Animation* a = new Animation(1);
 		a->editFrame(0, tex);
 		a->editCoords(0, sf::IntRect((rand() % 3)*80, 0, 80, 176));

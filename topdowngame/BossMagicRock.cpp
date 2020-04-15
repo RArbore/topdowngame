@@ -1,7 +1,7 @@
 #include "BossMagicRock.h"
 
-BossMagicRock::BossMagicRock(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, ResourceManager* resourceManager) :
-	Entity::Entity(x, y, tileMap, resourceManager)
+BossMagicRock::BossMagicRock(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap) :
+	Entity::Entity(x, y, tileMap)
 {
 	this->gameEnvironment = gameEnvironment;
 	this->loadAnimations();
@@ -13,7 +13,7 @@ BossMagicRock::BossMagicRock(GameEnvironment* gameEnvironment, double x, double 
 }
 
 void BossMagicRock::loadAnimations() {
-	sf::Texture* tex = resourceManager->getTexture("boss_magic_rock_entity");
+	sf::Texture* tex = ResourceManager::getTexture("boss_magic_rock_entity");
 
 	for (int i = 0; i < 10; i++) {
 		Animation* a = new Animation(1);
@@ -48,17 +48,17 @@ void BossMagicRock::tick(double dt) {
 			double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
 			double magnitude = 0.1 * ((double)(rand() % 100));
 			magnitude *= magnitude;
-			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 3, -1000000, tileMap, resourceManager));
+			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 3, -1000000, tileMap));
 		}
 		else if (state == 1) {
 			double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
 			double magnitude = 0.1 * ((double)(rand() % 100));
 			magnitude *= magnitude;
-			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 4, -1000000, tileMap, resourceManager));
+			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 4, -1000000, tileMap));
 			for (int i = 0; i < 5; i++) {
 				double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
 				double magnitude = 16 * 16;
-				gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 4, -1000000, tileMap, resourceManager));
+				gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 4, -1000000, tileMap));
 			}
 			bool check = false;
 			for (Entity* boss : bosses) {
@@ -78,7 +78,7 @@ void BossMagicRock::tick(double dt) {
 			double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
 			double magnitude = 0.1 * ((double)(rand() % 100));
 			magnitude *= magnitude;
-			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 5, -1000000, tileMap, resourceManager));
+			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 5, -1000000, tileMap));
 		}
 	}
 
@@ -92,7 +92,7 @@ bool BossMagicRock::damage(double damage) {
 		counter = 120;
 		double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
 		double magnitude = 2.56 * ((double)(rand() % 100));
-		Entity* boss = new Minotaur(gameEnvironment, h.getCX() + magnitude * cos(theta) - 16, h.getCY() + magnitude * sin(theta) - 16, tileMap, resourceManager);
+		Entity* boss = new Minotaur(gameEnvironment, h.getCX() + magnitude * cos(theta) - 16, h.getCY() + magnitude * sin(theta) - 16, tileMap);
 		gameEnvironment->addEntity(boss);
 		bosses.push_back(boss);
 	}

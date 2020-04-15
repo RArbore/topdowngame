@@ -1,7 +1,7 @@
 #include "Zombie.h"
 
-Zombie::Zombie(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, ResourceManager* resourceManager) :
-Entity::Entity(x, y, tileMap, resourceManager)
+Zombie::Zombie(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap) :
+Entity::Entity(x, y, tileMap)
 {
 	this->gameEnvironment = gameEnvironment;
 	this->loadAnimations();
@@ -18,7 +18,7 @@ Entity::Entity(x, y, tileMap, resourceManager)
 }
 
 void Zombie::loadAnimations() {
-	sf::Texture* tex = resourceManager->getTexture("zombie_entity");
+	sf::Texture* tex = ResourceManager::getTexture("zombie_entity");
 
 	for (int j = 0; j < 8; j++) {
 		Animation* a = new Animation(1);
@@ -109,9 +109,9 @@ void Zombie::movement(double dt) {
 	else {
 		for (int i = 0; i < 5; i++) {
 			double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
-			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 8.0 * cos(theta), h.getCY() + 8.0 * sin(theta), 2, 1000000, tileMap, resourceManager));
+			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 8.0 * cos(theta), h.getCY() + 8.0 * sin(theta), 2, 1000000, tileMap));
 		}
-		gameEnvironment->addEntity(new Coin(gameEnvironment, h.getCX()-3, h.getCY()-3.5, &gameEnvironment->tileMap, resourceManager));
+		gameEnvironment->addEntity(new Coin(gameEnvironment, h.getCX()-3, h.getCY()-3.5, &gameEnvironment->tileMap));
 		removeMe = true;
 	}
 }

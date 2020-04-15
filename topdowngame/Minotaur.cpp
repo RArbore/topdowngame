@@ -1,7 +1,7 @@
 #include "Minotaur.h"
 
-Minotaur::Minotaur(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, ResourceManager* resourceManager) :
-	Entity::Entity(x, y, tileMap, resourceManager)
+Minotaur::Minotaur(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap) :
+	Entity::Entity(x, y, tileMap)
 {
 	this->gameEnvironment = gameEnvironment;
 	this->loadAnimations();
@@ -21,7 +21,7 @@ Minotaur::Minotaur(GameEnvironment* gameEnvironment, double x, double y, TileMap
 }
 
 void Minotaur::loadAnimations() {
-	sf::Texture* tex = resourceManager->getTexture("minotaur_entity");
+	sf::Texture* tex = ResourceManager::getTexture("minotaur_entity");
 
 	vector<int> frames = { 5, 8, 5, 9, 5, 6, 9, 3, 3, 6 };
 	vector<int> delays = { 6, 6, 6, 3, 4, 8, 3, 6, 6, 6 };
@@ -118,7 +118,7 @@ void Minotaur::movement(double dt) {
 				for (int i = 0; i < 50; i++) {
 					double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
 					double magnitude = 8.0 * ((double)(rand() % 100)) / 12.0;
-					gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 2, -1000000, tileMap, resourceManager));
+					gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 2, -1000000, tileMap));
 				}
 				if (distance < 64) {
 					target->damage(20);
@@ -157,9 +157,9 @@ void Minotaur::movement(double dt) {
 			for (int i = 0; i < 25; i++) {
 				double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
 				double magnitude = 8.0 * ((double)(rand() % 100)) / 50;
-				gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 2, 1000000, tileMap, resourceManager));
+				gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 2, 1000000, tileMap));
 			}
-			gameEnvironment->addEntity(new Coin(gameEnvironment, h.getCX() - 3, h.getCY() - 3.5, &gameEnvironment->tileMap, resourceManager));
+			gameEnvironment->addEntity(new Coin(gameEnvironment, h.getCX() - 3, h.getCY() - 3.5, &gameEnvironment->tileMap));
 			removeMe = true;
 		}
 	}
