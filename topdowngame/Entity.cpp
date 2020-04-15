@@ -12,6 +12,8 @@ h(0, 0, 0, 0)
 	maxHealth = 0;
 	renderOrderOffset = 0;
 	removeMe = false;
+	healthBarOffsetX = 0;
+	healthBarOffsetY = 0;
 }
 
 Entity::~Entity() {
@@ -29,10 +31,10 @@ void Entity::render(sf::RenderWindow* window) {
 		double portion = health / maxHealth;
 		sf::RectangleShape outline(sf::Vector2f(20, 5));
 		outline.setFillColor(sf::Color((sf::Uint8)200*(1-portion), (sf::Uint8)200*portion, 10));
-		outline.setPosition(h.getCX() - 10, h.getCY() + float(textureCoords.height) / 2.f + 3);
+		outline.setPosition(h.getCX() - 10 + healthBarOffsetX, h.getCY() + float(textureCoords.height) / 2.f + 3 + healthBarOffsetY);
 		sf::RectangleShape inner(sf::Vector2f(18*portion, 3));
 		inner.setFillColor(sf::Color((sf::Uint8)255*(1-portion), (sf::Uint8)255*portion, 0));
-		inner.setPosition((float)(h.getCX() - 10 + 1), (float)(h.getCY() + (float)(textureCoords.height) / 2.f + 3 + 1));
+		inner.setPosition((float)(h.getCX() - 10 + 1) + healthBarOffsetX, (float)(h.getCY() + (float)(textureCoords.height) / 2.f + 3 + 1) + healthBarOffsetY);
 		window->draw(outline);
 		window->draw(inner);
 	}

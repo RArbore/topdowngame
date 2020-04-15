@@ -52,6 +52,9 @@ protected:
 	int animationIndex;
 	sf::Sprite sprite;
 
+	double healthBarOffsetX;
+	double healthBarOffsetY;
+
 	Animation* getCurrentAnimation();
 	void setAnimationIndex(int index);
 	void playCurrentAnimation(double dt);

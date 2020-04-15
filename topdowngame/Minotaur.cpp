@@ -16,6 +16,7 @@ Minotaur::Minotaur(GameEnvironment* gameEnvironment, double x, double y, TileMap
 	counter = 0;
 	attackType = 0;
 	animOffset = 0;
+	healthBarOffsetY = -32;
 }
 
 void Minotaur::loadAnimations() {
@@ -125,7 +126,7 @@ void Minotaur::movement(double dt) {
 				}
 			}
 			else if (attackType == 4) {
-				double mv = dt * movementSpeed * 2;
+				double mv = dt * movementSpeed * 3;
 				moveH(dx / distance * mv, 7);
 				moveV(dy / distance * mv, 7);
 				if (distance < 36) {
