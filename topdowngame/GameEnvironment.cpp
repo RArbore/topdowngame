@@ -45,6 +45,11 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	this->debug = debug;
 	selectedItem = 0;
 	sf::Vector2f cameraPos((float)focusEntity->h.getCX(), (float)focusEntity->h.getCY());
+
+	changeRegionState = -1;
+	shouldFadeToBlack = false;
+	shouldFadeToClear = false;
+	fadePercent = 0.f;
 }
 
 GameEnvironment::~GameEnvironment() {
@@ -72,7 +77,32 @@ void GameEnvironment::tick(double dt) {
 
 	tickProjectiles(dt);
 	tickParticles(dt);
-	
+
+	if (shouldFadeToBlack) {
+		double ndt = (dt >= 5.f ? 5.f : dt);
+		fadePercent += 1.f * ndt;
+		if (fadePercent >= 100.f) {
+			fadePercent = 100.f;
+			shouldFadeToBlack = false;
+			// changeRegionThread = thread(&GameEnvironment::changeRegionCallback, this, currentRegion);
+			changeRegionCallback(currentRegion);
+		}
+	}
+
+	if (changeRegionState == 1) {
+		// changeRegionThread.join();
+		shouldFadeToClear = true;
+	}
+
+	if (shouldFadeToClear) {
+		double ndt = (dt >= 5.f ? 5.f : dt);
+		fadePercent -= 0.5 * ndt;
+		if (fadePercent <= 0.f) {
+			fadePercent = 0.f;
+			shouldFadeToClear = false;
+			changeRegionState = -1;
+		}
+	}
 }
 
 void GameEnvironment::tickProjectiles(double dt) {
@@ -213,6 +243,14 @@ void GameEnvironment::render(double dt) {
 			borderCover.setFillColor(sf::Color(65, 65, 65));
 			window->draw(borderCover);
 		}
+	}
+
+	if (fadePercent > 0.f) {
+		cout << fadePercent << endl;
+		sf::RectangleShape rect(sf::Vector2f(800.f, 800.f));
+		rect.setFillColor(sf::Color(0, 0, 0, 255.f * (fadePercent / 100.f)));
+		window->setView(window->getDefaultView());
+		window->draw(rect);
 	}
 }
 
@@ -394,14 +432,22 @@ void GameEnvironment::loadRegionEntities(int index) {
 }
 
 void GameEnvironment::changeRegion(int index) {
+	changeRegionState = 0;
+	shouldFadeToBlack = true;
+	currentRegion = index;
+}
+
+void GameEnvironment::changeRegionCallback(int index) {
 	// TODO: there will eventually be more things here but for now it's just loading thew new file
 	srand(time(NULL));
-	currentRegion = index;
+	// currentRegion = index;
 	tileMap.resetTileMap(index, getTileset());
 	loadRegionEntities(index);
 	// TODO: right now the player spawns in the middle but make it so that isn't the case
 	player->h.x = (int)sqrt(tileMap.tiles.size()) / 2 * 16;
 	player->h.y = (int)sqrt(tileMap.tiles.size()) / 2 * 16;
+
+	changeRegionState = 1;
 }
 
 void GameEnvironment::addEntity(Entity* e) {

@@ -26,6 +26,8 @@
 #include <sstream>
 #include <iostream>
 #include <assert.h>
+#include <atomic>
+#include <thread>
 
 using namespace std;
 
@@ -62,6 +64,12 @@ public:
 	WorldGenerator worldGenerator;
 	TileMap tileMap;
 
+	thread changeRegionThread;
+	int changeRegionState; // -1 if not started, 0 if started and not done, 1 if done
+	bool shouldFadeToBlack;
+	bool shouldFadeToClear;
+	double fadePercent;
+
 	int currentRegion;
 
 	int selectedItem;
@@ -93,6 +101,7 @@ public:
 
 private:
 	void loadRegionEntities(int index);
+	void changeRegionCallback(int index);
 
 	sf::Vector2f cameraPos;
 };
