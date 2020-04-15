@@ -32,6 +32,9 @@ private:
 
 	Entity* target;
 
+	double vx;
+	double vy;
+
 	float movementSpeed;
 
 	double attackTimer;

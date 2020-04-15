@@ -126,9 +126,19 @@ void Minotaur::movement(double dt) {
 				}
 			}
 			else if (attackType == 4) {
-				double mv = dt * movementSpeed * 3;
-				moveH(dx / distance * mv, 7);
-				moveV(dy / distance * mv, 7);
+				double mv = dt * movementSpeed * 2.0;
+				if (attackTimer + dt == 27 * 5) {
+					vx = dx / distance * mv;
+					vy = dy / distance * mv;
+				}
+				else {
+					vx += dx / distance * mv / 12;
+					vy += dy / distance * mv / 12;
+					vx *= 0.98;
+					vy *= 0.98;
+				}
+				moveH(vx, 7);
+				moveV(vy, 7);
 				if (distance < 36) {
 					target->damage(20);
 					target->moveH(dx * 1.6, 7);
