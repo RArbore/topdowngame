@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Attribute.cpp" />
+    <ClCompile Include="BossMagicRock.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -177,6 +178,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Attribute.h" />
+    <ClInclude Include="BossMagicRock.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Entity.h" />
@@ -206,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\spritesheets\arrow.png" />
+    <Image Include="..\spritesheets\boss_magic_rock.png" />
     <Image Include="..\spritesheets\bows.png" />
     <Image Include="..\spritesheets\coin.png" />
     <Image Include="..\spritesheets\desert_biome.png" />

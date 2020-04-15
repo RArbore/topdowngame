@@ -105,6 +105,9 @@
     <ClCompile Include="MagicRock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BossMagicRock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -197,6 +200,9 @@
     <ClInclude Include="MagicRock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BossMagicRock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\spritesheets\jungle_biome.png">
@@ -248,6 +254,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\spritesheets\minotaur.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\spritesheets\boss_magic_rock.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

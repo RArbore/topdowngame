@@ -60,13 +60,13 @@ void MagicRock::tick(double dt) {
 						double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
 						double magnitude = 2.56 * ((double)(rand() % 100));
 						if (enemyType == 0) {
-							gameEnvironment->addEntity(new Slime(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), tileMap, resourceManager));
+							gameEnvironment->addEntity(new Slime(gameEnvironment, h.getCX() + magnitude * cos(theta) - 8, h.getCY() + magnitude * sin(theta) - 8, tileMap, resourceManager));
 						}
 						else if (enemyType == 1) {
-							gameEnvironment->addEntity(new Zombie(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), tileMap, resourceManager));
+							gameEnvironment->addEntity(new Zombie(gameEnvironment, h.getCX() + magnitude * cos(theta) - 8, h.getCY() + magnitude * sin(theta) - 8, tileMap, resourceManager));
 						}
 						else if (enemyType == 2) {
-							gameEnvironment->addEntity(new Mushroom(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), tileMap, resourceManager));
+							gameEnvironment->addEntity(new Mushroom(gameEnvironment, h.getCX() + magnitude * cos(theta) - 8, h.getCY() + magnitude * sin(theta) - 8, tileMap, resourceManager));
 						}
 					}
 				}

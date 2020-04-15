@@ -24,6 +24,7 @@ void Animation::resetToSize(int size) {
 }
 
 Animation::~Animation() {
+
 }
 
 void Animation::editFrame(int index, sf::Texture* texture) {

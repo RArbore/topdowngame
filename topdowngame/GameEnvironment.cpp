@@ -14,6 +14,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	resourceManager.loadTexture("zombie_entity", "zombie.png");
 	resourceManager.loadTexture("minotaur_entity", "minotaur.png");
 	resourceManager.loadTexture("magic_rock_entity", "magic_rock.png");
+	resourceManager.loadTexture("boss_magic_rock_entity", "boss_magic_rock.png");
 	resourceManager.loadTexture("particle_entity", "particles.png");
 	resourceManager.loadTexture("jungle_tree_entity", "jungle_trees.png");
 	resourceManager.loadTexture("items_texture", "items.png");
@@ -64,6 +65,7 @@ void GameEnvironment::tick(double dt) {
 			if (getEntities().at(i) == focusEntity) {
 				focusEntity = player;
 			}
+			delete getEntities().at(i);
 			getEntities().erase(getEntities().begin() + i);
 		}
 	}
@@ -349,6 +351,7 @@ void GameEnvironment::loadRegionEntities(int index) {
 			}
 			random_shuffle(tileVector.begin(), tileVector.end());
 			int num_magic_rocks = 10;
+			int num_boss_magic_rocks = 1;
 			for (Tile* tile : tileVector) {
 				if (tile->type == 7 && rand() % 3 == 0) {
 					int tx = tile->x / Tile::TILE_SIZE;
@@ -380,6 +383,10 @@ void GameEnvironment::loadRegionEntities(int index) {
 				else if (tile->type == 12 && num_magic_rocks > 0) {
 					addEntity(new MagicRock(this, tile->x + 8, tile->y + 8, &tileMap, &resourceManager));
 					num_magic_rocks--;
+				}
+				else if (tile->type == 12 && num_boss_magic_rocks > 0) {
+					addEntity(new BossMagicRock(this, tile->x + 8, tile->y + 8, &tileMap, &resourceManager));
+					num_boss_magic_rocks--;
 				}
 			}
 		}
