@@ -31,6 +31,8 @@ public:
 
 private:
 
+	int lastCounter;
+
 	int state;
 
 	void loadAnimations();

@@ -30,7 +30,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 
 	loadRegionEntities(currentRegion);
 
-	addEntity(new MagicRock(this, 200, 200, &tileMap, &resourceManager));
+	//addEntity(new MagicRock(this, 200, 200, &tileMap, &resourceManager));
 	//addEntity(new Minotaur(this, 200, 200, &tileMap, &resourceManager));
 	//addEntity(new Slime(this, 100, 100, &tileMap, &resourceManager));
 	//addEntity(new Mushroom(this, 200, 200, &tileMap, &resourceManager));
@@ -348,6 +348,7 @@ void GameEnvironment::loadRegionEntities(int index) {
 				tileVector.push_back(tile);
 			}
 			random_shuffle(tileVector.begin(), tileVector.end());
+			int num_magic_rocks = 10;
 			for (Tile* tile : tileVector) {
 				if (tile->type == 7 && rand() % 3 == 0) {
 					int tx = tile->x / Tile::TILE_SIZE;
@@ -364,7 +365,7 @@ void GameEnvironment::loadRegionEntities(int index) {
 						treeAtPos.insert(pair<pair<int, int>, bool>(pair<int, int>(tx, ty), true));
 					}
 				}
-				if (tile->type == 6 && rand() % 200 == 0) {
+				else if (tile->type == 6 && rand() % 200 == 0) {
 					addEntity(new Mushroom(this, tile->x, tile->y, &tileMap, &resourceManager));
 				}
 				else if (tile->type == 0) {
@@ -375,6 +376,10 @@ void GameEnvironment::loadRegionEntities(int index) {
 					else if (r == 1) {
 						addEntity(new Zombie(this, tile->x, tile->y, &tileMap, &resourceManager));
 					}
+				}
+				else if (tile->type == 12 && num_magic_rocks > 0) {
+					addEntity(new MagicRock(this, tile->x + 8, tile->y + 8, &tileMap, &resourceManager));
+					num_magic_rocks--;
 				}
 			}
 		}

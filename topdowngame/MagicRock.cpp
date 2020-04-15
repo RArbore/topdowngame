@@ -9,6 +9,7 @@ MagicRock::MagicRock(GameEnvironment* gameEnvironment, double x, double y, TileM
 	h.w = 16;
 	h.h = 16;
 	counter = 0;
+	lastCounter = 0;
 	state = 0;
 	renderOrderOffset = -3;
 }
@@ -26,57 +27,61 @@ void MagicRock::loadAnimations() {
 }
 
 void MagicRock::tick(double dt) {
-	if (state == 0) {
-		double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
-		double magnitude = 0.08 * ((double)(rand() % 100));
-		magnitude *= magnitude;
-		gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 3, -1000000, tileMap, resourceManager));
-	}
-	else if (state == 1) {
-		double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
-		double magnitude = 0.08 * ((double)(rand() % 100));
-		magnitude *= magnitude;
-		gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 4, -1000000, tileMap, resourceManager));
-		for (int i = 0; i < 5; i++) {
+	double dx = gameEnvironment->player->h.getCX() - h.getCX();
+	double dy = gameEnvironment->player->h.getCY() - h.getCY();
+	double distance = sqrt(dx * dx + dy * dy);
+	if (distance < 512) {
+		if (state == 0) {
 			double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
-			double magnitude = 16*16;
+			double magnitude = 0.08 * ((double)(rand() % 100));
+			magnitude *= magnitude;
+			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 3, -1000000, tileMap, resourceManager));
+		}
+		else if (state == 1) {
+			double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
+			double magnitude = 0.08 * ((double)(rand() % 100));
+			magnitude *= magnitude;
 			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 4, -1000000, tileMap, resourceManager));
-		}
-		double dx = gameEnvironment->player->h.getCX() - h.getCX();
-		double dy = gameEnvironment->player->h.getCY() - h.getCY();
-		if (sqrt(dx * dx + dy * dy) <= 256) {
-			health -= dt;
-		}
-		if (health <= 0) {
-			state = 2;
-		}
-		if ((int)counter % 600 == 120) {
-			if (true) { //Check region type
-				int enemyType = rand() % 3;
-				for (int i = 0; i < 5; i++) {
-					double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
-					double magnitude = 2.56 * ((double)(rand() % 100));
-					if (enemyType == 0) {
-						gameEnvironment->addEntity(new Slime(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), tileMap, resourceManager));
-					}
-					else if (enemyType == 1) {
-						gameEnvironment->addEntity(new Zombie(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), tileMap, resourceManager));
-					}
-					else if (enemyType == 2) {
-						gameEnvironment->addEntity(new Mushroom(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), tileMap, resourceManager));
+			for (int i = 0; i < 5; i++) {
+				double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
+				double magnitude = 16 * 16;
+				gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 4, -1000000, tileMap, resourceManager));
+			}
+			if (distance <= 256) {
+				health -= dt;
+			}
+			if (health <= 0) {
+				state = 2;
+			}
+			if ((int)counter % 600 >= 120 && (int)lastCounter % 600 < 120) {
+				if (true) { //Check region type
+					int enemyType = rand() % 3;
+					for (int i = 0; i < 5; i++) {
+						double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
+						double magnitude = 2.56 * ((double)(rand() % 100));
+						if (enemyType == 0) {
+							gameEnvironment->addEntity(new Slime(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), tileMap, resourceManager));
+						}
+						else if (enemyType == 1) {
+							gameEnvironment->addEntity(new Zombie(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), tileMap, resourceManager));
+						}
+						else if (enemyType == 2) {
+							gameEnvironment->addEntity(new Mushroom(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), tileMap, resourceManager));
+						}
 					}
 				}
 			}
 		}
-	}
-	else {
-		double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
-		double magnitude = 0.08 * ((double)(rand() % 100));
-		magnitude *= magnitude;
-		gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 5, -1000000, tileMap, resourceManager));
+		else {
+			double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
+			double magnitude = 0.08 * ((double)(rand() % 100));
+			magnitude *= magnitude;
+			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + magnitude * cos(theta), h.getCY() + magnitude * sin(theta), 5, -1000000, tileMap, resourceManager));
+		}
 	}
 
 	this->playCurrentAnimation(dt);
+	lastCounter = counter;
 	counter += dt;
 }
 
