@@ -7,6 +7,7 @@
 #include "Mushroom.h"
 #include "Zombie.h"
 #include "Minotaur.h"
+#include "MagicRock.h"
 #include "Projectile.h"
 #include "Particle.h"
 #include "ResourceManager.h"

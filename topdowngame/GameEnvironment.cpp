@@ -13,6 +13,7 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	resourceManager.loadTexture("mushroom_entity", "mushroom.png");
 	resourceManager.loadTexture("zombie_entity", "zombie.png");
 	resourceManager.loadTexture("minotaur_entity", "minotaur.png");
+	resourceManager.loadTexture("magic_rock_entity", "magic_rock.png");
 	resourceManager.loadTexture("particle_entity", "particles.png");
 	resourceManager.loadTexture("jungle_tree_entity", "jungle_trees.png");
 	resourceManager.loadTexture("items_texture", "items.png");
@@ -29,8 +30,8 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 
 	loadRegionEntities(currentRegion);
 
-	addEntity(new Minotaur(this, 200, 200, &tileMap, &resourceManager));
-
+	addEntity(new MagicRock(this, 200, 200, &tileMap, &resourceManager));
+	//addEntity(new Minotaur(this, 200, 200, &tileMap, &resourceManager));
 	//addEntity(new Slime(this, 100, 100, &tileMap, &resourceManager));
 	//addEntity(new Mushroom(this, 200, 200, &tileMap, &resourceManager));
 	//addEntity(new Zombie(this, 0, 100, &tileMap, &resourceManager));
@@ -125,7 +126,7 @@ void GameEnvironment::render(double dt) {
 	struct {
         bool operator()(Entity* a, Entity* b) const
         {   
-            return a->h.getCY() + a->renderOrderOffset > b->h.getCY() + b->renderOrderOffset;
+            return a->h.getCY() + a->getCurrentAnimation()->getCurrentCoords().height / 2 + a->renderOrderOffset > b->h.getCY() + b->getCurrentAnimation()->getCurrentCoords().height / 2 + b->renderOrderOffset;
         }   
     } entityHeightCompare;
 

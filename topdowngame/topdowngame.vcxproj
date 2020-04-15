@@ -157,6 +157,7 @@
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="InventoryEnvironment.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="MagicRock.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Minotaur.cpp" />
     <ClCompile Include="Mushroom.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="InventoryEnvironment.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="JungleTree.h" />
+    <ClInclude Include="MagicRock.h" />
     <ClInclude Include="Minotaur.h" />
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="Particle.h" />

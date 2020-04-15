@@ -34,6 +34,8 @@ public:
 	
 	bool removeMe;
 
+	Animation* getCurrentAnimation();
+
 	Entity(double x, double y, TileMap* tileMap, ResourceManager* resourceManager);
 
 	bool moveH(double dx, int tileId);
@@ -55,7 +57,6 @@ protected:
 	double healthBarOffsetX;
 	double healthBarOffsetY;
 
-	Animation* getCurrentAnimation();
 	void setAnimationIndex(int index);
 	void playCurrentAnimation(double dt);
 };

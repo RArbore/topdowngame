@@ -18,6 +18,7 @@ acc(0.f, 0.f)
 	hurtTimer = 0;
 	attackTimer = 0;
 	counter = 0;
+	renderOrderOffset = -2;
 }
 
 void Slime::loadAnimations() {

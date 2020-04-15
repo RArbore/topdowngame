@@ -333,10 +333,20 @@ void Player::render(sf::RenderWindow* window) {
 			window->draw(swordSprite);
 		}
 
-		Entity::render(window);
+		Animation* anim = this->getCurrentAnimation();
+		sprite.setTexture(*(anim->getCurrentFrame()));
+		sprite.setTextureRect(anim->getCurrentCoords());
+		sf::IntRect textureCoords = anim->getCurrentCoords();
+		sprite.setPosition((float)(h.getCX() - (float)textureCoords.width / 2.f), (float)(h.getCY() - (float)textureCoords.height / 2.f));
+		window->draw(sprite);
 	}
 	else {
-		Entity::render(window);
+		Animation* anim = this->getCurrentAnimation();
+		sprite.setTexture(*(anim->getCurrentFrame()));
+		sprite.setTextureRect(anim->getCurrentCoords());
+		sf::IntRect textureCoords = anim->getCurrentCoords();
+		sprite.setPosition((float)(h.getCX() - (float)textureCoords.width / 2.f), (float)(h.getCY() - (float)textureCoords.height / 2.f));
+		window->draw(sprite);
 
 		if (isSwordAttacking) {
 			sf::Sprite swordSprite = useItem->getUnpositionedSprite();

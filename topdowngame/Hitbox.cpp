@@ -42,7 +42,7 @@ bool Hitbox::checkCollision(TileMap* map, int tileId) {
 	for (int x = adjX - dx; x <= adjX + dx; x++) {
 		for (int y = adjY - dy; y <= adjY + dy; y++) {
 			Tile* tile = map->getTile(x, y);
-			if (tile == NULL || tile->type == tileId) {
+			if (tile != NULL && tile->type == tileId) {
 				if (checkCollision(x * Tile::TILE_SIZE, y * Tile::TILE_SIZE, Tile::TILE_SIZE, Tile::TILE_SIZE)) {
 					return true;
 				}

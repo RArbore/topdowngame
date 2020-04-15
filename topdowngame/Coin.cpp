@@ -10,7 +10,6 @@ Entity::Entity(x, y, tileMap, resourceManager)
 	h.h = 7;
 	setAnimationIndex(0);
 	counter = 0;
-	renderOrderOffset = -5;
 }
 
 void Coin::loadAnimations() {

@@ -7,7 +7,7 @@ Minotaur::Minotaur(GameEnvironment* gameEnvironment, double x, double y, TileMap
 	this->loadAnimations();
 
 	h.w = 32;
-	h.h = 48;
+	h.h = 32;
 	movementSpeed = 1.0f;
 	health = 500;
 	maxHealth = 500;
@@ -17,6 +17,7 @@ Minotaur::Minotaur(GameEnvironment* gameEnvironment, double x, double y, TileMap
 	attackType = 0;
 	animOffset = 0;
 	healthBarOffsetY = -32;
+	renderOrderOffset = -32;
 }
 
 void Minotaur::loadAnimations() {
