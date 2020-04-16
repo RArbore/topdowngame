@@ -19,7 +19,7 @@ public:
 
 	GameEnvironment* gameEnvironment;
 
-	Slime(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, ResourceManager* resourceManager);
+	Slime(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap);
 
 	void tick(double dt);	
 	void render(sf::RenderWindow* window);

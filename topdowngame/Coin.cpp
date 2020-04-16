@@ -1,7 +1,7 @@
 #include "Coin.h"
 
-Coin::Coin(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
-Entity::Entity(x, y, tileMap, resourceManager)
+Coin::Coin(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap) : //Add pointer to hashmap for input keys
+Entity::Entity(x, y, tileMap)
 {
 	this->gameEnvironment = gameEnvironment;
 	this->loadAnimations();
@@ -13,7 +13,7 @@ Entity::Entity(x, y, tileMap, resourceManager)
 }
 
 void Coin::loadAnimations() {
-	sf::Texture* tex = resourceManager->getTexture("coin_entity");
+	sf::Texture* tex = ResourceManager::getTexture("coin_entity");
 
 	Animation* a = new Animation(4);
 	for (int i = 0; i < 4; i++) {

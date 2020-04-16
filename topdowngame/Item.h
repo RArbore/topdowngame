@@ -26,10 +26,7 @@ public:
 
 	int iconNumber;
 
-	ResourceManager* resourceManager;
-
-
-	Item(string itemName, string itemType, string description, int iconNumber, ResourceManager* resourceManager);
+	Item(string itemName, string itemType, string description, int iconNumber);
 
 	void addAtrribute(Attribute attribute);
 

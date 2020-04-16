@@ -25,8 +25,6 @@ public:
 
 	TileMap* tileMap;
 
-	ResourceManager* resourceManager;
-
 	double health;
 	double maxHealth;
 
@@ -36,7 +34,7 @@ public:
 
 	Animation* getCurrentAnimation();
 
-	Entity(double x, double y, TileMap* tileMap, ResourceManager* resourceManager);
+	Entity(double x, double y, TileMap* tileMap);
 
 	bool moveH(double dx, int tileId);
 	bool moveV(double dy, int tileId);

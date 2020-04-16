@@ -20,7 +20,7 @@ public:
 
 	GameEnvironment* gameEnvironment;
 
-	Minotaur(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, ResourceManager* resourceManager);
+	Minotaur(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap);
 
 	void tick(double dt);	
 	void render(sf::RenderWindow* window);

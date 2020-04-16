@@ -19,7 +19,7 @@ public:
 
 	GameEnvironment* gameEnvironment;
 
-	Zombie(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, ResourceManager* resourceManager);
+	Zombie(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap);
 
 	void tick(double dt);	
 	void render(sf::RenderWindow* window);

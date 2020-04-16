@@ -1,7 +1,7 @@
 #include "Mushroom.h"
 
-Mushroom::Mushroom(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, ResourceManager* resourceManager) : //Add pointer to hashmap for input keys
-Entity::Entity(x, y, tileMap, resourceManager)
+Mushroom::Mushroom(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap) : //Add pointer to hashmap for input keys
+Entity::Entity(x, y, tileMap)
 {
 	this->gameEnvironment = gameEnvironment;
 	this->loadAnimations();
@@ -15,7 +15,7 @@ Entity::Entity(x, y, tileMap, resourceManager)
 }
 
 void Mushroom::loadAnimations() {
-	sf::Texture* tex = resourceManager->getTexture("mushroom_entity");
+	sf::Texture* tex = ResourceManager::getTexture("mushroom_entity");
 
 	Animation* a = new Animation(3);
 	for (int i = 0; i < 3; i++) {
@@ -50,17 +50,17 @@ void Mushroom::tick(double dt) {
 				gameEnvironment->player->damage(dt/6);
 			}
 			else if (distance < 256) {
-				gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 24.0 * cos(theta), h.getCY() + 24.0 * sin(theta), 0, -1000000, tileMap, resourceManager));
-				if ((int)counter % 2 == 0) gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 24.0 * cos(theta) * magnitude, h.getCY() + 24.0 * sin(theta) * magnitude, 0, -1000000, tileMap, resourceManager));
+				gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 24.0 * cos(theta), h.getCY() + 24.0 * sin(theta), 0, -1000000, tileMap));
+				if ((int)counter % 2 == 0) gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 24.0 * cos(theta) * magnitude, h.getCY() + 24.0 * sin(theta) * magnitude, 0, -1000000, tileMap));
 			}
 		}
 	}
 	else {
 		for (int i = 0; i < 5; i++) {
 			double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
-			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 8.0 * cos(theta), h.getCY() + 8.0 * sin(theta), 2, 1000000, tileMap, resourceManager));
+			gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 8.0 * cos(theta), h.getCY() + 8.0 * sin(theta), 2, 1000000, tileMap));
 		}
-		gameEnvironment->addEntity(new Coin(gameEnvironment, h.getCX()-3, h.getCY()-3.5, &gameEnvironment->tileMap, resourceManager));
+		gameEnvironment->addEntity(new Coin(gameEnvironment, h.getCX()-3, h.getCY()-3.5, &gameEnvironment->tileMap));
 		removeMe = true;
 	}
 

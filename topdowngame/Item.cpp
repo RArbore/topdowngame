@@ -1,12 +1,11 @@
 #include "Item.h"
 
-Item::Item(string itemName, string itemType, string description, int iconNumber, ResourceManager* resourceManager) {
+Item::Item(string itemName, string itemType, string description, int iconNumber) {
 	this->itemName = itemName;
 	this->itemType = itemType;
 	this->description = description;
 	this->iconNumber = iconNumber;
-	this->resourceManager = resourceManager;
-	icons = resourceManager->getTexture("items_texture");
+	icons = ResourceManager::getTexture("items_texture");
 }
 
 void Item::addAtrribute(Attribute attribute) {

@@ -22,7 +22,7 @@ public:
 	GameEnvironment* gameEnvironment;
 	//ProjectileManager projectileManager;
 
-	Player(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, map<string, bool>* keys, ResourceManager* resourceManager);
+	Player(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, map<string, bool>* keys);
 
 	void tick(double dt);	
 	void render(sf::RenderWindow* window);

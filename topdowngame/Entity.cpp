@@ -1,12 +1,11 @@
 #include "Entity.h"
 
-Entity::Entity(double x, double y, TileMap* tileMap, ResourceManager* resourceManager):
+Entity::Entity(double x, double y, TileMap* tileMap):
 h(0, 0, 0, 0)
 {
 	h.x = x;
 	h.y = y;
 	this->tileMap = tileMap;
-	this->resourceManager = resourceManager;
 	animationIndex = 0;
 	health = 0;
 	maxHealth = 0;

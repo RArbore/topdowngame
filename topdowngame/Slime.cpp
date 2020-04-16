@@ -1,7 +1,7 @@
 #include "Slime.h"
 
-Slime::Slime(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap, ResourceManager* resourceManager) :
-Entity::Entity(x, y, tileMap, resourceManager),
+Slime::Slime(GameEnvironment* gameEnvironment, double x, double y, TileMap* tileMap) :
+Entity::Entity(x, y, tileMap),
 vel(0.f, 0.f),
 acc(0.f, 0.f)
 {
@@ -22,7 +22,7 @@ acc(0.f, 0.f)
 }
 
 void Slime::loadAnimations() {
-	sf::Texture* tex = resourceManager->getTexture("slime_entity");
+	sf::Texture* tex = ResourceManager::getTexture("slime_entity");
 
 	Animation* a = new Animation(2);
 	for (int i = 0; i < 2; i++) {
@@ -129,9 +129,9 @@ void Slime::movement(double dt) {
 		if (counter >= 30) {
 			for (int i = 0; i < 5; i++) {
 				double theta = ((double)(rand() % 360)) / 180 * 3.14159265358979323846;
-				gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 8.0 * cos(theta), h.getCY() + 8.0 * sin(theta), 2, 1000000, tileMap, resourceManager));
+				gameEnvironment->visuals.push_back(new Particle(gameEnvironment, h.getCX() + 8.0 * cos(theta), h.getCY() + 8.0 * sin(theta), 2, 1000000, tileMap));
 			}
-			gameEnvironment->addEntity(new Coin(gameEnvironment, h.getCX()-3, h.getCY()-3.5, &gameEnvironment->tileMap, resourceManager));
+			gameEnvironment->addEntity(new Coin(gameEnvironment, h.getCX()-3, h.getCY()-3.5, &gameEnvironment->tileMap));
 			removeMe = true;
 		}
 	}

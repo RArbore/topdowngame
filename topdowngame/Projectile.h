@@ -6,7 +6,7 @@
 
 class Projectile : public Entity {
 public:
-	Projectile(std::string type, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y, TileMap* tileMap, ResourceManager* resourceManager);
+	Projectile(std::string type, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y, TileMap* tileMap);
 	void tick(double dt);
 	void render(sf::RenderWindow* window);
 

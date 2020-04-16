@@ -7,26 +7,26 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	this->generateMap(); // create map and load into tileMap
 
 	camera = Camera(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f), 0.5);
-	resourceManager.loadTexture("player_entity", "player.png");
-	resourceManager.loadTexture("slime_entity", "slime.png");
-	resourceManager.loadTexture("coin_entity", "coin.png");
-	resourceManager.loadTexture("mushroom_entity", "mushroom.png");
-	resourceManager.loadTexture("zombie_entity", "zombie.png");
-	resourceManager.loadTexture("minotaur_entity", "minotaur.png");
-	resourceManager.loadTexture("magic_rock_entity", "magic_rock.png");
-	resourceManager.loadTexture("boss_magic_rock_entity", "boss_magic_rock.png");
-	resourceManager.loadTexture("particle_entity", "particles.png");
-	resourceManager.loadTexture("jungle_tree_entity", "jungle_trees.png");
-	resourceManager.loadTexture("items_texture", "items.png");
-	resourceManager.loadTexture("wands", "wands.png");
-	resourceManager.loadTexture("arrow", "arrow.png");
+	ResourceManager::loadTexture("player_entity", "player.png");
+	ResourceManager::loadTexture("slime_entity", "slime.png");
+	ResourceManager::loadTexture("coin_entity", "coin.png");
+	ResourceManager::loadTexture("mushroom_entity", "mushroom.png");
+	ResourceManager::loadTexture("zombie_entity", "zombie.png");
+	ResourceManager::loadTexture("minotaur_entity", "minotaur.png");
+	ResourceManager::loadTexture("magic_rock_entity", "magic_rock.png");
+	ResourceManager::loadTexture("boss_magic_rock_entity", "boss_magic_rock.png");
+	ResourceManager::loadTexture("particle_entity", "particles.png");
+	ResourceManager::loadTexture("jungle_tree_entity", "jungle_trees.png");
+	ResourceManager::loadTexture("items_texture", "items.png");
+	ResourceManager::loadTexture("wands", "wands.png");
+	ResourceManager::loadTexture("arrow", "arrow.png");
 
 	currentRegion = 0; // TODO: initialize this before creating the world so it starts at the right place
 
 	projectiles = vector<Projectile*>();
 	visuals = vector<Particle*>();
 	
-	player = new Player(this, 16, 16, &tileMap, &keys, &resourceManager);
+	player = new Player(this, 16, 16, &tileMap, &keys);
 	focusEntity = player;
 
 	loadRegionEntities(currentRegion);
@@ -37,14 +37,19 @@ GameEnvironment::GameEnvironment(sf::RenderWindow* window, Settings* settings, s
 	//addEntity(new Mushroom(this, 200, 200, &tileMap, &resourceManager));
 	//addEntity(new Zombie(this, 0, 100, &tileMap, &resourceManager));
 
-	playerSave->inventory[8] = new Item("Tier 1 Sword", "Sword", "A sword", 0, &resourceManager);
-	playerSave->inventory[20] = new Item("Tier 6 Sword", "Sword", "A sword", 5, &resourceManager);
-	playerSave->inventory[0] = new Item("Tier 11 Sword", "Sword", "A sword", 10, &resourceManager);
-	playerSave->inventory[6] = new Item("Tier 1 Bow", "Bow", "This is a really long description! Wow, I didn't know that some items could be so complicated as to warrant such a detailed story just to be able to understand what it does at a basic level. That's pretty amazing! Who would've thought, certainly not me.", 15, &resourceManager);
+	playerSave->inventory[8] = new Item("Tier 1 Sword", "Sword", "A sword", 0);
+	playerSave->inventory[20] = new Item("Tier 6 Sword", "Sword", "A sword", 5);
+	playerSave->inventory[0] = new Item("Tier 11 Sword", "Sword", "A sword", 10);
+	playerSave->inventory[6] = new Item("Tier 1 Bow", "Bow", "This is a really long description! Wow, I didn't know that some items could be so complicated as to warrant such a detailed story just to be able to understand what it does at a basic level. That's pretty amazing! Who would've thought, certainly not me.", 15);
 	releasedR = true;
 	this->debug = debug;
 	selectedItem = 0;
 	sf::Vector2f cameraPos((float)focusEntity->h.getCX(), (float)focusEntity->h.getCY());
+
+	changeRegionState = -1;
+	shouldFadeToBlack = false;
+	shouldFadeToClear = false;
+	fadePercent = 0.f;
 }
 
 GameEnvironment::~GameEnvironment() {
@@ -72,7 +77,32 @@ void GameEnvironment::tick(double dt) {
 
 	tickProjectiles(dt);
 	tickParticles(dt);
-	
+
+	if (shouldFadeToBlack) {
+		double ndt = (dt >= 5.f ? 5.f : dt);
+		fadePercent += 1.f * ndt;
+		if (fadePercent >= 100.f) {
+			fadePercent = 100.f;
+			shouldFadeToBlack = false;
+			// changeRegionThread = thread(&GameEnvironment::changeRegionCallback, this, currentRegion);
+			changeRegionCallback(currentRegion);
+		}
+	}
+
+	if (changeRegionState == 1) {
+		// changeRegionThread.join();
+		shouldFadeToClear = true;
+	}
+
+	if (shouldFadeToClear) {
+		double ndt = (dt >= 5.f ? 5.f : dt);
+		fadePercent -= 0.5 * ndt;
+		if (fadePercent <= 0.f) {
+			fadePercent = 0.f;
+			shouldFadeToClear = false;
+			changeRegionState = -1;
+		}
+	}
 }
 
 void GameEnvironment::tickProjectiles(double dt) {
@@ -214,6 +244,14 @@ void GameEnvironment::render(double dt) {
 			window->draw(borderCover);
 		}
 	}
+
+	if (fadePercent > 0.f) {
+		cout << fadePercent << endl;
+		sf::RectangleShape rect(sf::Vector2f(800.f, 800.f));
+		rect.setFillColor(sf::Color(0, 0, 0, 255.f * (fadePercent / 100.f)));
+		window->setView(window->getDefaultView());
+		window->draw(rect);
+	}
 }
 
 string GameEnvironment::debugText() {
@@ -331,12 +369,12 @@ void GameEnvironment::generateMap() {
 }
 
 sf::Texture* GameEnvironment::getTileset() {
-	resourceManager.loadTexture("jungle_biome", "jungle_biome.png");
-	return resourceManager.getTexture("jungle_biome"); // TODO: get tilemap texture
+	ResourceManager::loadTexture("jungle_biome", "jungle_biome.png");
+	return ResourceManager::getTexture("jungle_biome"); // TODO: get tilemap texture
 }
 
 void GameEnvironment::summonProjectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y) {
-	Projectile* proj = new Projectile(projType, x, y, vel_x, vel_y, acc_x, acc_y, &tileMap, &resourceManager);
+	Projectile* proj = new Projectile(projType, x, y, vel_x, vel_y, acc_x, acc_y, &tileMap);
 	projectiles.push_back(proj);
 }
 
@@ -364,28 +402,28 @@ void GameEnvironment::loadRegionEntities(int index) {
 						}
 					}
 					if (check) {
-						addEntity(new Particle(this, tile->x + 8, tile->y + 8, "jungle_tree_entity", -1, 1000000, &tileMap, &resourceManager));
+						addEntity(new Particle(this, tile->x + 8, tile->y + 8, "jungle_tree_entity", -1, 1000000, &tileMap));
 						treeAtPos.insert(pair<pair<int, int>, bool>(pair<int, int>(tx, ty), true));
 					}
 				}
 				else if (tile->type == 6 && rand() % 200 == 0) {
-					addEntity(new Mushroom(this, tile->x, tile->y, &tileMap, &resourceManager));
+					addEntity(new Mushroom(this, tile->x, tile->y, &tileMap));
 				}
 				else if (tile->type == 0) {
 					int r = rand() % 200;
 					if (r == 0) {
-						addEntity(new Slime(this, tile->x, tile->y, &tileMap, &resourceManager));
+						addEntity(new Slime(this, tile->x, tile->y, &tileMap));
 					}
 					else if (r == 1) {
-						addEntity(new Zombie(this, tile->x, tile->y, &tileMap, &resourceManager));
+						addEntity(new Zombie(this, tile->x, tile->y, &tileMap));
 					}
 				}
 				else if (tile->type == 12 && num_magic_rocks > 0) {
-					addEntity(new MagicRock(this, tile->x + 8, tile->y + 8, &tileMap, &resourceManager));
+					addEntity(new MagicRock(this, tile->x + 8, tile->y + 8, &tileMap));
 					num_magic_rocks--;
 				}
 				else if (tile->type == 12 && num_boss_magic_rocks > 0) {
-					addEntity(new BossMagicRock(this, tile->x + 8, tile->y + 8, &tileMap, &resourceManager));
+					addEntity(new BossMagicRock(this, tile->x + 8, tile->y + 8, &tileMap));
 					num_boss_magic_rocks--;
 				}
 			}
@@ -394,14 +432,22 @@ void GameEnvironment::loadRegionEntities(int index) {
 }
 
 void GameEnvironment::changeRegion(int index) {
+	changeRegionState = 0;
+	shouldFadeToBlack = true;
+	currentRegion = index;
+}
+
+void GameEnvironment::changeRegionCallback(int index) {
 	// TODO: there will eventually be more things here but for now it's just loading thew new file
 	srand(time(NULL));
-	currentRegion = index;
+	// currentRegion = index;
 	tileMap.resetTileMap(index, getTileset());
 	loadRegionEntities(index);
 	// TODO: right now the player spawns in the middle but make it so that isn't the case
 	player->h.x = (int)sqrt(tileMap.tiles.size()) / 2 * 16;
 	player->h.y = (int)sqrt(tileMap.tiles.size()) / 2 * 16;
+
+	changeRegionState = 1;
 }
 
 void GameEnvironment::addEntity(Entity* e) {

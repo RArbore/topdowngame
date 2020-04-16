@@ -1,7 +1,6 @@
 #include "Environment.h"
 
-Environment::Environment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, PlayerSave* playerSave) :
-	resourceManager()
+Environment::Environment(sf::RenderWindow* window, Settings* settings, string* transitionEnvironment, PlayerSave* playerSave)
 {
 	this->window = window;
 	this->settings = settings;

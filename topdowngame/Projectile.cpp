@@ -1,7 +1,7 @@
 #include "Projectile.h"
 
-Projectile::Projectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y, TileMap* tileMap, ResourceManager* resourceManager):
-	Entity(x, y, tileMap, resourceManager),
+Projectile::Projectile(std::string projType, double x, double y, double vel_x, double vel_y, double acc_x, double acc_y, TileMap* tileMap):
+	Entity(x, y, tileMap),
 	vel(vel_x, vel_y),
 	acc(acc_x, acc_y)
 {	
@@ -41,8 +41,8 @@ void Projectile::render(sf::RenderWindow* window) {
 void Projectile::loadAnimation() {
 	sf::Texture* tex;
 
-	if (projType == "arrow") tex = resourceManager->getTexture("arrow");
-	else tex = resourceManager->getTexture("DEFUALT_TEXTURE");
+	if (projType == "arrow") tex = ResourceManager::getTexture("arrow");
+	else tex = ResourceManager::getTexture("DEFUALT_TEXTURE");
 
 	Animation* a = new Animation(1);
 	a->editFrame(0, tex);

@@ -12,7 +12,6 @@ public:
 
 	Settings* settings;
 	Camera camera;
-	ResourceManager resourceManager;
 
 	string* transitionEnvironment;
 
