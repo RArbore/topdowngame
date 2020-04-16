@@ -10,7 +10,7 @@ class Effect {
 public:
 	Effect() = default;
 
-	virtual void trigger() = 0;
+	void trigger() {};
 	virtual void tick(double dt) = 0;
 	virtual void render(sf::RenderWindow* window) = 0;
 

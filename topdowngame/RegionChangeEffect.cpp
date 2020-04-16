@@ -18,7 +18,7 @@ RegionChangeEffect::RegionChangeEffect(GameEnvironment* gameEnvironment) {
 }
 
 void RegionChangeEffect::trigger(int index) {
-	this->index = index;
+	this->region = index;
 	states[fadeDirection] = 1;
 	states[textFadeDirection] = 0;
 	fadePercent = 0.f;
