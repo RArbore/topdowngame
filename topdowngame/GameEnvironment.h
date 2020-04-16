@@ -14,6 +14,7 @@
 #include "ResourceManager.h"
 #include "WorldGenerator.h"
 #include "Item.h"
+#include "RegionChangeEffect.h"
 
 #include <vector>
 #include <string>
@@ -33,7 +34,7 @@ using namespace std;
 
 class Player;
 class Particle;
-class JungleTree;
+class RegionChangeEffect;
 
 class GameEnvironment : public Environment
 {
@@ -64,11 +65,7 @@ public:
 	WorldGenerator worldGenerator;
 	TileMap tileMap;
 
-	thread changeRegionThread;
-	int changeRegionState; // -1 if not started, 0 if started and not done, 1 if done
-	bool shouldFadeToBlack;
-	bool shouldFadeToClear;
-	double fadePercent;
+	RegionChangeEffect* regionChangeEffect;
 
 	int currentRegion;
 
@@ -95,13 +92,13 @@ public:
 	void deleteParticle(int index);
 
 	void changeRegion(int index);
+	void changeRegionCallback(int index);
 
 	void addEntity(Entity* e);
 	vector<Entity*>& getEntities();
 
 private:
 	void loadRegionEntities(int index);
-	void changeRegionCallback(int index);
 
 	sf::Vector2f cameraPos;
 };

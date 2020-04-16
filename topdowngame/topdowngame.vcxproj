@@ -151,6 +151,7 @@
     <ClCompile Include="BossMagicRock.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -163,10 +164,10 @@
     <ClCompile Include="Minotaur.cpp" />
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="Particle.cpp" />
-    <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerSave.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="RegionChangeEffect.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="SimplexNoise.cpp" />
     <ClCompile Include="Slime.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="BossMagicRock.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Coin.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Environment.h" />
     <ClInclude Include="Game.h" />
@@ -188,15 +190,14 @@
     <ClInclude Include="Hitbox.h" />
     <ClInclude Include="InventoryEnvironment.h" />
     <ClInclude Include="Item.h" />
-    <ClInclude Include="JungleTree.h" />
     <ClInclude Include="MagicRock.h" />
     <ClInclude Include="Minotaur.h" />
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="Particle.h" />
-    <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerSave.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="RegionChangeEffect.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="SimplexNoise.h" />
