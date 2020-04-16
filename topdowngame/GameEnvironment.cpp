@@ -288,6 +288,7 @@ void GameEnvironment::eventHandler(sf::Event& event) {
 		}
 	}
 
+	/*
 	if (event.type == sf::Event::MouseButtonPressed) {
 		if (event.mouseButton.button == sf::Mouse::Left) {
 			keys["Left Click"] = true;
@@ -298,7 +299,9 @@ void GameEnvironment::eventHandler(sf::Event& event) {
 		if (event.mouseButton.button == sf::Mouse::Left) {
 			keys["Left Click"] = false;
 		}
-	}
+	}*/
+
+	keys["Left Click"] = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 
 	if (event.type == sf::Event::MouseWheelScrolled) {
 		selectedItem = (selectedItem - (int)event.mouseWheelScroll.delta) % 9;
@@ -403,8 +406,7 @@ void GameEnvironment::loadRegionEntities(int index) {
 
 void GameEnvironment::changeRegion(int index) {
 	// currentRegion = index;
-	regionChangeEffect->setRegionToChangeTo(index);
-	regionChangeEffect->trigger();
+	regionChangeEffect->trigger(index);
 }
 
 void GameEnvironment::changeRegionCallback(int index) {

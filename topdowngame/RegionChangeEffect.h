@@ -9,12 +9,10 @@ class RegionChangeEffect : public Effect {
 public:
 	RegionChangeEffect(GameEnvironment* gameEnvironment);
 
-	void trigger();
+	void trigger(int index);
 	void tick(double dt);
 	void render(sf::RenderWindow* window);
 	bool shouldTickOthers();
-
-	void setRegionToChangeTo(int index);
 
 private:
 	GameEnvironment* gameEnvironment;

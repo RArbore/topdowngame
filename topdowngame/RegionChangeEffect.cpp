@@ -17,8 +17,13 @@ RegionChangeEffect::RegionChangeEffect(GameEnvironment* gameEnvironment) {
 	textDurationCounter = 0.f;
 }
 
-void RegionChangeEffect::trigger() {
+void RegionChangeEffect::trigger(int index) {
+	this->index = index;
 	states[fadeDirection] = 1;
+	states[textFadeDirection] = 0;
+	fadePercent = 0.f;
+	textFadePercent = 0.f;
+	textDurationCounter = 0.f;
 }
 
 void RegionChangeEffect::tick(double dt) {
@@ -100,8 +105,4 @@ void RegionChangeEffect::render(sf::RenderWindow* window) {
 
 bool RegionChangeEffect::shouldTickOthers() {
 	return (states[fadeDirection] != 1);
-}
-
-void RegionChangeEffect::setRegionToChangeTo(int index) {
-	this->region = index;
 }

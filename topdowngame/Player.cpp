@@ -94,7 +94,6 @@ void Player::tick(double dt) {
 	else {
 		movementSpeed = gameEnvironment->playerSave->baseStats[3];
 	}
-
 	if (isSwordAttacking) {
 		currentAttackAngle += dt * swordAttackSpeed;
 		if (currentAttackAngle >= endAttackAngle) {
