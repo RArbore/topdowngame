@@ -12,9 +12,13 @@ public:
 	void trigger();
 	void tick(double dt);
 	void render(sf::RenderWindow* window);
+	bool shouldTickOthers();
+
+	void setRegionToChangeTo(int index);
 
 private:
 	GameEnvironment* gameEnvironment;
 	double fadePercent;
+	int region;
 };
 

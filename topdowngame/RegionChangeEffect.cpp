@@ -21,7 +21,7 @@ void RegionChangeEffect::tick(double dt) {
 		if (fadePercent >= 100.f) {
 			fadePercent = 100.f;
 			states[fadeDirection] = 0;
-			gameEnvironment->changeRegionCallback(gameEnvironment->currentRegion);
+			gameEnvironment->changeRegionCallback(this->region);
 			states[fadeDirection] = -1;
 		}
 		break;
@@ -46,4 +46,12 @@ void RegionChangeEffect::render(sf::RenderWindow* window) {
 		window->draw(rect);
 		window->setView(view);
 	}
+}
+
+bool RegionChangeEffect::shouldTickOthers() {
+	return (states[fadeDirection] != 1);
+}
+
+void RegionChangeEffect::setRegionToChangeTo(int index) {
+	this->region = index;
 }

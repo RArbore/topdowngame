@@ -60,6 +60,9 @@ GameEnvironment::~GameEnvironment() {
 }
 
 void GameEnvironment::tick(double dt) {
+
+	regionChangeEffect->tick(dt);
+	if (!regionChangeEffect->shouldTickOthers()) return;
 	
 	player->tick(dt);
 	for (int i = getEntities().size() - 1; i >= 0; i--) {
@@ -75,8 +78,7 @@ void GameEnvironment::tick(double dt) {
 
 	tickProjectiles(dt);
 	tickParticles(dt);
-
-	regionChangeEffect->tick(dt);
+	
 }
 
 void GameEnvironment::tickProjectiles(double dt) {
@@ -400,11 +402,13 @@ void GameEnvironment::loadRegionEntities(int index) {
 }
 
 void GameEnvironment::changeRegion(int index) {
-	currentRegion = index;
+	// currentRegion = index;
+	regionChangeEffect->setRegionToChangeTo(index);
 	regionChangeEffect->trigger();
 }
 
 void GameEnvironment::changeRegionCallback(int index) {
+	currentRegion = index;
 	// TODO: there will eventually be more things here but for now it's just loading thew new file
 	srand(time(NULL));
 	// currentRegion = index;
