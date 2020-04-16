@@ -212,6 +212,7 @@
     <Image Include="..\spritesheets\bows.png" />
     <Image Include="..\spritesheets\coin.png" />
     <Image Include="..\spritesheets\desert_biome.png" />
+    <Image Include="..\spritesheets\frog.png" />
     <Image Include="..\spritesheets\items.png" />
     <Image Include="..\spritesheets\jungle_biome.png" />
     <Image Include="..\spritesheets\jungle_trees.png" />

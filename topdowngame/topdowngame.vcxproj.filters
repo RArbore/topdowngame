@@ -259,6 +259,9 @@
     <Image Include="..\spritesheets\boss_magic_rock.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\spritesheets\frog.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\spritesheets\arial.ttf">
