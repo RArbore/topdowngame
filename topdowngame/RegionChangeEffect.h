@@ -19,6 +19,8 @@ public:
 private:
 	GameEnvironment* gameEnvironment;
 	double fadePercent;
+	double textFadePercent;
+	double textDurationCounter;
 	int region;
 };
 

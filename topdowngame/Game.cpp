@@ -5,10 +5,7 @@ Game::Game() {
 	environments = map<string, Environment*>();
 	main_window.create(sf::VideoMode(800, 600), "My window");
 	main_window.setVerticalSyncEnabled(true);
-	if (!debugScreenFont.loadFromFile("..\\spritesheets\\coders_crux.ttf"))
-	{
-		cout << "Could not load font to display debug screen." << endl;
-	}
+	ResourceManager::loadFont("coders_crux", "coders_crux.ttf");
 	debugKeyDown = false;
 	showDebug = false;
 	srand(time(NULL));
@@ -114,7 +111,7 @@ void Game::render(double dt) {
 	if (showDebug) {
 		string envDebugText = currentEnvironment->debugText();
 		sf::Text text;
-		text.setFont(debugScreenFont);
+		text.setFont(*ResourceManager::getFont("coders_crux"));
 		text.setString(to_string(tps) + "\n" + to_string(dt) + "\n" + envDebugText);
 		text.setCharacterSize(24);
 		sf::Vector2u size = main_window.getSize();

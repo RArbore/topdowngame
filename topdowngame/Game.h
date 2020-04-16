@@ -31,8 +31,6 @@ public:
 	bool showDebug;
 	bool debugKeyDown;
 
-	sf::Font debugScreenFont;
-
 	string transitionEnvironment;
 	map<string, Environment*> environments;
 	Environment* currentEnvironment;

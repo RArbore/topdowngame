@@ -59,3 +59,11 @@ void ResourceManager::loadFont(std::string id, std::string fontPath) {
 
 	ResourceManager::fonts[id] = font;
 }
+
+sf::Font* ResourceManager::getFont(std::string id) {
+	if (!ResourceManager::fonts.count(id)) { // make sure that the texture actually exists
+		std::cout << "ERROR: Font with id \"" << id << "\" not found. ";
+		return nullptr;
+	}
+	return ResourceManager::fonts[id];
+}
